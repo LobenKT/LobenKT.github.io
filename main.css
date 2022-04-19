@@ -7,6 +7,28 @@
 body{
 font-family: "San Francisco";
 }
+h1{
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid black; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .15em; /* Adjust as needed */
+  animation: 
+    typing 3.5s steps(40, end),
+    blink-caret .75s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: orange; }
+}
 
 :root {
     font-family: "San Francisco";
@@ -29,7 +51,7 @@ font-family: "San Francisco";
 .dropbtn {
   background-color: #04AA6D;
   color: white;
-  padding: 16px * 2;
+  padding: 32px ;
   font-size: 16px ;
   border: none;
 }
@@ -45,7 +67,7 @@ font-family: "San Francisco";
   display: none;
   position: absolute;
   background-color: #f1f1f1;
-  min-width: 160px * 2;
+  min-width: 320px ;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
@@ -79,5 +101,5 @@ img{
 a.link{
   text-decoration: underline;
   font-weight:400;
-  color: blue;
+  color: green;
 }
