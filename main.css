@@ -9,12 +9,12 @@ font-family: "San Francisco";
 }
 h1{
   overflow: hidden; /* Ensures the content is not revealed until the animation */
-  border-right: .15em solid black; /* The typwriter cursor */
+  border-right: .15em solid green; /* The typwriter cursor */
   white-space: nowrap; /* Keeps the content on a single line */
   margin: 0 auto; /* Gives that scrolling effect as the typing happens */
   letter-spacing: .15em; /* Adjust as needed */
   animation: 
-    typing 3.5s steps(40, end),
+    typing 6.5s steps(30, end),
     blink-caret .75s step-end infinite;
 }
 
@@ -27,13 +27,13 @@ h1{
 /* The typewriter cursor effect */
 @keyframes blink-caret {
   from, to { border-color: transparent }
-  50% { border-color: orange; }
+  50% { border-color: green; }
 }
 
 :root {
     font-family: "San Francisco";
-    background-color: #282828;
-    color: white
+    background-color: #f2f2f2;
+    color: #1d1d1f;
 }
 .grid{
     display: grid;
@@ -49,11 +49,14 @@ h1{
 
   /* Dropdown Button */
 .dropbtn {
-  background-color: #04AA6D;
+  background-color: #1d1d1f  ;
   color: white;
-  padding: 32px ;
-  font-size: 16px ;
+  padding: 8px ;
   border: none;
+  font-size:x-large;
+  margin-left: calc(50% - 50vw);
+  width: 100vw;
+  position: center; 
 }
 
 /* The container <div> - needed to position the dropdown content */
@@ -87,7 +90,7 @@ h1{
 .dropdown:hover .dropdown-content {display: block;}
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
+.dropdown:hover .dropbtn {background-color: gray;}
 
 img{
   display: block;
