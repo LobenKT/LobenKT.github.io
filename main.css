@@ -1,13 +1,10 @@
-@font-face{
-  font-family: "San Francisco";
-  font-weight: 400;
-  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
-}
+
 
 body{
-font-family: "San Francisco";
+  font-family: -apple-system, 
+  BlinkMacSystemFont, sans-serif;
 }
-h1{
+h1.header-text{
   overflow: hidden; /* Ensures the content is not revealed until the animation */
   border-right: .15em solid green; /* The typwriter cursor */
   white-space: nowrap; /* Keeps the content on a single line */
@@ -38,7 +35,13 @@ h1{
 .grid{
     display: grid;
     place-items:center;
-
+}
+.contact-info{
+  display: grid;
+  place-items:center;
+  padding: 1em;
+  border: dashed 2px #1d1d1f;
+  text-align: center;
 }
 .flex {
     display: flex;
@@ -92,17 +95,53 @@ h1{
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {background-color: gray;}
 
-img{
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 400px;
-  height: auto;
-}
-
 
 a.link{
   text-decoration: underline;
   font-weight:400;
   color: green;
+}
+
+#scroll-container {
+  position: absolute;
+  bottom: 0;
+}
+
+#scroll-text {
+  text-align: right;
+
+  /* animation properties */
+  -moz-transform: translateX(-100%);
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+  
+  animation: my-animation 15s linear infinite;
+  animation-iteration-count: infinite;
+  -moz-animation: my-animation 15s linear infinite;
+  -webkit-animation: my-animation 15s linear infinite;
+}
+
+/* for Firefox */
+@-moz-keyframes my-animation {
+  from { -moz-transform: translateX(-100%); }
+  to { -moz-transform: translateX(100%); }
+}
+
+/* for Chrome */
+@-webkit-keyframes my-animation {
+  from { -webkit-transform: translateX(-100%); }
+  to { -webkit-transform: translateX(100%); }
+}
+
+@keyframes my-animation {
+  from {
+    -moz-transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+  to {
+    -moz-transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
 }
