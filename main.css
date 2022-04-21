@@ -1,10 +1,15 @@
-
-
+:root {
+  --apple-white: #f2f2f2;
+  --apple-gray:#1d1d1f;
+  background-color: var(--apple-white);
+  color: var(--apple-gray);
+}
 body{
   font-family: -apple-system, 
   BlinkMacSystemFont, sans-serif;
 }
-h1.header-text{
+
+.header-text{
   overflow: hidden; /* Ensures the content is not revealed until the animation */
   border-right: .15em solid green; /* The typwriter cursor */
   white-space: nowrap; /* Keeps the content on a single line */
@@ -27,11 +32,6 @@ h1.header-text{
   50% { border-color: green; }
 }
 
-:root {
-    font-family: "San Francisco";
-    background-color: #f2f2f2;
-    color: #1d1d1f;
-}
 .grid{
     display: grid;
     place-items:center;
@@ -54,10 +54,9 @@ h1.header-text{
 .dropbtn {
   background-color: #1d1d1f  ;
   color: white;
-  padding: 8px ;
+  padding: 0.0% ;
   border: none;
-  font-size:x-large;
-  margin-left: calc(50% - 50vw);
+  margin-left: unset;
   width: 100vw;
   position: center; 
 }
@@ -70,8 +69,9 @@ h1.header-text{
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
+  text-align: center;
   display: none;
-  position: absolute;
+  position: relative;
   background-color: #f1f1f1;
   min-width: 320px ;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -117,8 +117,8 @@ a.link{
   
   animation: my-animation 15s linear infinite;
   animation-iteration-count: infinite;
-  -moz-animation: my-animation 15s linear infinite;
-  -webkit-animation: my-animation 15s linear infinite;
+    -moz-animation: my-animation 15s linear infinite;
+    -webkit-animation: my-animation 15s linear infinite;
 }
 
 /* for Firefox */
