@@ -19,54 +19,64 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <header>
-            <div class = "grid">
+            <div class = "flex">
 
             <h1 class = "header-text">Welcome to Loben Tipan's website</h1>
     
             <br>
+            </div>
         </header>
 
         <br>
-
-        <article class = "flex">   
-            <div class="dropdown">
-                <button class="dropbtn"><h1>CATALOGUE</h1></button>
-                <div class="dropdown-content">
-                <h3><a href = "project-1.html">Sample Gallery(HTML + CSS) </a>
-                <a href="project-3.html">Expense Logger(Javascript + Jquery)</a>
-                <a href="testing-page.html">Testing Page</a></h3>
-                </div>
-            </div>   
-            <br> 
-        </article>
-
         <br>
-        <br>
-
-        <div class = "grid">
-            
-            <h3>currently working on a website for my portfolio built
-                by hand with no templates used.
-                the website is set to refresh every 30 seconds
-            </h3>
-
-            <div class ="contact-info">
-            <address>
-                 <h3>my contact details</h3>  
-                 <a class="link" href = "https://github.com/LobenKT">my github profile </a><br>
-                 <a class="link" href="mailto:loben_klien_tipan@dlsu.edu.ph">loben_klien_tipan@dlsu.edu.ph</a><br>
-                 <a class="link" href="tel:+09664996453">0966 499 6453</a>
-            </address>
+        <div class="dropdown">
+            <button class="dropbtn"><h1>projects</h1></button>
+            <div class="dropdown-content">
+            <h3><a href = "project-1.html">Sample Gallery(HTML + CSS) </a>
+            <a href="project-3.html">Expense Logger(Javascript + Jquery)</a>
+            <a href="testing-page.html">Font Testing Page</a></h3>
             </div>
-        </div>
+        </div>   
+        <!-- Grid Layout-->
+        <div class = "grid">
+            <!-- About Me Section -->
+            <div>
+                <!-- Image Container -->
+                <div>
+                    <img class = "image-container" src = "images/profile.jpg">
+                </div>
+                <!-- Text Container -->
+                <div class = "about-me-text">
+                <h1>About Me</h1>
+                <p>
+                    I'm currently a 2nd Year Computer Science Student in De La Salle University - Manila. 
+                    I love indulging my self in the technological space and learning about emerging new technologies
+                    in the world.I particularly have high hopes for the rise of cryptocurrencies and blockchain technology
+                    that will help catapult web3. I believe that I am very much a work-in progress and still have a lot to develop
+                    and still have much to prove as a student and potentially a software developer. My main focuses right now are my academics and my extra-curricular commitments that I believe will help ensure my wholistic improvement in areas such as communication and collaboration. 
+                    However, I am always open to new experiences that serve to uphold my principles and vision.
+                </p> 
+                </div>
+            </div> <!-- End of About me -->
+    
+        </div> <!-- End of Grid-->
 
+        <br>
+        <br>
+        <br>
+        <div class ="contact-info">
+            <address>
+                <h2>Contact Me</h2>  
+                <a class="link" href = "https://github.com/LobenKT"><img class="thumbnail-icon" src="images/github-logo.png"> </a>
+                <a class="link" href="mailto:loben_klien_tipan@dlsu.edu.ph"><img class="thumbnail-icon" src="images/Gmail-logo.png"></a><br>
+                <a href="LobenTipan-Resume.pdf" download><h2>Download my Resume</h2></a><br>
+            </address>
+        </div>
+        
         <div id="scroll-container">
-            <h2><div id="scroll-text">UNDER CONSTRUCTION. UNDER CONSTRUCTION. UNDER CONSTRUCTION.</div></h2>
+            <h2><div id="scroll-text">Website still being worked on please bare with me :)</div></h2>
         </div>
-        
-
-        
-        
+    
         <script src="app.js" async defer></script>
     </body>
 </html>

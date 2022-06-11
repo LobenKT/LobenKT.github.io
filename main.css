@@ -16,7 +16,7 @@ body{
   margin: 0 auto; /* Gives that scrolling effect as the typing happens */
   letter-spacing: .15em; /* Adjust as needed */
   animation: 
-    typing 6.5s steps(30, end),
+    typing 6.5s steps(20, end),
     blink-caret .75s step-end infinite;
 }
 
@@ -32,15 +32,41 @@ body{
   50% { border-color: green; }
 }
 
-.grid{
-    display: grid;
-    place-items:center;
+/* grid layout with flexbox */
+.grid {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 7.5%;
+}   
+
+/* Only Text Design for about-me*/
+.about-me-text{
+  font-weight: bold;
+  font-size: large;
+  color: var(--apple-gray);
+  
 }
+/*resize the image to fit the flexbox*/
+img.image-container{
+  width: 200px;
+	height: auto;
+  animation: fadeIn 3s;
+  animation-fill-mode: forwards;
+}
+
+/*display image at center of page*/
+.image-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .contact-info{
   display: grid;
   place-items:center;
   padding: 1em;
-  border: dashed 2px #1d1d1f;
   text-align: center;
 }
 .flex {
@@ -48,6 +74,16 @@ body{
     align-items: center;
     justify-content: center;
 
+}
+/* image design for contact thumbnails*/
+.thumbnail-icon{
+  width: 64px;
+  height: 64px;
+  margin-right: 15px;
+  border-radius: 50%;
+  background-color: var(--apple-white);
+  vertical-align: baseline;
+  border: 5px solid var(--apple-gray);
 }
 
   /* Dropdown Button */
@@ -103,7 +139,7 @@ a.link{
 }
 
 #scroll-container {
-  position: absolute;
+  position: static;
   bottom: 0;
 }
 
