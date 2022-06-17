@@ -9,6 +9,10 @@ body{
   BlinkMacSystemFont, sans-serif;
 }
 
+.header{
+  text-align: center;
+}
+
 .header-text{
   overflow: hidden; /* Ensures the content is not revealed until the animation */
   border-right: .15em solid green; /* The typwriter cursor */
@@ -50,10 +54,10 @@ body{
 }
 /*resize the image to fit the flexbox*/
 img.image-container{
-  width: 200px;
-	height: auto;
-  animation: fadeIn 3s;
-  animation-fill-mode: forwards;
+  width: 400px;
+	height: 400px;
+  object-fit: cover;
+  border-radius: 70%;
 }
 
 /*display image at center of page*/
@@ -61,6 +65,7 @@ img.image-container{
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 
 .contact-info{
@@ -69,12 +74,7 @@ img.image-container{
   padding: 1em;
   text-align: center;
 }
-.flex {
-    display: flex;
-    align-items: center;
-    justify-content: center;
 
-}
 /* image design for contact thumbnails*/
 .thumbnail-icon{
   width: 64px;
@@ -84,6 +84,7 @@ img.image-container{
   background-color: var(--apple-white);
   vertical-align: baseline;
   border: 5px solid var(--apple-gray);
+  object-fit: cover;
 }
 
   /* Dropdown Button */
