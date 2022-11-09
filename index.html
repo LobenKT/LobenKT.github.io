@@ -19,15 +19,16 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <header>
+            <!--welcome header message-->
+            <h1 id = "nav-bar">welcome</h1> 
+        </header>
 
-            <!-- Grid Layout-->
+        <!-- Grid container-->
         <div class = "grid">
             <!-- About Me Section -->
             <div>
                 <!-- Image Container -->
-                <div>
-                    <img class = "image-container" src = "images/profile_new.jpg">
-                </div>
+                <img class = "image-container" src = "images/profile_new.jpg">
                 <!-- Text Container -->
                 <div class = "about-me-text">
                 <h1>About Me</h1>
@@ -40,28 +41,26 @@
                     However, I am always open to new experiences that serve to uphold my principles and vision.
                 </p> 
                 </div>
-            </div> <!-- End of About me -->
+            </div> 
+            <!-- End of About me -->
     
-        </div> <!-- End of Grid-->
+        </div> 
+        <!-- End of Grid-->
       
-        
-            <div class="dropdown">
-                <button class="dropbtn"><h1>projects</h1></button>
-                <div class="dropdown-content">
-                    <h3>
-                    <a href = "project-1.html">Sample Gallery(HTML + CSS)</a>
-                    <a href = "project-3.html">Expense Logger(Javascript + Jquery)</a>
-                    <a href = "testing-page.html">Font Testing Page</a>
-                    <a href = "profile.html">Profile Page</a>
-                    </h3>
-                </div>
-            </div>   
-        </header>
+        <div class="dropdown">
 
-        
-        <br>
+            <button class="dropbtn"><h1>projects</h1></button>
+            
+            <div class="dropdown-content">
+                <h3>
+                <a href = "project-1.html">Sample Gallery(HTML + CSS)</a>
+                <a href = "project-3.html">Expense Logger(Javascript + Jquery)</a>
+                <a href = "testing-page.html">Font Testing Page</a>
+                <a href = "profile.html">Profile Page</a>
+                </h3>
+            </div>
+        </div>   
 
- 
 
         <div class ="contact-info">
             <address>
@@ -73,11 +72,16 @@
                 <a href="LobenTipan-Resume.pdf" download><h2>Download my Resume</h2></a><br>
             </address>
         </div>
-        
-        <div id="scroll-container">
-            <h2><div id="scroll-text">Website still being worked on please bear with me :)</div></h2>
-        </div>
+
+        <footer>
+            <!-- center paragraph with inline css-->
+            <p style="text-align:center">© 2022 Loben Tipan</p>
+            
     
+            <div id="scroll-container">
+                <h2><div id="scroll-text">Website still being worked on please bear with me :)</div></h2>
+            </div>
+        </footer>
         <script src="app.js" async defer></script>
     </body>
 </html>
