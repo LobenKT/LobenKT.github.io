@@ -21,7 +21,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 a {
-  color: #007aff;
+/*  color: #007aff;*/
+  color: #1d1d1f;
   text-decoration: none;
 }
 
@@ -69,16 +70,16 @@ a {
 .hero-section {
   background-image: url(.);
   background-size: cover;
-  height: 500px;
+  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #ffffff;
+  color: black;
 }
 
 .hero-section h1 {
   font-size: 48px;
-  font-weight: bold;
+  font-weight: ;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -90,7 +91,7 @@ a {
 }
 
 .feature-section {
-  padding: 64px;
+  padding: 32px;
   text-align: center;
 }
 
@@ -130,14 +131,13 @@ a {
 .cta-section {
   background-color: #007aff;
   color: #ffffff;
-  padding: 64px;
+  padding: 1px;
   text-align: center;
 }
 
 .cta-section h2 {
   font-size: 36px;
   font-weight: bold;
-  margin
 }
 
 /*resize the image to fit the flexbox*/
