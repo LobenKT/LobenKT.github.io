@@ -10,23 +10,27 @@
 <body>
     <section class = "hidden">
         <h1> Welcome to my Portfolio! </h1>
-        <div class = "image-container">
-            <img src = "images/profile_new.jpg">
-        </div>
-        <h3> Hi I am Loben Tipan </h3>
+        <img class = "profile" src = "images/profile_new.jpg">
+        <h3> Hi! I am Loben Tipan </h3>
         <p> Scroll down to know more about me </p>
     </section>
+
     <section class = "hidden">
         <h1> About me</h1>
         <div class = "about-me">
         <p>  
-            As a 3rd-year computer science student at De La Salle University in Manila, I am passionate about the ever-evolving technology industry and constantly strive to learn about the latest advancements. I have a keen interest in cryptocurrencies and blockchain technology, and believe that they have the potential to revolutionize the web3 landscape.
+            As a 3rd-year computer science student at De La Salle University in Manila,<br>
+            I am passionate about the ever-evolving technology industry and constantly <br>
+            try to learn about the latest advancements. I have a keen interest in  <br>
+            cryptocurrencies and blockchain technology, and believe that they have <br>
+            the potential to revolutionize the web3 landscape.
         </p>
         </div>
         <p style="font-size:48px">
             &#128512; &#128516; &#128525; &#128151;
         </p>
     </section>
+
     <section class = "hidden">
         <h1> Skills and Abilities </h1>
         <p>
@@ -34,23 +38,50 @@
             HTML, CSS, Javascript, Python, C, Java, and SQL. <br>
         </p>
     </section>
+
+    <section class = "hidden">
+        <h1> Experiences </h1>
+        <p>
+            I am proficient in the following languages: <br>
+            HTML, CSS, Javascript, Python, C, Java, and SQL. <br>
+        </p>
+    </section>
+
+    <section class = "hidden">
+        <div class="dropdown">
+            <button class="dropbtn"><h1>projects</h1></button>
+            <div class="dropdown-content">
+                <h3>
+                <a href = "project-1.html">Sample Gallery(HTML + CSS)</a>
+                <a href = "project-3.html">Expense Logger(Javascript + Jquery)</a>
+                <a href = "testing-page.html">Font Testing Page</a>
+                <a href = "profile.html">Profile Page</a>
+                </h3>
+            </div>
+    </section>
+
     <section class = "hidden">
         <h1> Contact Me </h1>
         <div class = "contacts">
             <div class = "contacts hidden">
-            <a href = "https://www.linkedin.com/in/lobentipan/"><img src = "images/LinkedIn_icon_circle.svg.png"></a>
+            <a href = "https://www.linkedin.com/in/lobentipan/"><img class = "logos" src = "images/LinkedIn_icon_circle.svg.png"></a>
             </div>
             <div class = "contacts hidden">
-            <a href = "mailto:loben_klien_tipan@dlsu.edu.ph"><img src="images/Gmail-logo.png"> </a>
+            <a href = "mailto:loben_klien_tipan@dlsu.edu.ph"><img class = "logos" src="images/Gmail-logo.png"> </a>
+            </div>
+            <div class = "contacts hidden">
+            <a href = "https://github.com/LobenKT"><img class="logos" src="images/github-logo.png"> </a>
             </div>
         </div>
     </section>
-    <script defer src = "app.js"></script>
 
+ 
     <footer>
         <!-- center paragraph with inline css-->
-        <p style="text-align:center">© 2023 Loben Tipan</p>
+        <p style="text-align:center"><a href = "staging.html"> old portfolio </a><br>© 2023 Loben Tipan</p>
     
     </footer>
+
+    <script defer src = "app.js"></script>
 </body>
 </html>

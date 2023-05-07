@@ -36,17 +36,23 @@ section {
     display: flex;
 }
 
-img {
+
+
+img.profile {
+    border-radius: 50%;
     width: 10%;
-    height: auto;
+    height: auto !important;
 }
 
-.image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 1rem;
+img.logos {
+    width: 64px;
+    height: 64px;
+    margin-right: 15px;
     border-radius: 50%;
+    background-color: var(--apple-white);
+    vertical-align: baseline;
+    border: 5px solid var(--apple-gray);
+    object-fit: cover;
 }
 
 .about-me{
