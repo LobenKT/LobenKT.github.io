@@ -1,11 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
 body {
-    background-color: #131316;
-    color: #ffff;
-    font-family: "Poppins", sans-serif;
-    padding: 0;
-    margin: 0;
-}
+    font-family: 'Arial', sans-serif; /* Choose a modern, professional font */
+    background-color: #f8f8f8; /* Light background for a clean look */
+  }
+  
+  .hidden {
+    opacity: 0; /* Items start completely hidden */
+    transition: opacity 0.5s ease-in-out; /* Smooth fade-in effect */
+  }
+  
+  .hidden.show {
+    opacity: 1;  /* Make them visible when the 'show' class is added */
+  }
+  
+  .skills img {
+    max-width: 100px; /* Restrict image sizes */
+    margin: 10px;  /* Add spacing between skill logos */
+  }
+  
 
 section {
     display: grid;
@@ -40,6 +52,21 @@ section {
 .contacts {
     display: flex;
 }
+
+.experience-list {
+    display: flex; /* Arrange items side-by-side */
+    flex-wrap: wrap;  /* Wrap to the next line if needed */
+    justify-content: space-around; /* Distribute space around items */
+  }
+  
+  .experience-item {
+    background-color: #fff; 
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin: 10px;
+    padding: 20px;
+    width: 250px; /* Adjust width as needed */
+  }
 
 img.profile {
     border-radius: 50%;
@@ -104,3 +131,41 @@ img.logos {
   
   /* Change the background color of the dropdown button when the dropdown content is shown */
   .dropdown:hover .dropbtn {background-color: gray;}
+
+  .about-section {
+    display: flex; /* Arranges profile image and text side-by-side */
+    align-items: center; /* Vertically centers the content */
+    margin: 30px; 
+  }
+  
+  .profile {
+    height: 150px; /* Adjust as needed */
+    width: 150px;  /* Adjust as needed */
+    border-radius: 50%; /* Creates a circular profile image */
+    margin-right: 20px; 
+  }
+  
+  .about-me { 
+    background-color: #f0f0f0;
+    padding: 30px;
+    border-radius: 8px;
+  }
+
+  .skills-category {
+    margin-bottom: 20px; /* Space between categories */
+  }
+  
+  .skills-category ul {
+    display: flex; 
+    flex-wrap: wrap; 
+    list-style: none; /* Remove default bullet points */
+    padding: 0; 
+  }
+  
+  .skills-category li {
+    margin: 5px;
+  }
+  
+  .skills-category img { /* Assuming you're using skill icons */
+    height: 40px; /* Adjust as needed */
+  } 
