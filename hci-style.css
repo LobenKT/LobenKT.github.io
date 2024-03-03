@@ -1,6 +1,7 @@
-body {
+body, html {
     margin: 0;
-    font-family: Arial, sans-serif;
+    padding: 0;
+    height: 100%;
 }
 
 header, footer {
@@ -11,17 +12,29 @@ header, footer {
 }
 
 main {
-    padding: 15px;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100% - 60px); /* Adjust based on header/footer height */
 }
 
-/* Responsive design for iPhone */
-@media (max-width: 375px) {
-    header, footer {
-        padding: 20px 0;
-    }
-    
-    main {
-        padding: 20px;
-    }
+#buttonsContainer {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center;
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    padding: 10px;
+}
+
+button {
+    margin-bottom: 5px; /* Space between buttons when vertically aligned */
+    font-size: 16px;
+}
+
+#info {
+    text-align: center;
+    margin-top: 20px;
 }
