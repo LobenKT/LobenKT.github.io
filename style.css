@@ -1,171 +1,155 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
 body {
-    font-family: 'Arial', sans-serif; /* Choose a modern, professional font */
-    background-color: #f8f8f8; /* Light background for a clean look */
-  }
-  
-  .hidden {
-    opacity: 0; /* Items start completely hidden */
-    transition: opacity 0.5s ease-in-out; /* Smooth fade-in effect */
-  }
-  
-  .hidden.show {
-    opacity: 1;  /* Make them visible when the 'show' class is added */
-  }
-  
-  .skills img {
-    max-width: 100px; /* Restrict image sizes */
-    margin: 10px;  /* Add spacing between skill logos */
-  }
-  
-
-section {
-    display: grid;
-    place-items: center;
-    align-content: center;
-    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 0;
+    color: #333;
 }
 
-.hidden{
-    opacity: 0;
-    filter: blur(10px);
-    transition: all 1s ease-in-out;
-    transform: translateX(-100%);
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 1rem 0;
+    text-align: center;
 }
 
-.show {
-    opacity: 1;
-    filter: blur(0);
-    transform: translateX(0);
+header h1 {
+    margin: 0;
+    font-size: 2rem;
 }
 
-@media(prefers-reduced-motion){
-    .hidden, .show {
-        transition: none;
-    }
+nav ul {
+    list-style: none;
+    padding: 0;
 }
 
-.skills {
-    display: flex;
-}
-
-.contacts {
-    display: flex;
-}
-
-.experience-list {
-    display: flex; /* Arrange items side-by-side */
-    flex-wrap: wrap;  /* Wrap to the next line if needed */
-    justify-content: space-around; /* Distribute space around items */
-  }
-  
-  .experience-item {
-    background-color: #fff; 
-    border-radius: 5px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    margin: 10px;
-    padding: 20px;
-    width: 250px; /* Adjust width as needed */
-  }
-
-img.profile {
-    border-radius: 50%;
-    width: 10%;
-    height: auto !important;
-}
-@media screen and (min-width: 480px) {
-    img.profile {
-        width: 20%;
-    }
-}
-
-img.logos {
-    width: 64px;
-    height: 64px;
-    margin-right: 15px;
-    border-radius: 50%;
-    background-color: var(--apple-white);
-    vertical-align: baseline;
-    border: 5px solid var(--apple-gray);
-    object-fit: cover;
-}
-
-.about-me{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+nav ul li {
+    display: inline;
     margin: 0 1rem;
 }
 
-.dropdown {
-    position: relative;
-    display: inline-block;
-    margin: 4 auto;
-  }
-  
-  /* Dropdown Content (Hidden by Default) */
-  .dropdown-content {
-    text-align: center;
-    display: none;
-    position: relative;
-    background-color: #f1f1f1;
-    min-width: 320px ;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
-  
-  /* Links inside the dropdown */
-  .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
+nav ul li a {
+    color: white;
     text-decoration: none;
-    display: block;
-  }
-  
-  /* Change color of dropdown links on hover */
-  .dropdown-content a:hover {background-color: #ddd;}
-  
-  /* Show the dropdown menu on hover */
-  .dropdown:hover .dropdown-content {display: block;}
-  
-  /* Change the background color of the dropdown button when the dropdown content is shown */
-  .dropdown:hover .dropbtn {background-color: gray;}
+    font-weight: 700;
+}
 
-  .about-section {
-    display: flex; /* Arranges profile image and text side-by-side */
-    align-items: center; /* Vertically centers the content */
-    margin: 30px; 
-  }
-  
-  .profile {
-    height: 150px; /* Adjust as needed */
-    width: 150px;  /* Adjust as needed */
-    border-radius: 50%; /* Creates a circular profile image */
-    margin-right: 20px; 
-  }
-  
-  .about-me { 
-    background-color: #f0f0f0;
-    padding: 30px;
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    max-width: 800px;
+    margin: auto;
+}
+
+.profile {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+.about-text {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+section {
+    padding: 2rem 1rem;
+}
+
+.skills-list, .contacts, .projects-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.skill-item, .experience-item, .contacts a {
+    background-color: #fff;
+    padding: 1rem;
     border-radius: 8px;
-  }
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
 
-  .skills-category {
-    margin-bottom: 20px; /* Space between categories */
-  }
-  
-  .skills-category ul {
-    display: flex; 
-    flex-wrap: wrap; 
-    list-style: none; /* Remove default bullet points */
-    padding: 0; 
-  }
-  
-  .skills-category li {
-    margin: 5px;
-  }
-  
-  .skills-category img { /* Assuming you're using skill icons */
-    height: 40px; /* Adjust as needed */
-  } 
+.skill-item img, .contacts img {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 0.5rem;
+}
+
+.projects-list a {
+    display: block;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: #333;
+}
+
+footer {
+    background-color: #4CAF50;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .container {
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: flex-start;
+    }
+
+    .profile {
+        margin-right: 2rem;
+    }
+
+    .about-text {
+        text-align: left;
+    }
+}
+
+
+.experience-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.experience-item {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  list-style: none;
+}
+
+.experience-item h3 {
+  margin-top: 0;
+}
+
+.experience-item ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0 0;
+}
+
+.experience-item ul li {
+  padding-left: 1.2em;
+  text-indent: -1.2em;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.experience-item ul li::before {
+  content: '•';
+  color: #4CAF50;
+  position: absolute;
+  left: 0;
+  font-size: 1.2em;
+}

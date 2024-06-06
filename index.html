@@ -2,107 +2,114 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loben Tipan's Portfolio</title>
-    <link rel = "stylesheet" href = "style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <section class = "hidden">
-        <h1> Welcome to my Portfolio! </h1>
-        <img class = "profile" src = "images/profile_new2.jpg">
-        <h3> Hi! I am Loben Tipan </h3>
-        <p> Scroll down to know more about me </p>
-    </section>
+    <header>
+        <h1>Loben Tipan's Portfolio</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">About Me</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <section class="hidden">
-        <div class="about-section">
-          <img class="profile" src="images/profile_new2.jpg" alt="Your Profile Picture">
-          <div class="about-me">
-            <h1>About Me</h1>
-            <p>As a 3rd-year computer science student at De La Salle University in Manila, I'm driven by the constantly evolving nature of the tech industry. I'm particularly interested in the world of cryptocurrencies and their impact on finance. </p>
-            <p>Outside of tech, I'm passionate about motorsports, basketball, and movies. </p>
-          </div>
-        </div> 
-      </section>
+    <main>
+        <section id="about">
+            <div class="container">
+                <img class="profile" src="images/profile_new2.jpg" alt="Profile Picture">
+                <div class="about-text">
+                    <h2>About Me</h2>
+                    <p>Hi! I'm Loben Klien Tipan, a 3rd-year computer science student at De La Salle University in Manila, specializing in Software Technology. My passion lies in the dynamic and ever-evolving tech industry, with a keen interest in cryptocurrencies and their impact on finance.</p>
+                    <p>I have been recognized as a Dean’s Lister multiple times and actively participate in various tech-related activities. Outside of tech, I enjoy motorsports, basketball, and movies.</p>
+                </div>
+            </div>
+        </section>
 
-      <section class="hidden">
-        <h1>Skills & Abilities</h1>
-        <div class="skills-list">
-          <div class="skill-item">
-            <h3>HTML</h3>
-            <img class="logos" src="images/html-logo.png" alt="HTML Logo"> 
-          </div>
-          <div class="skill-item">
-            <h3>CSS</h3>
-            <img class="logos" src="images/css-logo.png" alt="CSS Logo"> 
-          </div>
-          </div>
+        <section id="skills">
+            <h2>Skills & Abilities</h2>
+            <div class="skills-list">
+                <div class="skill-item">
+                    <img src="images/html-logo.png" alt="HTML Logo">
+                    <p>HTML</p>
+                </div>
+                <div class="skill-item">
+                    <img src="images/css-logo.png" alt="CSS Logo">
+                    <p>CSS</p>
+                </div>
+                <div class="skill-item">
+                    <img src="images/python-logo.png" alt="Python Logo">
+                    <p>Python</p>
+                </div>
+                <div class="skill-item">
+                    <img src="images/java-logo.png" alt="Java Logo">
+                    <p>Java</p>
+                </div>
+                <div class="skill-item">
+                    <img src="images/sql-logo.png" alt="SQL Logo">
+                    <p>SQL</p>
+                </div>
+                <!-- Add more skills as needed -->
+            </div>
+        </section>
+
+        <section id="experience">
+          <h2>Experience</h2>
+          <div class="experience-list">
+              <div class="experience-item">
+                  <h3>Coca-Cola Beverages Philippines Inc.</h3>
+                  <p>Insights and Analytics Intern (March - July 2024)</p>
+                  <ul>
+                      <li>Conducted detailed analysis of sales trends for key accounts, identifying significant patterns and providing actionable insights that contributed to targeted marketing strategies and operational adjustments.</li>
+                      <li>Developed Python scripts for efficient data extraction, enabling streamlined aggregation of complex datasets from various sources.</li>
+                      <li>Leveraged advanced Excel functionalities to analyze and synthesize data, leading to deeper insights into customer behaviors and sales performance.</li>
+                  </ul>
+              </div>
+              <div class="experience-item">
+                  <h3>Shopee Philippines Inc.</h3>
+                  <p>Product Management Intern (May - September 2023)</p>
+                  <ul>
+                      <li>Collaborated with the Local Product Team to ensure successful User Acceptance Testing (UATs) of new features.</li>
+                      <li>Assisted the Local Product Team in presenting and explaining features to stakeholders through demos and information cascades.</li>
+                      <li>Developed training materials for internal teams to ensure effective knowledge transfer of new product functionalities.</li>
+                  </ul>
+              </div>
           </div>
       </section>
       
 
-    <section class="hidden">
-        <h1>Experiences</h1>
-        <div class="experience-list">
-          <div class="experience-item">
-            <h3>Greengiant FM - Official University Radio Station</h3>
-            <p>Member of the Web Management Team</p>
-          </div>
-          <div class="experience-item">
-            <h3>CATCH2T24 - Official Batch Student Government</h3>
-            <p>Research & Development Executive</p>
-          </div>
-          <div class="experience-item">
-            <h3>USG OVPEA - Office of the Vice President for External Affairs</h3>
-            <p>Logistics & Documentation Executive</p>
-          </div>
-        </div>
-      </section>
-      
+        <section id="projects">
+            <h2>Projects</h2>
+            <div class="projects-list">
+                <a href="project-1.html">Sample Gallery (HTML + CSS)</a>
+                <a href="project-3.html">Expense Logger (JavaScript + jQuery)</a>
+                <a href="testing-page.html">Font Testing Page</a>
+                <a href="profile.html">Profile Page</a>
+                <a href="espresso.html">Flowers</a>
+            </div>
+        </section>
 
-    <section class = "hidden">
-        <div class="dropdown">
-            <button class="dropbtn"><h1>web development projects</h1></button>
-            <div class="dropdown-content">
-                <h3>
-                <a href = "project-1.html">Sample Gallery(HTML + CSS)</a>
-                <a href = "project-3.html">Expense Logger(Javascript + Jquery)</a>
-                <a href = "testing-page.html">Font Testing Page</a>
-                <a href = "profile.html">Profile Page</a>
-                </h3>
+        <section id="contact">
+            <h2>Contact Me</h2>
+            <div class="contacts">
+                <a href="https://www.linkedin.com/in/lobentipan/"><img src="images/LinkedIn_icon_circle.svg.png" alt="LinkedIn"></a>
+                <a href="mailto:lobentipan24@gmail.com"><img src="images/Gmail-logo.png" alt="Email"></a>
+                <a href="https://github.com/LobenKT"><img src="images/github-logo.png" alt="GitHub"></a>
             </div>
-    </section>
+            <p><a href="LobenTipan-resume-april.pdf">Download my Resume</a></p>
+        </section>
+    </main>
 
-    <section class = "hidden">
-        <h1> Contact Me </h1>
-        <div class = "contacts">
-            <div class = "contacts hidden">
-            <a href = "https://www.linkedin.com/in/lobentipan/"><img class = "logos" src = "images/LinkedIn_icon_circle.svg.png"></a>
-            </div>
-            <div class = "contacts hidden">
-            <a href = "mailto:loben_klien_tipan@dlsu.edu.ph"><img class = "logos" src="images/Gmail-logo.png"> </a>
-            </div>
-            <div class = "contacts hidden">
-            <a href = "https://github.com/LobenKT"><img class="logos" src="images/github-logo.png"> </a>
-            </div>
-            <br>
-        </div>
-    </section>
-    
-    <section class = "hidden">
-        <h1> <a href = "LobenTipan-resume.docx.pdf"> Download my Resume </a> </h1>
-    </section>
-
- 
     <footer>
-        <!-- center paragraph with inline css-->
-        <p style="text-align:center">
-        disclaimer: I work on this website in my free time &#128512; <br>
-        <a href = "staging.html"> old portfolio </a>
-        <br>© 2023 Loben Tipan</p>
+        <p>Disclaimer: I work on this website in my free time &#128512;<br>© 2023 Loben Tipan</p>
     </footer>
 
-    <script defer src = "app.js"></script>
+    <script defer src="app.js"></script>
 </body>
 </html>
