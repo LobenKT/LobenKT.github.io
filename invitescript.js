@@ -6,12 +6,15 @@ Here are the details:
 When: August 8, afternoon onwards
 Where: Eastwood
 
+
+I'll be picking you up via Grab to your dorm then go to  eastwood tgt.
 We'll eat at Mr Monk for dinner, then grab dessert around Eastwood or find another activity.
+We'll be home by 9 or 10pm!
 
 Hoping to see you 😊`;
 
 let index = 0;
-const typingSpeed = 50;
+const typingSpeed = 50; // Adjust the typing speed here
 const typedTextElement = document.getElementById("typed-text");
 
 function typeText() {
