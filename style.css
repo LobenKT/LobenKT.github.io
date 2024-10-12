@@ -1,172 +1,60 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
-
 body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #f8f8f8;
-    margin: 0;
-    padding: 0;
-    color: #333;
-}
-
-header {
-    background-color: #4CAF50;
-    color: white;
-    padding: 1rem 0;
+    background-color: #f0e3f0;
+    font-family: Arial, sans-serif;
     text-align: center;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 2rem;
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-nav ul li {
-    display: inline;
-    margin: 0 1rem;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: 700;
+    color: #333;
+    overflow: hidden; /* Prevents scrollbar from showing during animations */
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem;
-    max-width: 800px;
-    margin: auto;
+    padding: 20px;
 }
 
-.profile {
-    border-radius: 50%;
-    width: 150px;
+h1 {
+    color: #ff69b4; /* Pink color */
+}
+
+.roses {
+    position: relative;
     height: 150px;
 }
 
-.about-text {
-    text-align: center;
-    margin-top: 1rem;
+.rose {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: width 0.5s ease, height 0.5s ease;
 }
 
-section {
-    padding: 2rem 1rem;
+.rose .stem {
+    position: absolute;
+    bottom: 10px; /* Adjust position of the stem */
+    left: 50%;
+    width: 5px; /* Width of the stem */
+    height: 50px; /* Height of the stem */
+    background-color: green; /* Stem color */
+    transform: translateX(-50%);
 }
 
-.skills-list, .contacts, .projects-list {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 2rem;
+.rose .petal {
+    position: absolute;
+    width: 15px; /* Width of the petal */
+    height: 15px; /* Height of the petal */
+    background-color: #ff69b4; /* Pink color */
+    border-radius: 50%;
+    opacity: 0; /* Start invisible */
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.skill-item, .experience-item, .contacts a {
-    background-color: #fff;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
+/* Position petals around the stem */
+.rose .petal1 { top: -10px; left: 50%; transform: translate(-50%, 0) rotate(0deg); }
+.rose .petal2 { top: -10px; left: 50%; transform: translate(-50%, 0) rotate(72deg); }
+.rose .petal3 { top: -10px; left: 50%; transform: translate(-50%, 0) rotate(144deg); }
+.rose .petal4 { top: -10px; left: 50%; transform: translate(-50%, 0) rotate(216deg); }
+.rose .petal5 { top: -10px; left: 50%; transform: translate(-50%, 0) rotate(288deg); }
 
-.skill-item img, .contacts img {
-    width: 64px;
-    height: 64px;
-    margin-bottom: 0.5rem;
-}
-
-.projects-list a {
-    display: block;
-    padding: 1rem;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-decoration: none;
-    color: #333;
-}
-
-footer {
-    background-color: #4CAF50;
-    color: white;
-    padding: 1rem;
-    text-align: center;
-}
-
-@media (min-width: 768px) {
-    .container {
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: flex-start;
-    }
-
-    .profile {
-        margin-right: 2rem;
-    }
-
-    .about-text {
-        text-align: left;
-    }
-}
-
-
-.experience-list {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-}
-
-.experience-item {
-  background-color: #fff;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  list-style: none;
-}
-
-.experience-item h3 {
-  margin-top: 0;
-}
-
-.experience-item ul {
-  list-style: none;
-  padding: 0;
-  margin: 1rem 0 0 0;
-}
-
-.experience-item ul li {
-  padding-left: 1.2em;
-  text-indent: -1.2em;
-  margin-bottom: 0.5rem;
-  position: relative;
-}
-
-.experience-item ul li::before {
-  content: '•';
-  color: #4CAF50;
-  position: absolute;
-  left: 0;
-  font-size: 1.2em;
-}
-body.dark-mode {
-  background-color: #333;
-  color: #fff;
-}
-
-body.dark-mode header,
-body.dark-mode footer {
-  background-color: #444;
-}
-
-body.dark-mode .experience-item,
-body.dark-mode .skill-item,
-body.dark-mode .contacts a,
-body.dark-mode .projects-list a {
-  background-color: #555;
-  color: #fff;
+.capybara-gif {
+    width: 200px; /* Adjust size as needed */
+    margin-top: 20px;
 }

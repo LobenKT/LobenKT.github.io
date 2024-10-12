@@ -1,0 +1,96 @@
+*,
+*::after,
+*::before {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center elements horizontally */
+    justify-content: flex-start; /* Align to the top */
+    min-height: 100vh;
+    background-color: #ffb3d9; /* Pink background color */
+    overflow: hidden;
+    color: white; /* Text color */
+    font-family: 'Pacifico', cursive; /* Fun font */
+    text-align: center; /* Center the text */
+}
+
+.container {
+    position: relative;
+    margin-top: 20px; /* Space from the top */
+}
+
+h1 {
+    margin-bottom: 10px;
+    font-size: 3rem; /* Adjust size as needed */
+}
+
+p {
+    margin-bottom: 30px; /* Space between text and the GIF */
+    font-size: 1.5rem; /* Adjust size as needed */
+}
+
+.capybara-gif {
+    width: 100px; /* Adjust size as needed */
+    position: absolute; /* Positioning for animation */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Center vertically */
+}
+
+/* First capybara animation (left to right) */
+.gif-1 {
+    left: -10%; /* Start just off the left */
+    animation: runAcross 5s linear infinite; /* Animation */
+    transform: scaleX(-1); /* Flip horizontally */
+}
+
+/* Second capybara animation (right to left) */
+.gif-2 {
+    right: -10%; /* Start just off the right */
+    animation: runAcross2 5s linear infinite; /* Animation */
+}
+
+/* Animation to slide capybara across the screen (left to right) */
+@keyframes runAcross {
+    0% {
+        left: -10%; /* Start just off the left */
+    }
+    100% {
+        left: 100%; /* End just off the right */
+    }
+}
+
+/* Animation to slide capybara across the screen (right to left) */
+@keyframes runAcross2 {
+    0% {
+        right: -10%; /* Start just off the right */
+    }
+    100% {
+        right: 100%; /* End just off the left */
+    }
+}
+
+/* Pink rose styling */
+.pink-rose {
+    position: fixed; /* Fix to the bottom */
+    bottom: 0; /* Stick to the bottom */
+    left: 0; /* Start from the left */
+    width: 100%; /* Cover full width */
+    height: auto; /* Adjust height automatically */
+    z-index: -1; /* Send it to the back */
+}
+
+/* Optionally, if you want to duplicate the image */
+.pink-rose::after {
+    content: '';
+    background: url('pink_rose.gif') repeat-x; /* Repeat the background horizontally */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100px; /* Adjust the height as needed */
+}
