@@ -1,0 +1,192 @@
+/* General reset */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    height: 100%;
+    background-color: #FEE2E2; /* Soft pink background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden; /* Prevent scrolling */
+}
+
+/* Circular image container and style */
+.image-container {
+    position: absolute;
+    top: 30px;  /* Adjust based on how far down you want the image */
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%; /* Makes the image circular */
+    overflow: hidden;  /* Ensures the image stays inside the circular container */
+    width: 150px; /* Adjust size of the circular image */
+    height: 150px; /* Maintain square aspect ratio for the circle */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Optional shadow for styling */
+}
+
+/* Style the image inside the circular frame */
+.birthday-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the circular frame */
+}
+
+/* Audio container that will position the SoundCloud player */
+.audio-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px; /* Make the iframe tiny (effectively hidden) */
+    height: 1px; /* Make the iframe tiny (effectively hidden) */
+    z-index: -1; /* Make sure the audio stays behind all content */
+}
+
+/* Center content */
+.container {
+    z-index: 1;
+    position: relative;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Main heading animation */
+#main-text {
+    font-size: 3rem;
+    color: #FF2D92; /* Bright pink */
+    animation: slideIn 2s ease-out forwards, pulse 1.5s infinite alternate;
+    margin-top: 20px; /* Adds space between image and text */
+}
+
+/* Text description style */
+.description {
+    font-size: 1.2rem;
+    color: #FF6F91; /* Light pink */
+    margin-top: 10px;
+    animation: fadeIn 2s ease-out forwards;
+}
+
+/* Details section */
+.details {
+    font-size: 1.1rem;
+    color: #FF2D92;
+    margin-top: 30px;
+}
+
+/* Highlighted text (with a pop effect) */
+.highlight {
+    color: #FF6F91;
+    font-weight: bold;
+    animation: popIn 1s ease-out forwards;
+}
+
+/* Keyframe Animations */
+@keyframes slideIn {
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Capybara running animation */
+.capybara {
+    position: fixed;
+    bottom: 0;
+    left: -10%; /* Start off-screen to the left */
+    width: 10%; /* Adjust size as needed */
+    animation: runAcross 5s linear infinite;
+    transform: scaleX(-1); /* Flip horizontally */
+}
+
+/* Capybara running from left to right */
+@keyframes runAcross {
+    0% {
+        left: -10%; /* Off-screen to the left */
+    }
+    100% {
+        left: 110%; /* Move off-screen to the right */
+    }
+}
+
+/* Confetti effect */
+.confetti-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #FF6F91; /* Default color */
+    animation: confettiFall 5s linear infinite, confettiSpin 2s linear infinite;
+}
+
+/* Confetti falling animation */
+@keyframes confettiFall {
+    0% {
+        top: -10%; /* Start just above the viewport */
+    }
+    100% {
+        top: 100%; /* Move to the bottom of the viewport */
+    }
+}
+
+@keyframes confettiSpin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #main-text {
+        font-size: 2.5rem;
+    }
+    
+    .description, .details p {
+        font-size: 1rem;
+    }
+
+    .capybara {
+        width: 15%; /* Slightly larger on smaller screens */
+    }
+
+    .image-container {
+        width: 120px; /* Smaller image on smaller screens */
+        height: 120px;
+    }
+}
