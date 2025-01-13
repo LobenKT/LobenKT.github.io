@@ -4,38 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loben Tipan's Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    <header>
-        <h1>Loben Tipan's Portfolio</h1>
-        <button id="themeToggle">Toggle Dark Mode</button>
-        <nav>
-            <ul>
-                <li><a href="#about">About Me</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
+    <header class="header">
+        <div class="header-content">
+            <img class="header-profile" src="images/profile_new2.jpg" alt="Profile Picture">
+            <div class="header-info">
+                <h1>Loben Tipan</h1>
+                <a href="LobenTipan-RESUME-06_30_24.pdf" class="cv-btn" target="_blank">Download CV</a>
+            </div>
+        </div>
     </header>
 
     <main>
-        <section id="about">
-            <div class="container">
-                <img class="profile" src="images/profile_new2.jpg" alt="Profile Picture">
-                <div class="about-text">
-                    <h2>About Me</h2>
-                    <p>Hi! I'm Loben Klien Tipan, a 4th-yearat De La Salle University in Manila, specializing in Software Technology. My passion lies in the dynamic and ever-evolving tech industry, with a keen interest in cryptocurrencies and their impact on finance.</p>
-                    <p>I have been recognized as a Dean’s Lister multiple times and actively participate in various tech-related activities. Outside of tech, I enjoy motorsports, basketball, and movies.</p>
-                </div>
+        <section id="hero" class="hero">
+            <div class="hero-content">
+                <h2>Graduate Software Engineer</h2>
+                <p>Crafting solutions, writing code, and solving real-world problems.</p>
             </div>
         </section>
 
-        <section id="skills">
+        <section id="about" class="about">
+            <h2>About Me</h2>
+            <p>Hi! I'm Loben Klien Tipan, a passionate software engineer and a recent graduate from De La Salle University with a degree in Software Technology.</p>
+            <p>I currently work as a Graduate Software Engineer at a leading tech company, where I apply my skills in software development and problem-solving to create impactful solutions. Outside of work, I enjoy motorsports, basketball, and watching movies. I have consistently achieved academic excellence, earning recognition as a Dean's Lister during my university years.</p>
+        </section>
+
+        <section id="skills" class="skills">
             <h2>Skills & Abilities</h2>
-            <div class="skills-list">
+            <div class="skills-array">
                 <div class="skill-item">
                     <img src="images/html-logo.png" alt="HTML Logo">
                     <p>HTML</p>
@@ -56,60 +54,55 @@
                     <img src="images/sql-logo.png" alt="SQL Logo">
                     <p>SQL</p>
                 </div>
-                <!-- Add more skills as needed -->
             </div>
         </section>
 
-        <section id="experience">
-          <h2>Experience</h2>
-          <div class="experience-list">
-              <div class="experience-item">
-                  <h3>Coca-Cola Beverages Philippines Inc.</h3>
-                  <p>Insights and Analytics Intern (March - July 2024)</p>
-                  <ul>
-                      <li>Conducted detailed analysis of sales trends for key accounts, identifying significant patterns and providing actionable insights that contributed to targeted marketing strategies and operational adjustments.</li>
-                      <li>Developed Python scripts for efficient data extraction, enabling streamlined aggregation of complex datasets from various sources.</li>
-                      <li>Leveraged advanced Excel functionalities to analyze and synthesize data, leading to deeper insights into customer behaviors and sales performance.</li>
-                  </ul>
-              </div>
-              <div class="experience-item">
-                  <h3>Shopee Philippines Inc.</h3>
-                  <p>Product Management Intern (May - September 2023)</p>
-                  <ul>
-                      <li>Collaborated with the Local Product Team to ensure successful User Acceptance Testing (UATs) of new features.</li>
-                      <li>Assisted the Local Product Team in presenting and explaining features to stakeholders through demos and information cascades.</li>
-                      <li>Developed training materials for internal teams to ensure effective knowledge transfer of new product functionalities.</li>
-                  </ul>
-              </div>
-          </div>
-      </section>
-      
+        <section id="experience" class="experience">
+            <h2>Experience</h2>
+            <p>As a Graduate Software Engineer at a leading tech company, I have been actively involved in developing scalable software solutions that address real-world problems. My role involves collaborating with cross-functional teams, designing and implementing innovative features, and writing clean, efficient, and well-documented code.</p>
+            <p>During my internship at Coca-Cola Beverages Philippines Inc., I conducted detailed analysis of sales trends, developed Python scripts for data extraction, and utilized advanced Excel functionalities to provide actionable insights that helped shape marketing strategies.</p>
+            <p>At Shopee Philippines Inc., I worked with the Product Management team to ensure successful User Acceptance Testing (UATs), presented new features to stakeholders, and developed training materials to streamline knowledge transfer within the organization.</p>
+        </section>
 
-        <section id="projects">
+        <section id="projects" class="projects">
             <h2>Projects</h2>
             <div class="projects-list">
-                <a href="project-1.html">Sample Gallery (HTML + CSS)</a>
-                <a href="project-3.html">Expense Logger (JavaScript + jQuery)</a>
-                <a href="testing-page.html">Font Testing Page</a>
-                <a href="profile.html">Profile Page</a>
+                <a href="projects/project-1.html" target="_blank">Sample Gallery (HTML + CSS)</a>
+                <a href="projects/project-2.html" target="_blank">Expense Logger (JavaScript + jQuery)</a>
+                <a href="projects/project-3.html" target="_blank">Font Testing Page</a>
+                <a href="projects/project-4.html" target="_blank">Profile Page</a>
             </div>
         </section>
 
-        <section id="contact">
+        <section id="contact" class="contact">
             <h2>Contact Me</h2>
-            <div class="contacts">
-                <a href="https://www.linkedin.com/in/lobentipan/"><img src="images/LinkedIn_icon_circle.svg.png" alt="LinkedIn"></a>
-                <a href="mailto:lobentipan24@gmail.com"><img src="images/Gmail-logo.png" alt="Email"></a>
-                <a href="https://github.com/LobenKT"><img src="images/github-logo.png" alt="GitHub"></a>
+            <div class="contacts-array">
+                <div class="contact-item">
+                    <a href="https://www.linkedin.com/in/lobentipan/" target="_blank">
+                        <img src="images/LinkedIn_icon_circle.svg.png" alt="LinkedIn">
+                        <p>LinkedIn</p>
+                    </a>
+                </div>
+                <div class="contact-item">
+                    <a href="mailto:lobentipan24@gmail.com" target="_blank">
+                        <img src="images/Gmail-logo.png" alt="Email">
+                        <p>Email</p>
+                    </a>
+                </div>
+                <div class="contact-item">
+                    <a href="https://github.com/LobenKT" target="_blank">
+                        <img src="images/github-logo.png" alt="GitHub">
+                        <p>GitHub</p>
+                    </a>
+                </div>
             </div>
-            <p><a href="LobenTipan-RESUME-06_30_24.pdf">Download my Resume</a></p>
         </section>
     </main>
 
-    <footer>
-        <p>Disclaimer: I work on this website in my free time &#128512;<br>© 2024 Loben Tipan</p>
+    <footer class="footer">
+        <p>© 2025 Loben Tipan</p>
     </footer>
 
-    <script defer src="app.js"></script>
+    <script defer src="index.js"></script>
 </body>
 </html>
