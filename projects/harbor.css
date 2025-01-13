@@ -1,0 +1,146 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: 'Raleway', sans-serif;
+    background-color: #000;
+    color: #fff;
+  }
+  
+  /* Container */
+  .page-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Header Section */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+  }
+  
+  .explore-events {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .sign-in {
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.49);
+    cursor: pointer;
+  }
+  
+  /* Event Banner */
+  .event-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    width: 400px; /* Static width for the square container */
+    height: 400px; /* Static height for the square container */
+    overflow: hidden; /* Crops the image */
+    border-radius: 4px;
+    border: 2px solid #fff;
+    position: relative;
+  }
+  
+  .event-image {
+    position: absolute;
+    width: auto; /* Prevents stretching */
+    height: 100%; /* Ensures the container is filled vertically */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centers the image */
+    object-fit: cover; /* Crops the image to fit the square container */
+    object-position: center; /* Focuses on the center of the image */
+  }
+  
+  /* Event Details Section */
+  .event-details {
+    margin: 20px 0;
+  }
+  
+  .event-tag {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 500;
+    padding: 4px 20px;
+    background-color: #ff0000;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .event-title {
+    font-size: 30px;
+    font-weight: 800;
+    margin: 10px 0;
+  }
+  
+  .event-host {
+    font-size: 12px;
+    margin: 11px 0 9px 5px;
+    font-family: 'Roboto', sans-serif;
+    text-align: left;
+  }
+  
+  .event-description {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+    font-family: 'Roboto', sans-serif;
+    text-align: left;
+  }
+  
+  /* Divider */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.5);
+    margin: 20px 0;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* Event Information Section */
+  .event-info {
+    text-align: left;
+  }
+  
+  .info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .info-icon {
+    width: 34px;
+    height: 31px;
+    background-color: rgba(89, 3, 3, 0.51);
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+  
+  .info-text {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .info-main {
+    font-size: 13px;
+    font-weight: 500;
+    color: #fff;
+  }
+  
+  .info-sub {
+    font-size: 10px;
+    font-weight: 200;
+    color: rgba(255, 255, 255, 0.6);
+  }
+  
