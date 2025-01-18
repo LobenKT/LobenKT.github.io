@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-500 via-blue-300 to-blue-200 min-h-screen flex items-center justify-center">
+    <div id="app" class="w-full max-w-md mx-auto p-6 bg-white/90 rounded-2xl shadow-2xl">
+        <h1 class="text-3xl font-extrabold text-center text-gray-700 mb-6">Weather in Manila</h1>
+        
+        <!-- Weather Icon -->
+        <div v-if="weather" class="text-center mb-6">
+            <img :src="`https://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png`" alt="Weather Icon" class="mx-auto">
+            <p class="text-xl font-semibold text-gray-800 capitalize">{{ weather.weather[0].description }}</p>
+        </div>
+        
+        <!-- Temperature and Details -->
+        <div v-if="weather" class="text-center space-y-4">
+            <p class="text-6xl font-bold text-gray-800">{{ weather.main.temp }}°C</p>
+            <div class="text-lg text-gray-600 flex justify-center space-x-4">
+                <div>
+                    <span class="font-semibold">Humidity:</span> {{ weather.main.humidity }}%
+                </div>
+                <div>
+                    <span class="font-semibold">Wind:</span> {{ weather.wind.speed }} m/s
+                </div>
+            </div>
+        </div>
+        
+        <!-- Loading State -->
+        <div v-else class="text-center text-gray-700">
+            <p>Loading weather data...</p>
+        </div>
+    </div>
+
+    <script src="weather.js"></script>
+</body>
+</html>
