@@ -4,105 +4,149 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loben Tipan's Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    <header class="header">
-        <div class="header-content">
-            <img class="header-profile" src="images/profile_new2.jpg" alt="Profile Picture">
-            <div class="header-info">
-                <h1>Loben Tipan</h1>
-                <a href="LobenTipan-RESUME-06_30_24.pdf" class="cv-btn" target="_blank">Download CV</a>
+    <!-- Fixed Header -->
+    <header class="bg-dark text-white py-2 shadow-sm fixed-top">
+        <div class="container text-center">
+            <div class="d-flex justify-content-center align-items-center gap-3">
+                <img src="images/profile_new2.jpg" alt="Profile Picture" class="rounded-circle" width="50">
+                <h1 class="h5 mb-0">Loben Tipan</h1>
+                <a href="LobenTipan-RESUME-06_30_24.pdf" class="btn btn-outline-light btn-sm" target="_blank">Download CV</a>
             </div>
+            <p class="mt-2 mb-0">Graduate Software Engineer<br>Crafting solutions, writing code, and solving real-world problems.</p>
         </div>
     </header>
 
-    <main>
-        <section id="hero" class="hero">
-            <div class="hero-content">
-                <h2>Graduate Software Engineer</h2>
-                <p>Crafting solutions, writing code, and solving real-world problems.</p>
-            </div>
-        </section>
-
-        <section id="about" class="about">
-            <h2>About Me</h2>
-            <p>Hi! I'm Loben Klien Tipan, a passionate software engineer and a recent graduate from De La Salle University with a degree in Software Technology.</p>
-            <p>I currently work as a Graduate Software Engineer at a leading tech company, where I apply my skills in software development and problem-solving to create impactful solutions. Outside of work, I enjoy motorsports, basketball, and watching movies. I have consistently achieved academic excellence, earning recognition as a Dean's Lister during my university years.</p>
-        </section>
-
-        <section id="skills" class="skills">
-            <h2>Skills & Abilities</h2>
-            <div class="skills-array">
-                <div class="skill-item">
-                    <img src="images/html-logo.png" alt="HTML Logo">
-                    <p>HTML</p>
-                </div>
-                <div class="skill-item">
-                    <img src="images/css-logo.png" alt="CSS Logo">
-                    <p>CSS</p>
-                </div>
-                <div class="skill-item">
-                    <img src="images/python-logo.png" alt="Python Logo">
-                    <p>Python</p>
-                </div>
-                <div class="skill-item">
-                    <img src="images/java-logo.png" alt="Java Logo">
-                    <p>Java</p>
-                </div>
-                <div class="skill-item">
-                    <img src="images/sql-logo.png" alt="SQL Logo">
-                    <p>SQL</p>
+    <main class="mt-5 pt-5">
+        <!-- About Me Section -->
+        <section id="about" class="about-section py-5 fade">
+            <div class="container">
+                <h2 class="text-center mb-4">About Me</h2>
+                <div class="mx-auto" style="max-width: 800px;">
+                    <p class="text-center mb-3">
+                        Hi! I'm Loben Klien Tipan, a passionate software engineer and a recent graduate from De La Salle University with a degree in Software Technology.
+                    </p>
+                    <p class="text-center">
+                        I currently work as a Graduate Software Engineer at a leading tech company, where I apply my skills in software development and problem-solving to create impactful solutions.
+                        Outside of work, I enjoy motorsports, basketball, and watching movies. I have consistently achieved academic excellence, earning recognition as a Dean's Lister during my university years.
+                    </p>
                 </div>
             </div>
         </section>
 
-        <section id="experience" class="experience">
-            <h2>Experience</h2>
-            <p>As a Graduate Software Engineer at a leading tech company, I have been actively involved in developing scalable software solutions that address real-world problems. My role involves collaborating with cross-functional teams, designing and implementing innovative features, and writing clean, efficient, and well-documented code.</p>
-            <p>During my internship at Coca-Cola Beverages Philippines Inc., I conducted detailed analysis of sales trends, developed Python scripts for data extraction, and utilized advanced Excel functionalities to provide actionable insights that helped shape marketing strategies.</p>
-            <p>At Shopee Philippines Inc., I worked with the Product Management team to ensure successful User Acceptance Testing (UATs), presented new features to stakeholders, and developed training materials to streamline knowledge transfer within the organization.</p>
-        </section>
-
-        <section id="projects" class="projects">
-            <h2>Projects</h2>
-            <div class="projects-list">
-                <a href="projects/project-1.html" target="_blank">Sample Gallery (HTML + CSS)</a>
-                <a href="projects/project-2.html" target="_blank">Expense Logger (JavaScript + jQuery)</a>
-                <a href="projects/project-3.html" target="_blank">Font Testing Page</a>
-                <a href="projects/project-4.html" target="_blank">Profile Page</a>
+        <!-- Skills Section -->
+        <section id="skills" class="skills-section py-5 bg-light fade">
+            <div class="container">
+                <h2 class="text-center mb-4">Skills & Abilities</h2>
+                <div class="d-flex justify-content-center flex-wrap gap-4">
+                    <div class="text-center">
+                        <img src="images/html-logo.png" alt="HTML Logo" class="img-fluid" width="60">
+                        <p class="mt-2">HTML</p>
+                    </div>
+                    <div class="text-center">
+                        <img src="images/css-logo.png" alt="CSS Logo" class="img-fluid" width="60">
+                        <p class="mt-2">CSS</p>
+                    </div>
+                    <div class="text-center">
+                        <img src="images/python-logo.png" alt="Python Logo" class="img-fluid" width="60">
+                        <p class="mt-2">Python</p>
+                    </div>
+                    <div class="text-center">
+                        <img src="images/java-logo.png" alt="Java Logo" class="img-fluid" width="60">
+                        <p class="mt-2">Java</p>
+                    </div>
+                    <div class="text-center">
+                        <img src="images/sql-logo.png" alt="SQL Logo" class="img-fluid" width="60">
+                        <p class="mt-2">SQL</p>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="contact" class="contact">
-            <h2>Contact Me</h2>
-            <div class="contacts-array">
-                <div class="contact-item">
-                    <a href="https://www.linkedin.com/in/lobentipan/" target="_blank">
-                        <img src="images/LinkedIn_icon_circle.svg.png" alt="LinkedIn">
-                        <p>LinkedIn</p>
+        <!-- Experience Section -->
+        <section id="experience" class="experience-section py-5 fade">
+            <div class="container">
+                <h2 class="text-center mb-4">Experience</h2>
+                <div class="d-flex flex-wrap justify-content-center gap-4">
+                    <!-- Graduate Software Engineer -->
+                    <div class="card shadow-sm" style="width: 18rem;">
+                        <div class="card-header text-center bg-light">
+                            <img src="images/placeholder-logo.png" alt="Company Logo" class="img-fluid" width="100" style="padding: 1rem;">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Graduate Software Engineer</h5>
+                            <p class="card-text text-center text-muted">Tech Company (2024 - Present)</p>
+                            <ul>
+                                <li>Developed scalable software solutions addressing real-world problems.</li>
+                                <li>Collaborated with cross-functional teams to design and implement features.</li>
+                                <li>Wrote clean, efficient, and well-documented code.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Coca-Cola Internship -->
+                    <div class="card shadow-sm" style="width: 18rem;">
+                        <div class="card-header text-center bg-light">
+                            <img src="images/placeholder-logo.png" alt="Company Logo" class="img-fluid" width="100" style="padding: 1rem;">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Insights & Analytics Intern</h5>
+                            <p class="card-text text-center text-muted">Coca-Cola Beverages Philippines Inc. (March - July 2024)</p>
+                            <ul>
+                                <li>Conducted detailed analysis of sales trends and provided actionable insights.</li>
+                                <li>Developed Python scripts for efficient data extraction.</li>
+                                <li>Utilized advanced Excel functionalities to synthesize customer behavior data.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Shopee Internship -->
+                    <div class="card shadow-sm" style="width: 18rem;">
+                        <div class="card-header text-center bg-light">
+                            <img src="images/placeholder-logo.png" alt="Company Logo" class="img-fluid" width="100" style="padding: 1rem;">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Product Management Intern</h5>
+                            <p class="card-text text-center text-muted">Shopee Philippines Inc. (May - September 2023)</p>
+                            <ul>
+                                <li>Ensured successful User Acceptance Testing (UATs) for new features.</li>
+                                <li>Presented and explained features to stakeholders through demos.</li>
+                                <li>Developed training materials to streamline knowledge transfer.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section py-5 fade">
+            <div class="container">
+                <h2 class="text-center mb-4">Contact Me</h2>
+                <div class="d-flex justify-content-center gap-5">
+                    <a href="https://www.linkedin.com/in/lobentipan/" target="_blank" class="text-decoration-none">
+                        <img src="images/LinkedIn_icon_circle.svg.png" alt="LinkedIn" class="img-fluid" width="60">
+                        <p class="mt-2 text-center">LinkedIn</p>
                     </a>
-                </div>
-                <div class="contact-item">
-                    <a href="mailto:lobentipan24@gmail.com" target="_blank">
-                        <img src="images/Gmail-logo.png" alt="Email">
-                        <p>Email</p>
+                    <a href="mailto:lobentipan24@gmail.com" target="_blank" class="text-decoration-none">
+                        <img src="images/Gmail-logo.png" alt="Email" class="img-fluid" width="60">
+                        <p class="mt-2 text-center">Email</p>
                     </a>
-                </div>
-                <div class="contact-item">
-                    <a href="https://github.com/LobenKT" target="_blank">
-                        <img src="images/github-logo.png" alt="GitHub">
-                        <p>GitHub</p>
+                    <a href="https://github.com/LobenKT" target="_blank" class="text-decoration-none">
+                        <img src="images/github-logo.png" alt="GitHub" class="img-fluid" width="60">
+                        <p class="mt-2 text-center">GitHub</p>
                     </a>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="footer">
+    <footer class="footer bg-dark text-white text-center py-3">
         <p>© 2025 Loben Tipan</p>
     </footer>
 
-    <script defer src="index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>

@@ -1,108 +1,28 @@
-/* General Reset */
-body, h1, h2, p, a {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
-    background: #f8f8f8;
-    color: #333;
-    line-height: 1.6;
-    scroll-behavior: smooth;
-}
-
 /* Header */
-.header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: #000;
-    color: #fff;
-    padding: 1rem 0;
-    z-index: 1000;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+header {
+    padding-bottom: 0.5rem;
 }
 
-.header-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
+/* About Me Section */
+.about-section {
+    padding-top: 5rem; /* Adjust padding */
+    padding-bottom: 5rem;
 }
 
-.header-profile {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
+.about-section p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #333;
 }
 
-.cv-btn {
-    background: #007aff;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background 0.3s;
-}
-
-.cv-btn:hover {
-    background: #005bb5;
-}
-
-/* Section Styling */
-section {
-    padding: 5rem 2rem;
-    text-align: center;
+/* Section Animations */
+section.fade {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-section.active {
+section.fade.show {
     opacity: 1;
     transform: translateY(0);
-}
-
-/* Skills Section */
-.skills-array {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.skill-item img {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 0.5rem;
-}
-
-/* Contact Section */
-.contacts-array {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-}
-
-.contact-item img {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 0.5rem;
-}
-
-.contact-item p {
-    font-weight: bold;
-    color: #333;
-}
-
-/* Footer */
-.footer {
-    padding: 1rem;
-    background: #000;
-    color: #fff;
-    text-align: center;
 }
