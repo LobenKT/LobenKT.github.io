@@ -31,6 +31,7 @@
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       transition: transform 0.5s ease-in-out;
       text-align: center;
+      display: inline-block;
     }
     .card-title {
       font-size: 1.5rem;
@@ -39,13 +40,14 @@
     }
     .flashcard-container {
       position: relative;
-      width: 100%;
+      width: auto;
       max-width: 500px;
     }
     .flashcard {
-      width: 100%;
-      max-width: 400px;
+      width: auto;
+      max-width: 90%;
       margin: auto;
+      padding: 10px;
     }
     .slide-right-enter-active, .slide-right-leave-active {
       transition: transform 0.5s ease-in-out;
@@ -76,6 +78,12 @@
       transform: scale(1.5);
       transition: transform 0.3s ease-in-out;
     }
+    .final-text {
+      color: black;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 15px;
+    }
   </style>
 </head>
 <body>
@@ -100,7 +108,7 @@
               <button class="btn btn-light btn-lg" :class="{'btn-lg-enlarged': enlargeYesButton}" @click="handleFinalAnswer">Yes</button>
             </template>
           </div>
-          <p v-if="showAnswer" class="mt-3 text-white">Yay! Let's make this day unforgettable! 💖</p>
+          <p v-if="showAnswer" class="final-text">Yay! Let's make this day unforgettable! 💖</p>
         </div>
       </div>
     </transition>
@@ -140,9 +148,6 @@
       handleNoClick() {
         alert("Wrong answer! Are you sure? Try again!");
         this.enlargeYesButton = true;
-        setTimeout(() => {
-          this.enlargeYesButton = false;
-        }, 2000);
       },
       handleFinalAnswer() {
         this.showAnswer = true;
