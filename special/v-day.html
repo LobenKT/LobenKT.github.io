@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine's Day Invitation</title>
+  <!-- Vue.js -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <!-- Bootstrap (without bundle, include jQuery first) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome (optional) -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #a5d8a5, #f7c7d4);
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .card {
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.5s ease-in-out;
+      text-align: center;
+    }
+    .card-title {
+      font-size: 1.5rem;
+      color: #f16e97;
+      margin-bottom: 15px;
+    }
+    .flashcard-container {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+    }
+    .flashcard {
+      width: 100%;
+      max-width: 400px;
+      margin: auto;
+    }
+    .slide-right-enter-active, .slide-right-leave-active {
+      transition: transform 0.5s ease-in-out;
+    }
+    .slide-right-enter, .slide-right-leave-to {
+      transform: translateX(100%);
+    }
+    .btn-container {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .gradient-btn {
+      background: linear-gradient(45deg, #ff758c, #ff7eb3);
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 8px;
+      transition: transform 0.2s;
+    }
+    .gradient-btn:hover {
+      transform: scale(1.1);
+    }
+    .btn-lg-enlarged {
+      transform: scale(1.5);
+      transition: transform 0.3s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="flashcard-container">
+    <transition name="slide-right" mode="out-in">
+      <div v-if="currentCard" :key="currentCard.id" class="card flashcard">
+        <div class="card-body">
+          <h5 class="card-title">{{ currentCard.question }}</h5>
+          <div class="btn-container">
+            <template v-if="currentCard.id === 1">
+              <button class="gradient-btn" @click="checkAnswer('correct')">So sudden and new?</button>
+              <button class="gradient-btn" @click="checkAnswer('wrong')">I felt the moment</button>
+              <button class="gradient-btn" @click="checkAnswer('wrong')">I laid eyes on you</button>
+            </template>
+            <template v-else-if="currentCard.id === 2">
+              <button class="gradient-btn" @click="nextCard">Wizard</button>
+              <button class="gradient-btn" @click="nextCard">Witch</button>
+            </template>
+            <template v-else-if="currentCard.id === 'final'">
+              <button class="btn btn-danger" @click="handleNoClick">No</button>
+              <button class="btn btn-light btn-lg" :class="{'btn-lg-enlarged': enlargeYesButton}" @click="handleFinalAnswer">Yes</button>
+            </template>
+          </div>
+          <p v-if="showAnswer" class="mt-3 text-white">Yay! Let's make this day unforgettable! 💖</p>
+        </div>
+      </div>
+    </transition>
+  </div>
+</div>
+<script>
+  new Vue({
+    el: '#app',
+    data() {
+      return {
+        showAnswer: false,
+        enlargeYesButton: false,
+        cards: [
+          { id: 1, question: 'Complete the lyrics: "What is this feeling so sudden & new?"' },
+          { id: 2, question: 'Are you a wizard or a witch?' },
+          { id: 'final', question: 'Will you be my Valentine?' }
+        ],
+        currentCardIndex: 0
+      };
+    },
+    computed: {
+      currentCard() {
+        return this.cards[this.currentCardIndex];
+      }
+    },
+    methods: {
+      checkAnswer(answer) {
+        if (answer === 'correct') {
+          this.nextCard();
+        }
+      },
+      nextCard() {
+        if (this.currentCardIndex < this.cards.length - 1) {
+          this.currentCardIndex++;
+        }
+      },
+      handleNoClick() {
+        alert("Wrong answer! Are you sure? Try again!");
+        this.enlargeYesButton = true;
+        setTimeout(() => {
+          this.enlargeYesButton = false;
+        }, 2000);
+      },
+      handleFinalAnswer() {
+        this.showAnswer = true;
+      }
+    }
+  });
+</script>
+</body>
+</html>
