@@ -6,14 +6,12 @@
   <title>Valentine's Day Invitation</title>
   <!-- Vue.js -->
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-  <!-- Bootstrap (without bundle, include jQuery first) -->
+  <!-- Bootstrap -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
-  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Font Awesome (optional) -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
   <style>
+    /* 🌹 Gradient Background */
     body {
       background: linear-gradient(135deg, #a5d8a5, #f7c7d4);
       font-family: 'Arial', sans-serif;
@@ -23,7 +21,23 @@
       align-items: center;
       height: 100vh;
       margin: 0;
+      overflow: hidden;
     }
+
+    /* Blurred Rose Petal Overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('rose-falling.gif') repeat fixed center;
+      background-size: cover;
+      filter: blur(8px);
+      z-index: -1;
+    }
+
     .card {
       background-color: #ffffff;
       border-radius: 12px;
@@ -32,29 +46,9 @@
       transition: transform 0.5s ease-in-out;
       text-align: center;
       display: inline-block;
-    }
-    .card-title {
-      font-size: 1.5rem;
-      color: #f16e97;
-      margin-bottom: 15px;
-    }
-    .flashcard-container {
       position: relative;
-      width: auto;
-      max-width: 500px;
     }
-    .flashcard {
-      width: auto;
-      max-width: 90%;
-      margin: auto;
-      padding: 10px;
-    }
-    .slide-right-enter-active, .slide-right-leave-active {
-      transition: transform 0.5s ease-in-out;
-    }
-    .slide-right-enter, .slide-right-leave-to {
-      transform: translateX(100%);
-    }
+
     .btn-container {
       display: flex;
       flex-direction: row;
@@ -62,6 +56,7 @@
       justify-content: center;
       margin-top: 20px;
     }
+
     .gradient-btn {
       background: linear-gradient(45deg, #ff758c, #ff7eb3);
       border: none;
@@ -71,22 +66,90 @@
       border-radius: 8px;
       transition: transform 0.2s;
     }
+
     .gradient-btn:hover {
       transform: scale(1.1);
     }
+
     .btn-lg-enlarged {
       transform: scale(1.5);
       transition: transform 0.3s ease-in-out;
     }
+
     .final-text {
       color: black;
       font-size: 1.2rem;
       font-weight: bold;
       margin-top: 15px;
     }
+
+    /* 🎉 Confetti Wrapper */
+    .confetti-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    /* 🎭 GIF Overlays */
+    .gif-overlay {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      height: auto;
+      z-index: 10;
+    }
+
+    /* 🦫 Capybara GIFs */
+    .capybara-gif {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      width: 250px;
+      height: auto;
+      z-index: 10;
+    }
+
+    .capy-left {
+      left: 10%;
+    }
+
+    .capy-right {
+      right: 10%;
+      transform: scaleX(-1); /* Flip horizontally */
+    }
+
+    /* 🎊 Celebratory Text */
+    .celebration-text {
+      position: absolute;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #ff4081;
+      animation: pop-in 0.5s ease-in-out;
+      opacity: 0;
+    }
+
+    @keyframes pop-in {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
   </style>
 </head>
 <body>
+
+<!-- Confetti Container -->
+<div class="confetti-wrapper" id="confetti"></div>
+
+<!-- GIF Overlays -->
+<img src="capyhappy.gif" class="capybara-gif capy-left" id="capybara-left">
+<img src="capyhappy.gif" class="capybara-gif capy-right" id="capybara-right">
+
 <div id="app">
   <div class="flashcard-container">
     <transition name="slide-right" mode="out-in">
@@ -94,36 +157,32 @@
         <div class="card-body">
           <h5 class="card-title">{{ currentCard.question }}</h5>
           <div class="btn-container">
-            <template v-if="currentCard.id === 1">
-              <button class="gradient-btn" @click="checkAnswer('correct')">So sudden and new?</button>
-              <button class="gradient-btn" @click="checkAnswer('wrong')">I felt the moment</button>
-              <button class="gradient-btn" @click="checkAnswer('wrong')">I laid eyes on you</button>
-            </template>
-            <template v-else-if="currentCard.id === 2">
-              <button class="gradient-btn" @click="nextCard">Wizard</button>
-              <button class="gradient-btn" @click="nextCard">Witch</button>
-            </template>
-            <template v-else-if="currentCard.id === 'final'">
+            <template v-if="currentCard.id === 'final'">
               <button class="btn btn-danger" @click="handleNoClick">No</button>
               <button class="btn btn-light btn-lg" :class="{'btn-lg-enlarged': enlargeYesButton}" @click="handleFinalAnswer">Yes</button>
             </template>
           </div>
-          <p v-if="showAnswer" class="final-text">Yay! Let's make this day unforgettable! 💖</p>
         </div>
       </div>
     </transition>
   </div>
 </div>
+
 <script>
   new Vue({
     el: '#app',
     data() {
       return {
-        showAnswer: false,
         enlargeYesButton: false,
+        showAnswer: false,
+        confettiRunning: false,
+        celebrationTexts: [
+          "You made the right choice!!!",
+          "Best decision ever!",
+          "Let's celebrate!",
+          "Yay! 🎉"
+        ],
         cards: [
-          { id: 1, question: 'Complete the lyrics: "What is this feeling so sudden & new?"' },
-          { id: 2, question: 'Are you a wizard or a witch?' },
           { id: 'final', question: 'Will you be my Valentine?' }
         ],
         currentCardIndex: 0
@@ -135,25 +194,34 @@
       }
     },
     methods: {
-      checkAnswer(answer) {
-        if (answer === 'correct') {
-          this.nextCard();
-        }
-      },
-      nextCard() {
-        if (this.currentCardIndex < this.cards.length - 1) {
-          this.currentCardIndex++;
-        }
-      },
-      handleNoClick() {
-        alert("Wrong answer! Are you sure? Try again!");
-        this.enlargeYesButton = true;
-      },
       handleFinalAnswer() {
         this.showAnswer = true;
+        document.getElementById("capybara-left").style.display = "block";
+        document.getElementById("capybara-right").style.display = "block";
+        this.showCelebrationText();
+      },
+      showCelebrationText() {
+        let card = document.querySelector(".flashcard");
+        this.celebrationTexts.forEach((text, index) => {
+          setTimeout(() => {
+            let textElement = document.createElement("div");
+            textElement.classList.add("celebration-text");
+            textElement.innerText = text;
+            textElement.style.top = Math.random() * 80 + "%";
+            textElement.style.left = Math.random() * 80 + "%";
+            card.appendChild(textElement);
+            textElement.style.opacity = 1;
+
+            // Remove text after a while
+            setTimeout(() => {
+              textElement.remove();
+            }, 3000);
+          }, index * 700);
+        });
       }
     }
   });
 </script>
+
 </body>
 </html>
