@@ -11,7 +11,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    /* 🌹 Gradient Background */
+    /* 🌹 Background Gradient + Blurred Rose Petal Overlay */
     body {
       background: linear-gradient(135deg, #a5d8a5, #f7c7d4);
       font-family: 'Arial', sans-serif;
@@ -24,7 +24,6 @@
       overflow: hidden;
     }
 
-    /* Blurred Rose Petal Overlay */
     body::before {
       content: "";
       position: fixed;
@@ -47,6 +46,7 @@
       text-align: center;
       display: inline-block;
       position: relative;
+      z-index: 5;
     }
 
     .btn-container {
@@ -76,14 +76,7 @@
       transition: transform 0.3s ease-in-out;
     }
 
-    .final-text {
-      color: black;
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-top: 15px;
-    }
-
-    /* 🎉 Confetti Wrapper */
+    /* 🎉 Confetti Wrapper (Top Layer) */
     .confetti-wrapper {
       position: fixed;
       top: 0;
@@ -92,18 +85,27 @@
       height: 100%;
       pointer-events: none;
       overflow: hidden;
+      z-index: 999;
     }
 
-    /* 🎭 GIF Overlays */
-    .gif-overlay {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 300px;
-      height: auto;
-      z-index: 10;
+    @keyframes confetti-fall {
+      0% {
+        transform: translateY(-100%) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0.8;
+      }
+    }
+
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 20px;
+      background: var(--confetti-color, red);
+      opacity: 0.9;
+      animation: confetti-fall var(--fall-duration, 4s) linear infinite;
     }
 
     /* 🦫 Capybara GIFs */
@@ -122,17 +124,30 @@
 
     .capy-right {
       right: 10%;
-      transform: scaleX(-1); /* Flip horizontally */
+      transform: scaleX(-1);
     }
 
-    /* 🎊 Celebratory Text */
+    /* 🎭 Transition GIF Overlays */
+    .gif-overlay {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      height: auto;
+      z-index: 10;
+    }
+
+    /* 🎊 Celebratory Text (Outside the Card) */
     .celebration-text {
-      position: absolute;
-      font-size: 1.5rem;
+      position: fixed;
+      font-size: 2rem;
       font-weight: bold;
       color: #ff4081;
-      animation: pop-in 0.5s ease-in-out;
       opacity: 0;
+      z-index: 1000;
+      animation: pop-in 0.5s ease-in-out forwards;
     }
 
     @keyframes pop-in {
@@ -146,7 +161,11 @@
 <!-- Confetti Container -->
 <div class="confetti-wrapper" id="confetti"></div>
 
-<!-- GIF Overlays -->
+<!-- GIF Overlays for Transitions -->
+<img src="wicked.gif" id="wicked" class="gif-overlay">
+<img src="ariana.gif" id="ariana" class="gif-overlay">
+
+<!-- Capybara Celebration GIFs -->
 <img src="capyhappy.gif" class="capybara-gif capy-left" id="capybara-left">
 <img src="capyhappy.gif" class="capybara-gif capy-right" id="capybara-right">
 
@@ -157,7 +176,21 @@
         <div class="card-body">
           <h5 class="card-title">{{ currentCard.question }}</h5>
           <div class="btn-container">
-            <template v-if="currentCard.id === 'final'">
+            <template v-if="currentCard.id === 1">
+              <button class="gradient-btn" @click="showGif('wicked')">So sudden and new?</button>
+              <button class="gradient-btn">I felt the moment</button>
+              <button class="gradient-btn">I laid eyes on you</button>
+            </template>
+            <template v-else-if="currentCard.id === 2">
+              <button class="gradient-btn" @click="showGif('ariana')">Wizard</button>
+              <button class="gradient-btn" @click="showGif('ariana')">Witch</button>
+            </template>
+            <template v-else-if="currentCard.id === 3">
+              <button class="gradient-btn" @click="nextCard">Ma, ano ulam</button>
+              <button class="gradient-btn">Wag puro selpon</button>
+              <button class="gradient-btn">Galaw galaw din</button>
+            </template>
+            <template v-else-if="currentCard.id === 'final'">
               <button class="btn btn-danger" @click="handleNoClick">No</button>
               <button class="btn btn-light btn-lg" :class="{'btn-lg-enlarged': enlargeYesButton}" @click="handleFinalAnswer">Yes</button>
             </template>
@@ -173,19 +206,16 @@
     el: '#app',
     data() {
       return {
+        currentCardIndex: 0,
         enlargeYesButton: false,
         showAnswer: false,
         confettiRunning: false,
-        celebrationTexts: [
-          "You made the right choice!!!",
-          "Best decision ever!",
-          "Let's celebrate!",
-          "Yay! 🎉"
-        ],
         cards: [
+          { id: 1, question: 'Complete the lyrics: "What is this feeling so sudden & new?"' },
+          { id: 2, question: 'Are you a wizard or a witch?' },
+          { id: 3, question: 'Complete the saying: "Shoutout sa mga kabataan dyan"' },
           { id: 'final', question: 'Will you be my Valentine?' }
-        ],
-        currentCardIndex: 0
+        ]
       };
     },
     computed: {
@@ -198,26 +228,16 @@
         this.showAnswer = true;
         document.getElementById("capybara-left").style.display = "block";
         document.getElementById("capybara-right").style.display = "block";
-        this.showCelebrationText();
       },
-      showCelebrationText() {
-        let card = document.querySelector(".flashcard");
-        this.celebrationTexts.forEach((text, index) => {
-          setTimeout(() => {
-            let textElement = document.createElement("div");
-            textElement.classList.add("celebration-text");
-            textElement.innerText = text;
-            textElement.style.top = Math.random() * 80 + "%";
-            textElement.style.left = Math.random() * 80 + "%";
-            card.appendChild(textElement);
-            textElement.style.opacity = 1;
-
-            // Remove text after a while
-            setTimeout(() => {
-              textElement.remove();
-            }, 3000);
-          }, index * 700);
-        });
+      showGif(id) {
+        document.getElementById(id).style.display = "block";
+        setTimeout(() => {
+          document.getElementById(id).style.display = "none";
+          this.nextCard();
+        }, 3000);
+      },
+      nextCard() {
+        this.currentCardIndex++;
       }
     }
   });
