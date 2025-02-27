@@ -16,8 +16,26 @@
 </head>
 <body>
   <div id="app">
+    <!-- MOBILE NAVIGATION (Hamburger menu for smaller screens) -->
+    <div class="mobile-nav-toggle d-lg-none">
+      <button 
+        class="btn btn-dark" 
+        @click="toggleMobileMenu"
+        aria-label="Toggle navigation menu"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+
     <!-- FLOATING NAV PANEL (Glassy / Semi-Transparent) -->
-    <aside class="side-panel">
+    <aside :class="['side-panel', {'mobile-active': mobileMenuActive}]">
+      <div class="d-lg-none mobile-nav-close">
+        <button 
+          class="btn btn-sm btn-outline-light" 
+          @click="toggleMobileMenu"
+          aria-label="Close menu"
+        >×</button>
+      </div>
       <nav class="nav flex-column">
         <a 
           class="nav-link" 
@@ -350,14 +368,29 @@
     const { createApp } = Vue;
     
     createApp({
+      data() {
+        return {
+          mobileMenuActive: false
+        }
+      },
       methods: {
         // Smoothly scroll to a specific section by ID
         scrollToSection(sectionId) {
           const el = document.getElementById(sectionId);
           if (el) {
             el.scrollIntoView({ behavior: 'smooth' });
+            // Close mobile menu after clicking a link
+            if (window.innerWidth < 992) {
+              this.mobileMenuActive = false;
+            }
           }
         },
+        // Toggle mobile menu
+        toggleMobileMenu() {
+          this.mobileMenuActive = !this.mobileMenuActive;
+          // Prevent scrolling when menu is open
+          document.body.style.overflow = this.mobileMenuActive ? 'hidden' : '';
+        }
       },
       mounted() {
         // Animate sections as they enter the viewport using IntersectionObserver
