@@ -4,16 +4,18 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #141414; /* Netflix-like dark background */
+    background-color: #141414;
     color: #f5f5f1;
     overflow-x: hidden;
     scroll-behavior: smooth;
   }
   
+  /* Keep each section spaced out */
   section {
     padding: 60px 0;
   }
   
+  /* Common headings */
   .section-title {
     font-weight: 700;
     margin-bottom: 40px;
@@ -25,10 +27,9 @@ body {
   .hero-section {
     position: relative;
     min-height: 100vh;
-    background: url('images/background-hero.jpg') no-repeat center center / cover;
+    background: url("images/background-hero.jpg") no-repeat center center / cover;
     overflow: hidden;
   }
-  
   .hero-overlay {
     position: absolute;
     top: 0; 
@@ -38,7 +39,6 @@ body {
     background: rgba(0,0,0,0.6);
     z-index: 1;
   }
-  
   .hero-content {
     position: relative;
     z-index: 2;
@@ -46,13 +46,11 @@ body {
     padding: 0 1rem;
     margin-top: 80px;
   }
-  
   .hero-title {
     font-size: 3rem;
     font-weight: 700;
     margin-bottom: 1rem;
   }
-  
   .hero-subtitle {
     font-size: 1.25rem;
     margin-bottom: 2rem;
@@ -93,36 +91,35 @@ body {
     100% { transform: translateY(0) translateX(0); }
   }
   
-  /* Side Panel */
+  /* Floating, Glassy Nav Panel */
   .side-panel {
     position: fixed;
-    top: 0; 
-    left: 0;
-    width: 180px;
-    height: 100%;
-    background: #222;
+    top: 50%;
+    left: 2rem;
+    transform: translateY(-50%);
+    width: 150px;
+    padding: 1rem;
+    border-radius: 12px;
+    /* Glass effect */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
     z-index: 999;
-    display: flex;
-    align-items: start;
-    padding-top: 2rem;
   }
-  
   .side-panel .nav-link {
     color: #f5f5f1;
     text-align: center;
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid #333;
+    padding: 0.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
     transition: background-color 0.2s ease;
   }
-  
   .side-panel .nav-link:hover {
-    background-color: #e50914; 
-    color: #fff;
+    background-color: rgba(229,9,20,0.7);
   }
   
-  /* Ensure main page content is offset from side panel */
+  /* No extra margin needed if floating nav */
   #page-content {
-    margin-left: 180px;
+    /* Keep full width for main content */
   }
   
   /* Cards, Skills, Projects, Contact, etc. */
@@ -132,7 +129,36 @@ body {
   }
   .card-header {
     background-color: #333;
+    padding: 1rem;
   }
+  .card-body {
+    padding: 1.25rem;
+  }
+  .exp-card {
+    width: 18rem !important;
+    margin: 1rem 0;
+  }
+  /* EXPERIENCE CARD FIXES */
+  .exp-card .card-body {
+    color: #fff; /* Explicit text color */
+  }
+  .exp-card ul {
+    color: #e0e0e0; /* Better contrast for list */
+    padding-left: 1.5rem; /* Proper bullet alignment */
+  }
+  .exp-card ul li {
+    margin-bottom: 0.5rem; /* Better spacing */
+    line-height: 1.4; /* Improved readability */
+  }
+  .exp-card .card-title {
+    color: #fff !important; /* Force white title */
+    font-weight: 600;
+  }
+  .card-duration {
+    color: #e50914 !important; /* Accent color for dates */
+    font-weight: 500;
+  }
+
   .skill-icon,
   .contact-icon {
     transition: transform 0.3s ease;
@@ -150,6 +176,33 @@ body {
     background-color: #e50914;
     border-color: #e50914;
   }
+  
+  /* Contact link styling */
+  .contact-link {
+    color: #f5f5f1;
+    transition: color 0.2s ease;
+  }
+  /* CONTACT SECTION FIXES */
+  .contact-icon {
+    width: 60px !important;
+    height: 60px !important;
+    object-fit: contain; /* Proper image scaling */
+    filter: brightness(0) invert(1); /* Make logos white */
+  }
+  .contact-link p {
+    color: #fff !important; /* Force white text */
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  .contact-link:hover p {
+    color: #e50914 !important; /* Hover effect */
+  }
+  #contact {
+    background-color: rgba(0, 0, 0, 0.8); /* Better contrast */
+    padding: 60px 0;
+  }
+
+  /* Footer */
   footer {
     background-color: #000;
     padding: 20px 0;
@@ -166,4 +219,3 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
-  
