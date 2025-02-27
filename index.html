@@ -1,167 +1,385 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loben Tipan's Portfolio</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="main.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Loben Tipan's Portfolio</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="main.css" />
 </head>
 <body>
-    <!-- Fixed Header -->
-    <header class="bg-dark text-white py-2 shadow-sm fixed-top">
-        <div class="container text-center">
-            <div class="d-flex justify-content-center align-items-center gap-3">
-                <img src="images/profile_new2.jpg" alt="Profile Picture" class="rounded-circle" width="50">
-                <h1 class="h5 mb-0">Loben Tipan</h1>
-                <a href="LobenTipan-RESUME-06_30_24.pdf" class="btn btn-outline-light btn-sm" target="_blank">Download CV</a>
-            </div>
-            <p class="mt-2 mb-0">Graduate Software Engineer<br>Crafting solutions, writing code, and solving real-world problems.</p>
+  <div id="app">
+    <!-- FIXED NAV PANEL (always visible) -->
+    <aside class="side-panel">
+      <nav class="nav flex-column">
+        <a 
+          class="nav-link" 
+          href="#hero" 
+          @click.prevent="scrollToSection('hero')"
+        >Hero</a>
+        <a 
+          class="nav-link" 
+          href="#about" 
+          @click.prevent="scrollToSection('about')"
+        >About</a>
+        <a 
+          class="nav-link" 
+          href="#skills" 
+          @click.prevent="scrollToSection('skills')"
+        >Skills</a>
+        <a 
+          class="nav-link" 
+          href="#experience" 
+          @click.prevent="scrollToSection('experience')"
+        >Experience</a>
+        <a 
+          class="nav-link" 
+          href="#projects" 
+          @click.prevent="scrollToSection('projects')"
+        >Projects</a>
+        <a 
+          class="nav-link" 
+          href="#contact" 
+          @click.prevent="scrollToSection('contact')"
+        >Contact</a>
+      </nav>
+    </aside>
+
+    <!-- PAGE CONTENT (All sections on one page) -->
+    <div id="page-content">
+      <!-- HERO SECTION -->
+      <section id="hero" class="hero-section">
+        <div class="hero-overlay"></div>
+        <!-- Floating animated elements -->
+        <div class="floating-element one"></div>
+        <div class="floating-element two"></div>
+        <div class="floating-element three"></div>
+        <div class="hero-content container">
+          <img 
+            src="images/profile_new2.jpg" 
+            alt="Profile Picture" 
+            class="rounded-circle mb-3" 
+            width="100"
+          />
+          <h1 class="hero-title">Loben Tipan</h1>
+          <p class="hero-subtitle">
+            Graduate Software Engineer<br>
+            Crafting solutions, writing code, and solving real-world problems.
+          </p>
+          <a 
+            href="LobenTipan-RESUME-06_30_24.pdf" 
+            class="btn btn-danger" 
+            target="_blank"
+          >
+            Download CV
+          </a>
         </div>
-    </header>
-
-    <main class="mt-5 pt-5">
-        <!-- About Me Section -->
-        <section id="about" class="about-section py-5 fade">
-            <div class="container">
-                <h2 class="text-center mb-4">About Me</h2>
-                <div class="mx-auto" style="max-width: 800px;">
-                    <p class="text-center mb-3">
-                        Hi! I'm Loben Klien Tipan, a passionate software engineer and a recent graduate from De La Salle University with a degree in Software Technology.
-                    </p>
-                    <p class="text-center">
-                        I currently work as a Graduate Software Engineer at a leading tech company, where I apply my skills in software development and problem-solving to create impactful solutions.
-                        Outside of work, I enjoy motorsports, basketball, and watching movies. I have consistently achieved academic excellence, earning recognition as a Dean's Lister during my university years.
-                    </p>
-                </div>
+      </section>
+      
+      <!-- ABOUT SECTION -->
+      <section id="about" class="animate-section">
+        <div class="container">
+          <h2 class="section-title">About Me</h2>
+          <div class="row justify-content-center">
+            <div class="col-md-8">
+              <p class="text-center mb-4">
+                Hi! I'm Loben Klien Tipan, a passionate software engineer and a 
+                recent graduate from De La Salle University with a degree in 
+                Software Technology.
+              </p>
+              <p class="text-center">
+                I currently work as a Graduate Software Engineer at a leading 
+                tech company, where I apply my skills in software development 
+                and problem-solving to create impactful solutions. Outside of 
+                work, I enjoy motorsports, basketball, and watching movies. I 
+                have consistently achieved academic excellence, earning 
+                recognition as a Dean's Lister during my university years.
+              </p>
             </div>
-        </section>
-
-        <!-- Skills Section -->
-        <section id="skills" class="skills-section py-5 bg-light fade">
-            <div class="container">
-                <h2 class="text-center mb-4">Skills & Abilities</h2>
-                <div class="d-flex justify-content-center flex-wrap gap-4">
-                    <div class="text-center">
-                        <img src="images/html-logo.png" alt="HTML Logo" class="img-fluid" width="60">
-                        <p class="mt-2">HTML</p>
-                    </div>
-                    <div class="text-center">
-                        <img src="images/css-logo.png" alt="CSS Logo" class="img-fluid" width="60">
-                        <p class="mt-2">CSS</p>
-                    </div>
-                    <div class="text-center">
-                        <img src="images/python-logo.jpg" alt="Python Logo" class="img-fluid" width="60">
-                        <p class="mt-2">Python</p>
-                    </div>
-                    <div class="text-center">
-                        <img src="images/java-logo.png" alt="Java Logo" class="img-fluid" width="60">
-                        <p class="mt-2">Java</p>
-                    </div>
-                    <div class="text-center">
-                        <img src="images/mysql.png" alt="SQL Logo" class="img-fluid" width="60">
-                        <p class="mt-2">SQL</p>
-                    </div>
-                </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- SKILLS SECTION -->
+      <section id="skills" class="animate-section bg-dark">
+        <div class="container">
+          <h2 class="section-title">Skills & Abilities</h2>
+          <div 
+            class="d-flex justify-content-center flex-wrap gap-5" 
+            style="max-width: 800px; margin: 0 auto;"
+          >
+            <div class="text-center">
+              <img 
+                src="images/html-logo.png" 
+                alt="HTML" 
+                class="img-fluid skill-icon" 
+                width="60"
+              />
+              <p class="mt-2">HTML</p>
             </div>
-        </section>
-
-        <!-- Experience Section -->
-        <section id="experience" class="experience-section py-5 fade">
-            <div class="container">
-                <h2 class="text-center mb-4">Experience</h2>
-                <div class="d-flex flex-wrap justify-content-center gap-4">
-                    <!-- Graduate Software Engineer -->
-                    <div class="card shadow-sm" style="width: 18rem;">
-                        <div class="card-header text-center bg-light">
-                            <img src="images/itrslogo.jpg" alt="Company Logo" class="img-fluid" width="100" style="padding: 1rem;">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Graduate Software Engineer</h5>
-                            <p class="card-text text-center text-muted">ITRS (2024 - Present)</p>
-                            <ul>
-                                <li>Developed scalable software solutions addressing real-world problems.</li>
-                                <li>Collaborated with cross-functional teams to design and implement features.</li>
-                                <li>Wrote clean, efficient, and well-documented code.</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Coca-Cola Internship -->
-                    <div class="card shadow-sm" style="width: 18rem;">
-                        <div class="card-header text-center bg-light">
-                            <img src="images/cola.logo.jpg" alt="Company Logo" class="img-fluid" width="100" style="padding: 1rem;">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Insights & Analytics Intern</h5>
-                            <p class="card-text text-center text-muted">Coca-Cola Beverages Philippines Inc. (March - July 2024)</p>
-                            <ul>
-                                <li>Conducted detailed analysis of sales trends and provided actionable insights.</li>
-                                <li>Developed Python scripts for efficient data extraction.</li>
-                                <li>Utilized advanced Excel functionalities to synthesize customer behavior data.</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Shopee Internship -->
-                    <div class="card shadow-sm" style="width: 18rem;">
-                        <div class="card-header text-center bg-light">
-                            <img src="images/shopee.logo.png" alt="Company Logo" class="img-fluid" width="100" style="padding: 1rem;">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Product Management Intern</h5>
-                            <p class="card-text text-center text-muted">Shopee Philippines Inc. (May - September 2023)</p>
-                            <ul>
-                                <li>Ensured successful User Acceptance Testing (UATs) for new features.</li>
-                                <li>Presented and explained features to stakeholders through demos.</li>
-                                <li>Developed training materials to streamline knowledge transfer.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+            <div class="text-center">
+              <img 
+                src="images/css-logo.png" 
+                alt="CSS" 
+                class="img-fluid skill-icon" 
+                width="60"
+              />
+              <p class="mt-2">CSS</p>
             </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="projects-section py-5 bg-light fade">
-            <div class="container">
-                <h2 class="text-center mb-4">Projects</h2>
-                <div class="d-flex justify-content-center flex-wrap gap-3">
-                    <a href="projects/todo.html" target="_blank" class="btn btn-outline-primary">To-Do App (Vue + Tailwind)</a>
-                    <a href="projects/weather.html" target="_blank" class="btn btn-outline-primary">Weather App (Vue + Tailwind)</a>
-                    <a href="projects/blog-try.html" target="_blank" class="btn btn-outline-primary">Sample Gallery (HTML + CSS)</a>
-                    <a href="projects/expenselogger.html" target="_blank" class="btn btn-outline-primary">Expense Logger (JavaScript + jQuery)</a>
-                    <a href="projects/font-tester.html" target="_blank" class="btn btn-outline-primary">Font Testing Page</a>
-                    <a href="projects/profile.html" target="_blank" class="btn btn-outline-primary">Profile Page</a>
-                </div>
+            <div class="text-center">
+              <img 
+                src="images/python-logo.jpg" 
+                alt="Python" 
+                class="img-fluid skill-icon" 
+                width="60"
+              />
+              <p class="mt-2">Python</p>
             </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="contact-section py-5 fade">
-            <div class="container">
-                <h2 class="text-center mb-4">Contact Me</h2>
-                <div class="d-flex justify-content-center gap-5">
-                    <a href="https://www.linkedin.com/in/lobentipan/" target="_blank" class="text-decoration-none">
-                        <img src="images/LinkedIn_icon_circle.svg.png" alt="LinkedIn" class="img-fluid" width="60">
-                        <p class="mt-2 text-center">LinkedIn</p>
-                    </a>
-                    <a href="mailto:lobentipan24@gmail.com" target="_blank" class="text-decoration-none">
-                        <img src="images/Gmail-logo.png" alt="Email" class="img-fluid" width="60">
-                        <p class="mt-2 text-center">Email</p>
-                    </a>
-                    <a href="https://github.com/LobenKT" target="_blank" class="text-decoration-none">
-                        <img src="images/github-logo.png" alt="GitHub" class="img-fluid" width="60">
-                        <p class="mt-2 text-center">GitHub</p>
-                    </a>
-                </div>
+            <div class="text-center">
+              <img 
+                src="images/java-logo.png" 
+                alt="Java" 
+                class="img-fluid skill-icon" 
+                width="60"
+              />
+              <p class="mt-2">Java</p>
             </div>
-        </section>
-    </main>
-
-    <footer class="footer bg-dark text-white text-center py-3">
-        <p>© 2025 Loben Tipan</p>
+            <div class="text-center">
+              <img 
+                src="images/mysql.png" 
+                alt="SQL" 
+                class="img-fluid skill-icon" 
+                width="60"
+              />
+              <p class="mt-2">SQL</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- EXPERIENCE SECTION -->
+      <section id="experience" class="animate-section">
+        <div class="container">
+          <h2 class="section-title">Experience</h2>
+          <div class="d-flex flex-wrap justify-content-center gap-4">
+            <!-- Graduate Software Engineer -->
+            <div class="card shadow-sm" style="width: 18rem;">
+              <div class="card-header text-center">
+                <img 
+                  src="images/itrslogo.jpg" 
+                  alt="Company Logo" 
+                  class="img-fluid" 
+                  width="100" 
+                  style="padding: 1rem;"
+                />
+              </div>
+              <div class="card-body p-3">
+                <h5 class="card-title text-center">Graduate Software Engineer</h5>
+                <p class="card-text text-center" style="color: #ccc;">
+                  ITRS (2024 - Present)
+                </p>
+                <ul>
+                  <li>Developed scalable software solutions addressing real-world problems.</li>
+                  <li>Collaborated with cross-functional teams.</li>
+                  <li>Wrote clean, efficient, and well-documented code.</li>
+                </ul>
+              </div>
+            </div>
+            <!-- Coca-Cola Internship -->
+            <div class="card shadow-sm" style="width: 18rem;">
+              <div class="card-header text-center">
+                <img 
+                  src="images/cola.logo.jpg" 
+                  alt="Company Logo" 
+                  class="img-fluid" 
+                  width="100" 
+                  style="padding: 1rem;"
+                />
+              </div>
+              <div class="card-body p-3">
+                <h5 class="card-title text-center">Insights & Analytics Intern</h5>
+                <p class="card-text text-center" style="color: #ccc;">
+                  Coca-Cola Beverages Philippines Inc. (Mar - Jul 2024)
+                </p>
+                <ul>
+                  <li>Conducted detailed analysis of sales trends and provided actionable insights.</li>
+                  <li>Developed Python scripts for efficient data extraction.</li>
+                  <li>Utilized advanced Excel functionalities to synthesize customer behavior data.</li>
+                </ul>
+              </div>
+            </div>
+            <!-- Shopee Internship -->
+            <div class="card shadow-sm" style="width: 18rem;">
+              <div class="card-header text-center">
+                <img 
+                  src="images/shopee.logo.png" 
+                  alt="Company Logo" 
+                  class="img-fluid" 
+                  width="100" 
+                  style="padding: 1rem;"
+                />
+              </div>
+              <div class="card-body p-3">
+                <h5 class="card-title text-center">Product Management Intern</h5>
+                <p class="card-text text-center" style="color: #ccc;">
+                  Shopee Philippines Inc. (May - Sep 2023)
+                </p>
+                <ul>
+                  <li>Ensured successful User Acceptance Testing (UATs).</li>
+                  <li>Presented and explained features to stakeholders.</li>
+                  <li>Developed training materials to streamline knowledge transfer.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- PROJECTS SECTION -->
+      <section id="projects" class="animate-section bg-dark">
+        <div class="container">
+          <h2 class="section-title">Projects</h2>
+          <div class="d-flex justify-content-center flex-wrap gap-3">
+            <a 
+              href="projects/todo.html" 
+              target="_blank" 
+              class="btn btn-outline-light project-btn"
+            >
+              To-Do App (Vue + Tailwind)
+            </a>
+            <a 
+              href="projects/weather.html" 
+              target="_blank" 
+              class="btn btn-outline-light project-btn"
+            >
+              Weather App (Vue + Tailwind)
+            </a>
+            <a 
+              href="projects/blog-try.html" 
+              target="_blank" 
+              class="btn btn-outline-light project-btn"
+            >
+              Sample Gallery (HTML + CSS)
+            </a>
+            <a 
+              href="projects/expenselogger.html" 
+              target="_blank" 
+              class="btn btn-outline-light project-btn"
+            >
+              Expense Logger (JavaScript + jQuery)
+            </a>
+            <a 
+              href="projects/font-tester.html" 
+              target="_blank" 
+              class="btn btn-outline-light project-btn"
+            >
+              Font Testing Page
+            </a>
+            <a 
+              href="projects/profile.html" 
+              target="_blank" 
+              class="btn btn-outline-light project-btn"
+            >
+              Profile Page
+            </a>
+          </div>
+        </div>
+      </section>
+      
+      <!-- CONTACT SECTION -->
+      <section id="contact" class="animate-section">
+        <div class="container">
+          <h2 class="section-title">Contact Me</h2>
+          <div class="d-flex justify-content-center gap-5 flex-wrap">
+            <a 
+              href="https://www.linkedin.com/in/lobentipan/" 
+              target="_blank" 
+              class="text-decoration-none text-center"
+            >
+              <img 
+                src="images/LinkedIn_icon_circle.svg.png" 
+                alt="LinkedIn" 
+                class="contact-icon"
+              />
+              <p class="mt-2">LinkedIn</p>
+            </a>
+            <a 
+              href="mailto:lobentipan24@gmail.com" 
+              target="_blank" 
+              class="text-decoration-none text-center"
+            >
+              <img 
+                src="images/Gmail-logo.png" 
+                alt="Email" 
+                class="contact-icon"
+              />
+              <p class="mt-2">Email</p>
+            </a>
+            <a 
+              href="https://github.com/LobenKT" 
+              target="_blank" 
+              class="text-decoration-none text-center"
+            >
+              <img 
+                src="images/github-logo.png" 
+                alt="GitHub" 
+                class="contact-icon"
+              />
+              <p class="mt-2">GitHub</p>
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+    
+    <!-- FOOTER -->
+    <footer>
+      <p>© 2025 Loben Tipan</p>
     </footer>
+  </div>
+  
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Vue.js (CDN) -->
+  <script src="https://unpkg.com/vue@3"></script>
+  
+  <script>
+    const { createApp } = Vue;
+    
+    createApp({
+      methods: {
+        // Smoothly scroll to a specific section by ID
+        scrollToSection(sectionId) {
+          const el = document.getElementById(sectionId);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        },
+      },
+      mounted() {
+        // Animate sections as they enter the viewport using IntersectionObserver
+        const options = { threshold: 0.3 };
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, options);
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="index.js"></script>
+        document
+          .querySelectorAll('.animate-section')
+          .forEach(section => observer.observe(section));
+      }
+    }).mount('#app');
+  </script>
 </body>
 </html>

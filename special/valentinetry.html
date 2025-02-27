@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Growing Red Rose Animation</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body class="bg-sky-100 min-h-screen flex items-center justify-center">
+    <div id="app" class="text-center">
+        <button
+            @click="animateRose"
+            :disabled="isAnimating"
+            class="mb-8 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
+        >
+            {{ animationState }}
+        </button>
+
+        <div class="relative w-64 h-96 mx-auto flex justify-center">
+            <div class="absolute bottom-0 w-full h-8 bg-brown-600 rounded-t-lg"></div>
+
+            <div
+                ref="stem"
+                class="absolute bottom-8 w-3 bg-green-500 origin-bottom transform scale-y-0"
+                style="height: 0"
+            ></div>
+
+            <div class="absolute bottom-24 transform origin-bottom" ref="flower">
+                <div class="absolute w-8 h-8 bg-yellow-400 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
+
+                <div
+                    v-for="(petal, index) in petals"
+                    :key="index"
+                    ref="petals"
+                    class="absolute w-12 h-12 bg-red-500 rounded-full opacity-0 scale-0"
+                    :style="petal.style"
+                >
+
+                <div
+                    ref="leaf"
+                    class="absolute left-1/2 w-6 h-8 bg-green-500 opacity-0 scale-0 rounded-full transform -rotate-45 origin-bottom"
+                    style="top: -30px"
+                ></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    isAnimating: false,
+                    animationState: 'Grow Rose',
+                    petals: Array.from({length: 12}, (_, i) => ({
+                        style: {
+                            transform: `rotate(${i * 30}deg)`
+                        }
+                    }))
+                }
+            },
+            methods: {
+                async animateRose() {
+                    if (this.isAnimating) return;
+
+                    this.isAnimating = true;
+
+                    if (this.animationState === 'Grow Rose') {
+                        await this.grow();
+                        this.animationState = 'Reset';
+                    } else {
+                        await this.reset();
+                        this.animationState = 'Grow Rose';
+                    }
+
+                    this.isAnimating = false;
+                },
+                grow() {
+                    const tl = gsap.timeline();
+
+                    // Animate stem growth
+                    tl.to(this.$refs.stem, {
+                        duration: 1.5,
+                        height: 300,
+                        scaleY: 1,
+                        ease: "power2.out"
+                    });
+
+                    // Animate leaf appearance, slightly overlapping with stem growth
+                    tl.to(this.$refs.leaf, {
+                        duration: 0.5,
+                        scale: 1,
+                        opacity: 1,
+                        ease: "back.out(2)"
+                    }, "-=0.5");
+
+                    // Animate petals appearance
+                    tl.to(this.$refs.petals, {
+                        duration: 1.5,
+                        scale: 1,
+                        opacity: 1,
+                        stagger: 0.1, // Stagger the animation of each petal
+                        ease: "elastic.out(1, 0.5)",
+                        transformOrigin: "center center",
+                        transform: (index) => `rotate(${index * 30}deg) translate(40px)`
+                    }, "-=0.5");
+
+                    return tl;
+                },
+                reset() {
+                    const tl = gsap.timeline();
+
+                    tl.to(this.$refs.petals, {
+                        duration: 0.8,
+                        scale: 0,
+                        opacity: 0,
+                        stagger: 0.05,
+                        ease: "power2.in"
+                    });
+
+                    tl.to(this.$refs.leaf, {
+                        duration: 0.3,
+                        scale: 0,
+                        opacity: 0,
+                        ease: "power2.in"
+                    }, "-=0.2");
+
+                    tl.to(this.$refs.stem, {
+                        duration: 1,
+                        height: 0,
+                        scaleY: 0,
+                        ease: "power2.in"
+                    });
+
+                    return tl;
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

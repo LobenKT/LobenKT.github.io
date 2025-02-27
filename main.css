@@ -1,28 +1,169 @@
-/* Header */
-header {
-    padding-bottom: 0.5rem;
-}
+/* main.css */
 
-/* About Me Section */
-.about-section {
-    padding-top: 5rem; /* Adjust padding */
-    padding-bottom: 5rem;
-}
-
-.about-section p {
-    font-size: 1rem;
-    line-height: 1.8;
-    color: #333;
-}
-
-/* Section Animations */
-section.fade {
+/* Global Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #141414; /* Netflix-like dark background */
+    color: #f5f5f1;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+  
+  section {
+    padding: 60px 0;
+  }
+  
+  .section-title {
+    font-weight: 700;
+    margin-bottom: 40px;
+    text-align: center;
+    color: #fff;
+  }
+  
+  /* Hero Section */
+  .hero-section {
+    position: relative;
+    min-height: 100vh;
+    background: url('images/background-hero.jpg') no-repeat center center / cover;
+    overflow: hidden;
+  }
+  
+  .hero-overlay {
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 1;
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 1rem;
+    margin-top: 80px;
+  }
+  
+  .hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+  }
+  
+  /* Floating animated elements in hero */
+  .floating-element {
+    position: absolute;
+    background: rgba(229,9,20,0.7); /* Netflix red w/ transparency */
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: float 8s ease-in-out infinite;
+  }
+  .floating-element.one {
+    width: 30px;
+    height: 30px;
+    top: 20%;
+    left: 10%;
+    animation-duration: 10s;
+  }
+  .floating-element.two {
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 80%;
+    animation-duration: 12s;
+  }
+  .floating-element.three {
+    width: 25px;
+    height: 25px;
+    top: 70%;
+    left: 30%;
+    animation-duration: 14s;
+  }
+  @keyframes float {
+    0% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(-20px) translateX(10px); }
+    100% { transform: translateY(0) translateX(0); }
+  }
+  
+  /* Side Panel */
+  .side-panel {
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 180px;
+    height: 100%;
+    background: #222;
+    z-index: 999;
+    display: flex;
+    align-items: start;
+    padding-top: 2rem;
+  }
+  
+  .side-panel .nav-link {
+    color: #f5f5f1;
+    text-align: center;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #333;
+    transition: background-color 0.2s ease;
+  }
+  
+  .side-panel .nav-link:hover {
+    background-color: #e50914; 
+    color: #fff;
+  }
+  
+  /* Ensure main page content is offset from side panel */
+  #page-content {
+    margin-left: 180px;
+  }
+  
+  /* Cards, Skills, Projects, Contact, etc. */
+  .card {
+    background-color: #222;
+    border: none;
+  }
+  .card-header {
+    background-color: #333;
+  }
+  .skill-icon,
+  .contact-icon {
+    transition: transform 0.3s ease;
+  }
+  .skill-icon:hover,
+  .contact-icon:hover {
+    transform: scale(1.1);
+  }
+  .project-btn {
+    border-color: #f5f5f1;
+    color: #f5f5f1;
+    transition: all 0.3s ease;
+  }
+  .project-btn:hover {
+    background-color: #e50914;
+    border-color: #e50914;
+  }
+  footer {
+    background-color: #000;
+    padding: 20px 0;
+    text-align: center;
+  }
+  
+  /* Fade & Slide Up Animation on Scroll */
+  .animate-section {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-section.fade.show {
+    transform: translateY(20px);
+    transition: all 0.8s ease;
+  }
+  .animate-section.visible {
     opacity: 1;
     transform: translateY(0);
-}
+  }
+  
