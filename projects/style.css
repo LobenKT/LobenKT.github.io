@@ -1,0 +1,131 @@
+body {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+#game-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+}
+
+h1 {
+    color: #0056b3;
+    margin-bottom: 20px;
+}
+
+#score-board {
+    background-color: #e9ecef;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+#score-board p {
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+#status-message {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    min-height: 25px; /* Prevent layout shifts */
+    font-weight: bold;
+    color: #d9534f;
+}
+
+.input-section {
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+}
+
+.input-section label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.input-section input[type="text"] {
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-transform: uppercase; /* Force uppercase */
+    width: 50px; /* Fixed width for letter inputs */
+    text-align: center;
+}
+
+#word-input {
+     width: calc(100% - 140px); /* Adjust width relative to button */
+     text-transform: none; /* Allow lowercase for words */
+     text-align: left;
+}
+
+
+button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+
+#chosen-letters-display {
+    margin-top: 15px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+#chosen-letters-display span {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #ffc107;
+    color: #333;
+    border-radius: 4px;
+    margin: 0 5px;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+    min-height: 15px; /* Prevent layout shifts */
+}
+
+#round-result, #game-over {
+     margin-top: 20px;
+     padding: 15px;
+     border: 1px dashed #28a745;
+     border-radius: 5px;
+     background-color: #eaf7ea;
+}
+
+#game-over h2 {
+    color: #dc3545;
+}
