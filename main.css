@@ -74,6 +74,13 @@ body {
   transition: background-color var(--transition-normal);
 }
 
+/* Prevent body scroll when mobile menu is open */
+body.menu-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
 body.loaded {
   opacity: 1;
 }
@@ -203,11 +210,16 @@ p {
   justify-content: center;
   cursor: pointer;
   transition: all var(--transition-normal);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .mobile-nav-toggle:hover {
   background: var(--primary-color);
   transform: scale(1.1);
+}
+
+.mobile-nav-toggle:active {
+  transform: scale(0.95);
 }
 
 .hamburger-line {
@@ -262,6 +274,7 @@ p {
   border: 1px solid var(--border-color);
   z-index: 999;
   transition: all var(--transition-normal);
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Desktop styles */
@@ -287,6 +300,8 @@ p {
     justify-content: center;
     align-items: center;
     padding: var(--spacing-2xl);
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
   }
   
   .side-panel.mobile-active {
@@ -295,8 +310,21 @@ p {
   
   .mobile-nav-close {
     position: absolute;
-    top: var(--spacing-xl);
-    right: var(--spacing-xl);
+    top: var(--spacing-lg);
+    right: var(--spacing-lg);
+    z-index: 1001;
+  }
+  
+  .side-panel .nav {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .side-panel .nav-link {
+    padding: var(--spacing-lg);
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-sm);
+    border-radius: var(--radius-md);
   }
 }
 
@@ -1231,12 +1259,25 @@ p {
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
+
+/* Medium screens */
 @media (max-width: 768px) {
   :root {
     --font-size-5xl: 2.5rem;
     --font-size-4xl: 2rem;
     --font-size-3xl: 1.5rem;
     --font-size-2xl: 1.25rem;
+  }
+  
+  /* Mobile navigation adjustments for medium screens */
+  .mobile-nav-toggle {
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+  }
+  
+  .side-panel .nav-link {
+    padding: var(--spacing-md);
+    font-size: var(--font-size-base);
   }
   
   .hero-title {
@@ -1339,6 +1380,43 @@ p {
   
   .about-stats {
     grid-template-columns: 1fr;
+  }
+  
+  /* Mobile navigation adjustments for very small screens */
+  .mobile-nav-toggle {
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    width: 45px;
+    height: 45px;
+  }
+  
+  .hamburger-line,
+  .hamburger-line::before,
+  .hamburger-line::after {
+    width: 18px;
+    height: 2px;
+  }
+  
+  .hamburger-line::before {
+    top: -5px;
+  }
+  
+  .hamburger-line::after {
+    bottom: -5px;
+  }
+  
+  .side-panel {
+    padding: var(--spacing-xl) var(--spacing-lg);
+  }
+  
+  .mobile-nav-close {
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+  }
+  
+  .side-panel .nav-link {
+    padding: var(--spacing-md);
+    font-size: var(--font-size-base);
   }
 }
 

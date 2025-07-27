@@ -263,7 +263,13 @@ createApp({
       this.mobileMenuActive = !this.mobileMenuActive;
       
       // Prevent scrolling when menu is open
-      document.body.style.overflow = this.mobileMenuActive ? 'hidden' : '';
+      if (this.mobileMenuActive) {
+        document.body.classList.add('menu-open');
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.classList.remove('menu-open');
+        document.body.style.overflow = '';
+      }
       
       // Update ARIA attributes
       const toggleButton = document.querySelector('.mobile-nav-toggle');
