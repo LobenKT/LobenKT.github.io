@@ -144,7 +144,7 @@ createApp({
           id: 1,
           name: 'Harbor.ph',
           description: 'Full-stack events marketplace platform for the Philippines. Built with Vue.js, Bootstrap, and Firebase. Successfully launched with multiple public events.',
-          image: 'images/harbor-preview.jpg',
+          image: 'images/harborph_ss.png',
           link: 'https://harbor.ph',
           technologies: ['Vue.js', 'Bootstrap', 'Firebase', 'JavaScript', 'CSS3'],
           featured: true
