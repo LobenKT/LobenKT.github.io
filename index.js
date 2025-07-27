@@ -139,6 +139,32 @@ createApp({
           ]
         }
       ],
+      publications: [
+        {
+          id: 1,
+          title: 'TinyFSL: Tiny Machine Learning for Filipino Sign Language',
+          authors: 'Loben Klien Tipan, Alyanna Mari Abalos, Alyana Erin Bondoc, Justin Jarrett To, Joanna Pauline Rivera, Ann Franchesca Laguna, Edward Tighe',
+          venue: 'Proceedings of the 38th Pacific Asia Conference on Language, Information and Computation (PACLIC 2024)',
+          year: '2024',
+          pages: '1504-1513',
+          location: 'Tokyo, Japan',
+          link: 'https://aclanthology.org/2024.paclic-1.148/',
+          doi: 'https://aclanthology.org/2024.paclic-1.148/',
+          featured: true
+        },
+        {
+          id: 2,
+          title: 'Your Second Publication Title',
+          authors: 'Loben Klien Tipan, [Other Authors]',
+          venue: 'ACM Conference/Journal Name',
+          year: '2024',
+          pages: 'Page Range',
+          location: 'Conference Location',
+          link: 'https://dl.acm.org/doi/abs/10.1145/3711542.3711557',
+          doi: '10.1145/3711542.3711557',
+          featured: false
+        }
+      ],
       projects: [
         {
           id: 1,
@@ -353,7 +379,7 @@ createApp({
     // Preload critical images
     preloadImages() {
       const criticalImages = [
-        'images/profile_new2.jpg',
+        'images/gradpic.jpg',
         'images/itrslogo.jpg',
         'images/cola.logo.jpg',
         'images/shopee.logo.png'
