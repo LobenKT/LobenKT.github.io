@@ -3,7 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Loben Tipan's Portfolio</title>
+  <meta name="description" content="Loben Tipan - Graduate Software Engineer Portfolio. Crafting solutions, writing code, and solving real-world problems.">
+  <meta name="keywords" content="software engineer, developer, portfolio, Loben Tipan, ITRS, Coca-Cola, Shopee">
+  <meta name="author" content="Loben Tipan">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://lobenkt.github.io/">
+  <meta property="og:title" content="Loben Tipan - Software Engineer Portfolio">
+  <meta property="og:description" content="Graduate Software Engineer crafting solutions and solving real-world problems.">
+  <meta property="og:image" content="images/profile_new2.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://lobenkt.github.io/">
+  <meta property="twitter:title" content="Loben Tipan - Software Engineer Portfolio">
+  <meta property="twitter:description" content="Graduate Software Engineer crafting solutions and solving real-world problems.">
+  <meta property="twitter:image" content="images/profile_new2.jpg">
+  
+  <title>Loben Tipan - Software Engineer Portfolio</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="images/favicon.jpg">
   
   <!-- Bootstrap 5 CSS -->
   <link
@@ -11,244 +32,293 @@
     rel="stylesheet"
   />
   
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
   <!-- Custom CSS -->
   <link rel="stylesheet" href="main.css" />
 </head>
 <body>
   <div id="app">
-    <!-- MOBILE NAVIGATION (Hamburger menu for smaller screens) -->
-    <div class="mobile-nav-toggle d-lg-none">
-      <button 
-        class="btn btn-dark" 
-        @click="toggleMobileMenu"
-        aria-label="Toggle navigation menu"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <!-- FLOATING NAV PANEL (Glassy / Semi-Transparent) -->
-    <aside :class="['side-panel', {'mobile-active': mobileMenuActive}]">
+    <!-- MOBILE NAVIGATION TOGGLE -->
+    <button 
+      class="mobile-nav-toggle d-lg-none"
+      @click="toggleMobileMenu"
+      aria-label="Toggle navigation menu"
+      aria-expanded="false"
+      aria-controls="side-panel"
+    >
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+
+    <!-- FLOATING NAVIGATION PANEL -->
+    <aside 
+      id="side-panel"
+      :class="['side-panel', {'mobile-active': mobileMenuActive}]"
+      role="navigation"
+      aria-label="Main navigation"
+    >
       <div class="d-lg-none mobile-nav-close">
         <button 
           class="btn btn-sm btn-outline-light" 
           @click="toggleMobileMenu"
           aria-label="Close menu"
-        >×</button>
+        >
+          <i class="fas fa-times"></i>
+        </button>
       </div>
+      
       <nav class="nav flex-column">
         <a 
           class="nav-link" 
           href="#hero" 
           @click.prevent="scrollToSection('hero')"
-        >Hero</a>
+          :class="{ 'active': activeSection === 'hero' }"
+        >
+          <i class="fas fa-home"></i>
+          <span>Home</span>
+        </a>
         <a 
           class="nav-link" 
           href="#about" 
           @click.prevent="scrollToSection('about')"
-        >About</a>
+          :class="{ 'active': activeSection === 'about' }"
+        >
+          <i class="fas fa-user"></i>
+          <span>About</span>
+        </a>
         <a 
           class="nav-link" 
           href="#skills" 
           @click.prevent="scrollToSection('skills')"
-        >Skills</a>
+          :class="{ 'active': activeSection === 'skills' }"
+        >
+          <i class="fas fa-code"></i>
+          <span>Skills</span>
+        </a>
         <a 
           class="nav-link" 
           href="#experience" 
           @click.prevent="scrollToSection('experience')"
-        >Experience</a>
+          :class="{ 'active': activeSection === 'experience' }"
+        >
+          <i class="fas fa-briefcase"></i>
+          <span>Experience</span>
+        </a>
         <a 
           class="nav-link" 
           href="#projects" 
           @click.prevent="scrollToSection('projects')"
-        >Projects</a>
+          :class="{ 'active': activeSection === 'projects' }"
+        >
+          <i class="fas fa-project-diagram"></i>
+          <span>Projects</span>
+        </a>
         <a 
           class="nav-link" 
           href="#contact" 
           @click.prevent="scrollToSection('contact')"
-        >Contact</a>
+          :class="{ 'active': activeSection === 'contact' }"
+        >
+          <i class="fas fa-envelope"></i>
+          <span>Contact</span>
+        </a>
       </nav>
     </aside>
 
-    <!-- PAGE CONTENT (All sections on one page) -->
-    <div id="page-content">
+    <!-- MAIN CONTENT -->
+    <main id="main-content">
       <!-- HERO SECTION -->
       <section id="hero" class="hero-section">
         <div class="hero-overlay"></div>
-        <!-- Floating animated elements -->
-        <div class="floating-element one"></div>
-        <div class="floating-element two"></div>
-        <div class="floating-element three"></div>
+        
+        <!-- Animated background elements -->
+        <div class="hero-background">
+          <div class="floating-element one"></div>
+          <div class="floating-element two"></div>
+          <div class="floating-element three"></div>
+          <div class="floating-element four"></div>
+          <div class="floating-element five"></div>
+        </div>
+        
         <div class="hero-content container">
-          <img 
-            src="images/profile_new2.jpg" 
-            alt="Profile Picture" 
-            class="rounded-circle mb-3" 
-            width="100"
-          />
-          <h1 class="hero-title">Loben Tipan</h1>
-          <p class="hero-subtitle">
-            Graduate Software Engineer<br>
-            Crafting solutions, writing code, and solving real-world problems.
-          </p>
-          <a 
-            href="LobenTipan-RESUME-05_21_25.docx.pdf" 
-            class="btn btn-danger" 
-            target="_blank"
-          >
-            Download CV
-          </a>
+          <div class="hero-profile">
+            <div class="profile-image-wrapper">
+              <img 
+                src="images/profile_new2.jpg" 
+                alt="Loben Tipan Profile Picture" 
+                class="profile-image"
+                loading="eager"
+              />
+              <div class="profile-image-glow"></div>
+            </div>
+          </div>
+          
+          <div class="hero-text">
+            <h1 class="hero-title">
+              <span class="title-line">Loben</span>
+              <span class="title-line">Tipan</span>
+            </h1>
+            <p class="hero-subtitle">
+              Graduate Software Engineer
+            </p>
+            <p class="hero-description">
+              Crafting solutions, writing code, and solving real-world problems.
+            </p>
+            
+            <div class="hero-actions">
+              <a 
+                href="LobenTipan-RESUME-05_21_25.docx.pdf" 
+                class="btn btn-primary btn-lg"
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+              >
+                <i class="fas fa-download"></i>
+                Download CV
+              </a>
+              <a 
+                href="#about" 
+                class="btn btn-outline-light btn-lg"
+                @click.prevent="scrollToSection('about')"
+              >
+                <i class="fas fa-arrow-down"></i>
+                Learn More
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="scroll-indicator">
+          <div class="scroll-arrow"></div>
         </div>
       </section>
       
       <!-- ABOUT SECTION -->
-      <section id="about" class="animate-section">
+      <section id="about" class="section animate-section">
         <div class="container">
-          <h2 class="section-title">About Me</h2>
+          <header class="section-header">
+            <h2 class="section-title">About Me</h2>
+            <div class="section-divider"></div>
+          </header>
+          
           <div class="row justify-content-center">
-            <div class="col-md-8">
-              <p class="text-center mb-4">
-                Hi! I'm Loben Klien Tipan, a passionate software engineer and a 
-                recent graduate from De La Salle University with a degree in 
-                Software Technology.
-              </p>
-              <p class="text-center">
-                I currently work as a Graduate Software Engineer at a leading 
-                tech company, where I apply my skills in software development 
-                and problem-solving to create impactful solutions. Outside of 
-                work, I enjoy motorsports, basketball, and watching movies. I 
-                have consistently achieved academic excellence, earning 
-                recognition as a Dean's Lister during my university years.
-              </p>
+            <div class="col-lg-8">
+              <div class="about-content">
+                <div class="about-text">
+                  <p class="lead">
+                    Hi! I'm <strong>Loben Klien Tipan</strong>, a passionate software engineer and a 
+                    recent graduate from <strong>De La Salle University</strong> with a degree in 
+                    Software Technology.
+                  </p>
+                  <p>
+                    I currently work as a <strong>Graduate Software Engineer</strong> at a leading 
+                    tech company, where I apply my skills in software development 
+                    and problem-solving to create impactful solutions.
+                  </p>
+                  <p>
+                    Outside of work, I enjoy motorsports, basketball, and watching movies. I 
+                    have consistently achieved academic excellence, earning 
+                    recognition as a <strong>Dean's Lister</strong> during my university years.
+                  </p>
+                </div>
+                
+                <div class="about-stats">
+                  <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Passion for Code</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">Technologies</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Years Experience</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
       
       <!-- SKILLS SECTION -->
-      <section id="skills" class="animate-section bg-dark">
+      <section id="skills" class="section animate-section bg-dark">
         <div class="container">
-          <h2 class="section-title">Skills & Abilities</h2>
-          <div 
-            class="d-flex justify-content-center flex-wrap gap-5" 
-            style="max-width: 800px; margin: 0 auto;"
-          >
-            <div class="text-center">
-              <img 
-                src="images/html-logo.png" 
-                alt="HTML" 
-                class="img-fluid skill-icon" 
-                width="60"
-              />
-              <p class="mt-2">HTML</p>
-            </div>
-            <div class="text-center">
-              <img 
-                src="images/css-logo.png" 
-                alt="CSS" 
-                class="img-fluid skill-icon" 
-                width="60"
-              />
-              <p class="mt-2">CSS</p>
-            </div>
-            <div class="text-center">
-              <img 
-                src="images/python-logo.jpg" 
-                alt="Python" 
-                class="img-fluid skill-icon" 
-                width="60"
-              />
-              <p class="mt-2">Python</p>
-            </div>
-            <div class="text-center">
-              <img 
-                src="images/java-logo.png" 
-                alt="Java" 
-                class="img-fluid skill-icon" 
-                width="60"
-              />
-              <p class="mt-2">Java</p>
-            </div>
-            <div class="text-center">
-              <img 
-                src="images/mysql.png" 
-                alt="SQL" 
-                class="img-fluid skill-icon" 
-                width="60"
-              />
-              <p class="mt-2">SQL</p>
+          <header class="section-header">
+            <h2 class="section-title">Skills & Technologies</h2>
+            <div class="section-divider"></div>
+          </header>
+          
+          <div class="skills-container">
+            <div class="skills-category" v-for="(skills, category) in skillsByCategory" :key="category">
+              <h3 class="category-title">{{ getCategoryName(category) }}</h3>
+              <div class="skills-grid">
+                <div class="skill-card" v-for="skill in skills" :key="skill.name">
+                  <div class="skill-icon-wrapper">
+                    <i :class="skill.icon" class="skill-icon"></i>
+                  </div>
+                  <h4 class="skill-name">{{ skill.name }}</h4>
+                  <div class="skill-level">
+                    <div class="skill-bar">
+                      <div class="skill-progress" :style="{ width: skill.level + '%' }"></div>
+                    </div>
+                    <span class="skill-percentage">{{ skill.level }}%</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
       
       <!-- EXPERIENCE SECTION -->
-      <section id="experience" class="animate-section">
+      <section id="experience" class="section animate-section">
         <div class="container">
-          <h2 class="section-title">Experience</h2>
-          <div class="d-flex flex-wrap justify-content-center gap-4">
-            <!-- Graduate Software Engineer -->
-            <div class="card shadow-sm exp-card">
-              <div class="card-header text-center">
-                <img 
-                  src="images/itrslogo.jpg" 
-                  alt="ITRS Logo" 
-                  class="img-fluid" 
-                  width="100"
-                />
-              </div>
-              <div class="card-body">
-                <h5 class="card-title text-center">Graduate Software Engineer</h5>
-                <p class="card-duration text-center">ITRS (2024 - Present)</p>
-                <ul>
-                  <li>Developed scalable software solutions addressing real-world problems.</li>
-                  <li>Collaborated with cross-functional teams.</li>
-                  <li>Wrote clean, efficient, and well-documented code.</li>
-                </ul>
-              </div>
-            </div>
-            <!-- Coca-Cola Internship -->
-            <div class="card shadow-sm exp-card">
-              <div class="card-header text-center">
-                <img 
-                  src="images/cola.logo.jpg" 
-                  alt="Coca-Cola Logo" 
-                  class="img-fluid" 
-                  width="100"
-                />
-              </div>
-              <div class="card-body">
-                <h5 class="card-title text-center">Insights & Analytics Intern</h5>
-                <p class="card-duration text-center">
-                  Coca-Cola Beverages Philippines Inc. (Mar - Jul 2024)
-                </p>
-                <ul>
-                  <li>Conducted detailed analysis of sales trends and provided actionable insights.</li>
-                  <li>Developed Python scripts for efficient data extraction.</li>
-                  <li>Utilized advanced Excel to synthesize customer behavior data.</li>
-                </ul>
-              </div>
-            </div>
-            <!-- Shopee Internship -->
-            <div class="card shadow-sm exp-card">
-              <div class="card-header text-center">
-                <img 
-                  src="images/shopee.logo.png" 
-                  alt="Shopee Logo" 
-                  class="img-fluid" 
-                  width="100"
-                />
-              </div>
-              <div class="card-body">
-                <h5 class="card-title text-center">Product Management Intern</h5>
-                <p class="card-duration text-center">
-                  Shopee Philippines Inc. (May - Sep 2023)
-                </p>
-                <ul>
-                  <li>Ensured successful User Acceptance Testing (UATs).</li>
-                  <li>Presented and explained features to stakeholders.</li>
-                  <li>Developed training materials to streamline knowledge transfer.</li>
-                </ul>
+          <header class="section-header">
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="section-divider"></div>
+          </header>
+          
+          <div class="timeline">
+            <div class="timeline-item" v-for="exp in experience" :key="exp.id">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <div class="experience-card">
+                  <div class="experience-header">
+                    <div class="company-logo">
+                      <img 
+                        :src="exp.logo" 
+                        :alt="exp.company + ' Logo'" 
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="experience-info">
+                      <h3 class="job-title">{{ exp.title }}</h3>
+                      <p class="company-name">{{ exp.company }}</p>
+                      <p class="duration">{{ exp.duration }}</p>
+                    </div>
+                  </div>
+                  <div class="experience-body">
+                    <ul class="achievements-list">
+                      <li v-for="achievement in exp.achievements" :key="achievement">
+                        {{ achievement }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -256,105 +326,144 @@
       </section>
       
       <!-- PROJECTS SECTION -->
-      <section id="projects" class="animate-section bg-dark">
+      <section id="projects" class="section animate-section bg-dark">
         <div class="container">
-          <h2 class="section-title">Projects</h2>
-          <div class="d-flex justify-content-center flex-wrap gap-3">
-            <a 
-              href="projects/todo.html" 
-              target="_blank" 
-              class="btn btn-outline-light project-btn"
-            >
-              To-Do App (Vue + Tailwind)
-            </a>
-            <a 
-              href="projects/weather.html" 
-              target="_blank" 
-              class="btn btn-outline-light project-btn"
-            >
-              Weather App (Vue + Tailwind)
-            </a>
-            <a 
-              href="projects/blog-try.html" 
-              target="_blank" 
-              class="btn btn-outline-light project-btn"
-            >
-              Sample Gallery (HTML + CSS)
-            </a>
-            <a 
-              href="projects/expenselogger.html" 
-              target="_blank" 
-              class="btn btn-outline-light project-btn"
-            >
-              Expense Logger (JS + jQuery)
-            </a>
-            <a 
-              href="projects/font-tester.html" 
-              target="_blank" 
-              class="btn btn-outline-light project-btn"
-            >
-              Font Testing Page
-            </a>
-            <a 
-              href="projects/profile.html" 
-              target="_blank" 
-              class="btn btn-outline-light project-btn"
-            >
-              Profile Page
-            </a>
+          <header class="section-header">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="section-divider"></div>
+          </header>
+          
+          <!-- Featured Project -->
+          <div class="featured-project" v-if="featuredProjects.length > 0">
+            <div class="featured-project-card" v-for="project in featuredProjects" :key="project.id">
+              <div class="featured-project-image">
+                <img 
+                  :src="project.image" 
+                  :alt="project.name"
+                  loading="lazy"
+                />
+                <div class="featured-badge">
+                  <i class="fas fa-star"></i>
+                  Featured Project
+                </div>
+                <div class="project-overlay">
+                  <div class="project-links">
+                    <a 
+                      :href="project.link" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      class="btn btn-lg btn-primary"
+                    >
+                      <i class="fas fa-external-link-alt"></i>
+                      Visit Live Site
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="featured-project-content">
+                <h3 class="project-title">{{ project.name }}</h3>
+                <p class="project-description">{{ project.description }}</p>
+                <div class="project-tech">
+                  <span 
+                    class="tech-tag" 
+                    v-for="tech in project.technologies" 
+                    :key="tech"
+                  >
+                    {{ tech }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Other Projects -->
+          <div class="projects-grid" v-if="regularProjects.length > 0">
+            <div class="project-card" v-for="project in regularProjects" :key="project.id">
+              <div class="project-image">
+                <img 
+                  :src="project.image" 
+                  :alt="project.name"
+                  loading="lazy"
+                />
+                <div class="project-overlay">
+                  <div class="project-links">
+                    <a 
+                      :href="project.link" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      class="btn btn-sm btn-primary"
+                    >
+                      <i class="fas fa-external-link-alt"></i>
+                      View Project
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="project-content">
+                <h3 class="project-title">{{ project.name }}</h3>
+                <p class="project-description">{{ project.description }}</p>
+                <div class="project-tech">
+                  <span 
+                    class="tech-tag" 
+                    v-for="tech in project.technologies" 
+                    :key="tech"
+                  >
+                    {{ tech }}
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
       
       <!-- CONTACT SECTION -->
-      <section id="contact" class="animate-section">
+      <section id="contact" class="section animate-section">
         <div class="container">
-          <h2 class="section-title">Contact Me</h2>
-          <div class="d-flex justify-content-center gap-5 flex-wrap">
-            <a 
-              href="https://www.linkedin.com/in/lobentipan/" 
-              target="_blank" 
-              class="text-decoration-none text-center contact-link"
-            >
-              <img 
-                src="images/LinkedIn_icon_circle.svg.png" 
-                alt="LinkedIn" 
-                class="contact-icon"
-              />
-              <p class="mt-2">LinkedIn</p>
-            </a>
-            <a 
-              href="mailto:lobentipan24@gmail.com" 
-              target="_blank" 
-              class="text-decoration-none text-center contact-link"
-            >
-              <img 
-                src="images/Gmail-logo.png" 
-                alt="Email" 
-                class="contact-icon"
-              />
-              <p class="mt-2">Email</p>
-            </a>
-            <a 
-              href="https://github.com/LobenKT" 
-              target="_blank" 
-              class="text-decoration-none text-center contact-link"
-            >
-              <img 
-                src="images/github-logo.png" 
-                alt="GitHub" 
-                class="contact-icon"
-              />
-              <p class="mt-2">GitHub</p>
-            </a>
+          <header class="section-header">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="section-divider"></div>
+          </header>
+          
+          <div class="contact-content">
+            <div class="contact-info">
+              <p class="contact-intro">
+                I'm always interested in new opportunities and collaborations. 
+                Feel free to reach out!
+              </p>
+            </div>
+            
+            <div class="contact-links">
+              <a 
+                v-for="contact in contactLinks" 
+                :key="contact.name"
+                :href="contact.url" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="contact-link"
+                :aria-label="contact.name"
+              >
+                <div class="contact-icon-wrapper">
+                  <i :class="contact.icon"></i>
+                </div>
+                <span class="contact-label">{{ contact.name }}</span>
+              </a>
+            </div>
           </div>
         </div>
       </section>
-    </div>
+    </main>
     
     <!-- FOOTER -->
-    <footer>
-      <p>© 2025 Loben Tipan</p>
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <p class="copyright">© 2025 Loben Tipan. All rights reserved.</p>
+          <div class="footer-links">
+            <a href="#hero" @click.prevent="scrollToSection('hero')">Back to Top</a>
+          </div>
+        </div>
+      </div>
     </footer>
   </div>
   
@@ -364,50 +473,7 @@
   <!-- Vue.js (CDN) -->
   <script src="https://unpkg.com/vue@3"></script>
   
-  <script>
-    const { createApp } = Vue;
-    
-    createApp({
-      data() {
-        return {
-          mobileMenuActive: false
-        }
-      },
-      methods: {
-        // Smoothly scroll to a specific section by ID
-        scrollToSection(sectionId) {
-          const el = document.getElementById(sectionId);
-          if (el) {
-            el.scrollIntoView({ behavior: 'smooth' });
-            // Close mobile menu after clicking a link
-            if (window.innerWidth < 992) {
-              this.mobileMenuActive = false;
-            }
-          }
-        },
-        // Toggle mobile menu
-        toggleMobileMenu() {
-          this.mobileMenuActive = !this.mobileMenuActive;
-          // Prevent scrolling when menu is open
-          document.body.style.overflow = this.mobileMenuActive ? 'hidden' : '';
-        }
-      },
-      mounted() {
-        // Animate sections as they enter the viewport using IntersectionObserver
-        const options = { threshold: 0.3 };
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('visible');
-            }
-          });
-        }, options);
-
-        document
-          .querySelectorAll('.animate-section')
-          .forEach(section => observer.observe(section));
-      }
-    }).mount('#app');
-  </script>
+  <!-- Custom JS -->
+  <script src="index.js"></script>
 </body>
 </html>
