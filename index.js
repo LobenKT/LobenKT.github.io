@@ -257,6 +257,16 @@ createApp({
     // Get regular projects
     regularProjects() {
       return this.projects.filter(project => !project.featured);
+    },
+    
+    // Get featured publications
+    featuredPublications() {
+      return this.publications.filter(pub => pub.featured);
+    },
+    
+    // Get regular publications
+    regularPublications() {
+      return this.publications.filter(pub => !pub.featured);
     }
   },
   
