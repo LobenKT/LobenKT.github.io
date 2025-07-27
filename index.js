@@ -154,8 +154,8 @@ createApp({
         },
         {
           id: 2,
-          title: 'Your Second Publication Title',
-          authors: 'Loben Klien Tipan, [Other Authors]',
+          title: 'Filipino Sign Language Translation through Transfer Learning',
+          authors: 'Loben Klien A Tipan, Alyanna Mari Abalos, Alyana Erin Bondoc, Justin Jarrett To, Joanna Pauline Rivera',
           venue: 'ACM Conference/Journal Name',
           year: '2024',
           pages: 'Page Range',
