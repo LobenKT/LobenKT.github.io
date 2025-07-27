@@ -199,7 +199,7 @@ p {
   top: var(--spacing-lg);
   right: var(--spacing-lg);
   z-index: 1000;
-  background: var(--background-glass);
+  background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(10px);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-full);
@@ -211,15 +211,17 @@ p {
   cursor: pointer;
   transition: all var(--transition-normal);
   -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .mobile-nav-toggle:hover {
   background: var(--primary-color);
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .mobile-nav-toggle:active {
   transform: scale(0.95);
+  background: var(--primary-dark);
 }
 
 .hamburger-line {
@@ -228,6 +230,7 @@ p {
   background: var(--text-primary);
   transition: all var(--transition-normal);
   position: relative;
+  border-radius: 1px;
 }
 
 .hamburger-line::before,
@@ -238,6 +241,7 @@ p {
   height: 2px;
   background: var(--text-primary);
   transition: all var(--transition-normal);
+  border-radius: 1px;
 }
 
 .hamburger-line::before {
@@ -302,6 +306,7 @@ p {
     padding: var(--spacing-2xl);
     background: rgba(0, 0, 0, 0.95);
     backdrop-filter: blur(20px);
+    -webkit-overflow-scrolling: touch;
   }
   
   .side-panel.mobile-active {
@@ -313,6 +318,21 @@ p {
     top: var(--spacing-lg);
     right: var(--spacing-lg);
     z-index: 1001;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-full);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    transition: all var(--transition-normal);
+  }
+  
+  .mobile-nav-close:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
   }
   
   .side-panel .nav {
@@ -325,6 +345,15 @@ p {
     font-size: var(--font-size-lg);
     margin-bottom: var(--spacing-sm);
     border-radius: var(--radius-md);
+    text-align: center;
+    border: 1px solid transparent;
+    transition: all var(--transition-normal);
+  }
+  
+  .side-panel .nav-link:hover,
+  .side-panel .nav-link.active {
+    border-color: var(--primary-color);
+    background: rgba(229, 9, 20, 0.1);
   }
 }
 
@@ -1469,6 +1498,15 @@ p {
   .mobile-nav-toggle {
     top: var(--spacing-md);
     right: var(--spacing-md);
+    width: 45px;
+    height: 45px;
+  }
+  
+  .hamburger-line,
+  .hamburger-line::before,
+  .hamburger-line::after {
+    width: 18px;
+    height: 2px;
   }
   
   .side-panel .nav-link {

@@ -58,8 +58,21 @@ createApp({
           name: 'Firebase',
           icon: 'fas fa-fire',
           level: 80,
-          category: 'backend'
+          category: 'database'
         },
+        {
+          name: 'MongoDB',
+          icon: 'fas fa-leaf',
+          level: 75,
+          category: 'database'
+        },
+        {
+          name: 'PostgreSQL',
+          icon: 'fas fa-elephant',
+          level: 70,
+          category: 'database'
+        },
+
         {
           name: 'Bootstrap',
           icon: 'fab fa-bootstrap',
@@ -389,7 +402,7 @@ createApp({
     // Preload critical images
     preloadImages() {
       const criticalImages = [
-        'images/gradpic.jpg',
+        'images/gradpic.JPG',
         'images/itrslogo.jpg',
         'images/cola.logo.jpg',
         'images/shopee.logo.png'
