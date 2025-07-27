@@ -117,6 +117,15 @@
         </a>
         <a 
           class="nav-link" 
+          href="#publications" 
+          @click.prevent="scrollToSection('publications')"
+          :class="{ 'active': activeSection === 'publications' }"
+        >
+          <i class="fas fa-graduation-cap"></i>
+          <span>Publications</span>
+        </a>
+        <a 
+          class="nav-link" 
           href="#projects" 
           @click.prevent="scrollToSection('projects')"
           :class="{ 'active': activeSection === 'projects' }"
@@ -323,6 +332,82 @@
                       </li>
                     </ul>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- PUBLICATIONS SECTION -->
+      <section id="publications" class="section animate-section">
+        <div class="container">
+          <header class="section-header">
+            <h2 class="section-title">Research Publications</h2>
+            <div class="section-divider"></div>
+          </header>
+          
+          <!-- Featured Publication -->
+          <div class="featured-publication" v-if="featuredPublications.length > 0">
+            <div class="featured-publication-card" v-for="pub in featuredPublications" :key="pub.id">
+              <div class="publication-badge">
+                <i class="fas fa-star"></i>
+                Featured Research
+              </div>
+              <div class="publication-content">
+                <h3 class="publication-title">{{ pub.title }}</h3>
+                <p class="publication-authors">{{ pub.authors }}</p>
+                <p class="publication-venue">{{ pub.venue }}</p>
+                <div class="publication-details">
+                  <span class="publication-year">{{ pub.year }}</span>
+                  <span class="publication-pages">{{ pub.pages }}</span>
+                  <span class="publication-location">{{ pub.location }}</span>
+                </div>
+                <div class="publication-links">
+                  <a 
+                    :href="pub.link" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="btn btn-sm btn-primary"
+                  >
+                    <i class="fas fa-external-link-alt"></i>
+                    View Paper
+                  </a>
+                  <a 
+                    :href="pub.doi" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="btn btn-sm btn-outline-light"
+                  >
+                    <i class="fas fa-link"></i>
+                    DOI
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Other Publications -->
+          <div class="publications-grid" v-if="regularPublications.length > 0">
+            <div class="publication-card" v-for="pub in regularPublications" :key="pub.id">
+              <div class="publication-content">
+                <h4 class="publication-title">{{ pub.title }}</h4>
+                <p class="publication-authors">{{ pub.authors }}</p>
+                <p class="publication-venue">{{ pub.venue }}</p>
+                <div class="publication-details">
+                  <span class="publication-year">{{ pub.year }}</span>
+                  <span class="publication-pages">{{ pub.pages }}</span>
+                </div>
+                <div class="publication-links">
+                  <a 
+                    :href="pub.link" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="btn btn-sm btn-primary"
+                  >
+                    <i class="fas fa-external-link-alt"></i>
+                    View Paper
+                  </a>
                 </div>
               </div>
             </div>
