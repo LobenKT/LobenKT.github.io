@@ -911,13 +911,18 @@ p {
 
 .skill-card {
   background: var(--background-card);
-  padding: var(--spacing-lg);
+  padding: var(--spacing-xl);
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-color);
   text-align: center;
   transition: all var(--transition-normal);
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
 }
 
 .skill-card::before {
@@ -943,11 +948,11 @@ p {
 }
 
 .skill-icon-wrapper {
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 60px;
+  height: 50px;
 }
 
 .skill-icon {
@@ -964,55 +969,8 @@ p {
 .skill-name {
   font-size: var(--font-size-base);
   font-weight: 600;
-  margin-bottom: var(--spacing-md);
+  margin-bottom: 0;
   color: var(--text-primary);
-}
-
-.skill-level {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  justify-content: space-between;
-}
-
-.skill-bar {
-  flex: 1;
-  height: 6px;
-  background: var(--background-dark);
-  border-radius: var(--radius-full);
-  overflow: hidden;
-  position: relative;
-}
-
-.skill-progress {
-  height: 100%;
-  background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
-  border-radius: var(--radius-full);
-  transition: width 1.5s ease-in-out;
-  position: relative;
-}
-
-.skill-progress::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  animation: shimmer 2s infinite;
-}
-
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-.skill-percentage {
-  font-size: var(--font-size-xs);
-  font-weight: 600;
-  color: var(--primary-color);
-  min-width: 35px;
 }
 
 /* ===== EXPERIENCE SECTION ===== */

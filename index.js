@@ -9,104 +9,86 @@ createApp({
         {
           name: 'HTML',
           icon: 'fab fa-html5',
-          level: 90,
           category: 'frontend'
         },
         {
           name: 'CSS',
           icon: 'fab fa-css3-alt',
-          level: 85,
           category: 'frontend'
         },
         {
           name: 'JavaScript',
           icon: 'fab fa-js-square',
-          level: 80,
           category: 'frontend'
         },
         {
           name: 'Vue.js',
           icon: 'fab fa-vuejs',
-          level: 85,
           category: 'frontend'
         },
         {
           name: 'Python',
           icon: 'fab fa-python',
-          level: 80,
           category: 'backend'
         },
         {
           name: 'Java',
           icon: 'fab fa-java',
-          level: 75,
           category: 'backend'
         },
         {
           name: 'Groovy',
           icon: 'fas fa-code',
-          level: 70,
           category: 'automation'
         },
         {
           name: 'SQL',
           icon: 'fas fa-database',
-          level: 85,
           category: 'database'
         },
         {
           name: 'Firebase',
           icon: 'fas fa-fire',
-          level: 80,
           category: 'database'
         },
         {
           name: 'MongoDB',
           icon: 'fas fa-leaf',
-          level: 75,
           category: 'database'
         },
         {
           name: 'PostgreSQL',
           icon: 'fas fa-elephant',
-          level: 70,
           category: 'database'
         },
-
         {
           name: 'Bootstrap',
           icon: 'fab fa-bootstrap',
-          level: 85,
           category: 'frontend'
         },
         {
           name: 'Git',
           icon: 'fab fa-git-alt',
-          level: 80,
           category: 'tools'
         },
         {
           name: 'Jenkins',
           icon: 'fab fa-jenkins',
-          level: 75,
           category: 'automation'
         },
         {
           name: 'Jira',
           icon: 'fab fa-jira',
-          level: 85,
           category: 'tools'
         },
         {
           name: 'QA Automation',
           icon: 'fas fa-robot',
-          level: 80,
           category: 'automation'
         },
         {
           name: 'Agile/Scrum',
           icon: 'fas fa-users',
-          level: 85,
           category: 'soft-skills'
         }
       ],
@@ -354,26 +336,7 @@ createApp({
       }.bind(this);
     })(),
 
-    // Animate skill bars on scroll
-    animateSkillBars() {
-      const skillBars = document.querySelectorAll('.skill-progress');
-      skillBars.forEach(bar => {
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.style.width = entry.target.style.width || '0%';
-              setTimeout(() => {
-                entry.target.style.transition = 'width 1.5s ease-in-out';
-                entry.target.style.width = entry.target.getAttribute('data-width') || '0%';
-              }, 200);
-              observer.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.5 });
 
-        observer.observe(bar);
-      });
-    },
 
     // Enhanced intersection observer for animations
     setupAnimations() {
@@ -505,7 +468,6 @@ createApp({
     try {
       // Initialize functionality
       this.setupAnimations();
-      this.animateSkillBars();
       this.setupLazyLoading();
       
       // Preload critical images
@@ -518,15 +480,7 @@ createApp({
       // Set initial active section
       this.handleScroll();
 
-      // Initialize skill bar data attributes
-      this.$nextTick(() => {
-        const skillBars = document.querySelectorAll('.skill-progress');
-        skillBars.forEach(bar => {
-          const percentage = bar.style.width;
-          bar.setAttribute('data-width', percentage);
-          bar.style.width = '0%';
-        });
-      });
+
 
       // Small delay to ensure smooth transition
       setTimeout(() => {

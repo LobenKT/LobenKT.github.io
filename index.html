@@ -115,21 +115,21 @@
         </a>
         <a 
           class="nav-link" 
-          href="#skills" 
-          @click.prevent="scrollToSection('skills')"
-          :class="{ 'active': activeSection === 'skills' }"
-        >
-          <i class="fas fa-code"></i>
-          <span>Skills</span>
-        </a>
-        <a 
-          class="nav-link" 
           href="#experience" 
           @click.prevent="scrollToSection('experience')"
           :class="{ 'active': activeSection === 'experience' }"
         >
           <i class="fas fa-briefcase"></i>
           <span>Experience</span>
+        </a>
+        <a 
+          class="nav-link" 
+          href="#skills" 
+          @click.prevent="scrollToSection('skills')"
+          :class="{ 'active': activeSection === 'skills' }"
+        >
+          <i class="fas fa-code"></i>
+          <span>Skills</span>
         </a>
         <a 
           class="nav-link" 
@@ -287,36 +287,6 @@
         </div>
       </section>
       
-      <!-- SKILLS SECTION -->
-      <section id="skills" class="section animate-section bg-dark">
-        <div class="container">
-          <header class="section-header">
-            <h2 class="section-title">Skills & Technologies</h2>
-            <div class="section-divider"></div>
-          </header>
-          
-          <div class="skills-container">
-            <div class="skills-category" v-for="(skills, category) in skillsByCategory" :key="category">
-              <h3 class="category-title">{{ getCategoryName(category) }}</h3>
-              <div class="skills-grid">
-                <div class="skill-card" v-for="skill in skills" :key="skill.name">
-                  <div class="skill-icon-wrapper">
-                    <i :class="skill.icon" class="skill-icon"></i>
-                  </div>
-                  <h4 class="skill-name">{{ skill.name }}</h4>
-                  <div class="skill-level">
-                    <div class="skill-bar">
-                      <div class="skill-progress" :style="{ width: skill.level + '%' }"></div>
-                    </div>
-                    <span class="skill-percentage">{{ skill.level }}%</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
       <!-- EXPERIENCE SECTION -->
       <section id="experience" class="section animate-section">
         <div class="container">
@@ -353,6 +323,30 @@
                       </li>
                     </ul>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- SKILLS SECTION -->
+      <section id="skills" class="section animate-section bg-dark">
+        <div class="container">
+          <header class="section-header">
+            <h2 class="section-title">Skills & Technologies</h2>
+            <div class="section-divider"></div>
+          </header>
+          
+          <div class="skills-container">
+            <div class="skills-category" v-for="(skills, category) in skillsByCategory" :key="category">
+              <h3 class="category-title">{{ getCategoryName(category) }}</h3>
+              <div class="skills-grid">
+                <div class="skill-card" v-for="skill in skills" :key="skill.name">
+                  <div class="skill-icon-wrapper">
+                    <i :class="skill.icon" class="skill-icon"></i>
+                  </div>
+                  <h4 class="skill-name">{{ skill.name }}</h4>
                 </div>
               </div>
             </div>
