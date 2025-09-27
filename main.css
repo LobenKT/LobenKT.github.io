@@ -1047,8 +1047,10 @@ p {
   content: '▸';
   position: absolute;
   left: 0;
+  top: 0;
   color: var(--primary-color);
   font-weight: bold;
+  line-height: inherit;
 }
 
 /* ===== PROJECTS SECTION ===== */
