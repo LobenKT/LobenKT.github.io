@@ -471,13 +471,13 @@ createApp({
         console.warn('Some images failed to preload:', error);
       });
 
-      // Hide loading screen immediately
-      this.hideLoadingScreen();
+      // Mark body as loaded
+      document.body.classList.add('loaded');
 
     } catch (error) {
       console.warn('Initialization error:', error);
-      // Hide loading screen even if there's an error
-      this.hideLoadingScreen();
+      // Mark body as loaded even if there's an error
+      document.body.classList.add('loaded');
     }
   },
 
