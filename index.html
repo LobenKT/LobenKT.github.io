@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <meta name="description" content="Loben Tipan - Graduate Software Engineer Portfolio. Crafting solutions, writing code, and solving real-world problems.">
+  <meta name="theme-color" content="#e50914">
+  <meta name="format-detection" content="telephone=no">
   <meta name="keywords" content="software engineer, developer, portfolio, Loben Tipan, ITRS, Coca-Cola, Shopee">
   <meta name="author" content="Loben Tipan">
   
@@ -40,10 +42,24 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
+  <!-- Preload critical images -->
+  <link rel="preload" as="image" href="images/gradpic.JPG">
+  <link rel="preload" as="image" href="images/itrslogo.jpg">
+  <link rel="preload" as="image" href="images/cola.logo.jpg">
+  <link rel="preload" as="image" href="images/shopee.logo.png">
+  
   <!-- Custom CSS -->
   <link rel="stylesheet" href="main.css" />
 </head>
 <body>
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-spinner">
+      <div class="spinner"></div>
+      <p class="loading-text">Loading Portfolio...</p>
+    </div>
+  </div>
+
   <div id="app">
     <!-- Skip to main content for accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -170,9 +186,12 @@
             <div class="profile-image-wrapper">
               <img 
                 src="images/gradpic.JPG" 
-                alt="Loben Tipan Profile Picture" 
+                alt="Loben Tipan - Graduate Software Engineer" 
                 class="profile-image"
                 loading="eager"
+                fetchpriority="high"
+                width="150"
+                height="150"
               />
               <div class="profile-image-glow"></div>
             </div>
@@ -317,6 +336,8 @@
                         :src="exp.logo" 
                         :alt="exp.company + ' Logo'" 
                         loading="lazy"
+                        width="60"
+                        height="60"
                       />
                     </div>
                     <div class="experience-info">
@@ -443,8 +464,9 @@
                       target="_blank" 
                       rel="noopener noreferrer"
                       class="btn btn-lg btn-primary"
+                      :aria-label="`Visit ${project.name} live site`"
                     >
-                      <i class="fas fa-external-link-alt"></i>
+                      <i class="fas fa-external-link-alt" aria-hidden="true"></i>
                       Visit Live Site
                     </a>
                   </div>
@@ -482,8 +504,9 @@
                       target="_blank" 
                       rel="noopener noreferrer"
                       class="btn btn-sm btn-primary"
+                      :aria-label="`View ${project.name} project`"
                     >
-                      <i class="fas fa-external-link-alt"></i>
+                      <i class="fas fa-external-link-alt" aria-hidden="true"></i>
                       View Project
                     </a>
                   </div>
@@ -531,10 +554,10 @@
                 target="_blank" 
                 rel="noopener noreferrer"
                 class="contact-link"
-                :aria-label="contact.name"
+                :aria-label="`Contact me via ${contact.name}`"
               >
                 <div class="contact-icon-wrapper">
-                  <i :class="contact.icon"></i>
+                  <i :class="contact.icon" :aria-hidden="true"></i>
                 </div>
                 <span class="contact-label">{{ contact.name }}</span>
               </a>

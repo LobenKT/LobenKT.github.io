@@ -327,21 +327,32 @@ createApp({
       }
     },
 
-    // Handle scroll events for active section tracking
-    handleScroll() {
-      const sections = document.querySelectorAll('section[id]');
-      const scrollPosition = window.scrollY + 100;
+    // Throttled scroll handler for better performance
+    handleScroll: (() => {
+      let ticking = false;
+      
+      return function() {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollPosition = window.scrollY + 100;
 
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-        const sectionId = section.getAttribute('id');
+            sections.forEach(section => {
+              const sectionTop = section.offsetTop;
+              const sectionHeight = section.offsetHeight;
+              const sectionId = section.getAttribute('id');
 
-        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-          this.activeSection = sectionId;
+              if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                this.activeSection = sectionId;
+              }
+            });
+            
+            ticking = false;
+          });
+          ticking = true;
         }
-      });
-    },
+      }.bind(this);
+    })(),
 
     // Animate skill bars on scroll
     animateSkillBars() {
@@ -399,19 +410,48 @@ createApp({
       }
     },
 
-    // Preload critical images
+    // Enhanced image preloading with loading feedback
     preloadImages() {
       const criticalImages = [
         'images/gradpic.JPG',
         'images/itrslogo.jpg',
         'images/cola.logo.jpg',
-        'images/shopee.logo.png'
+        'images/shopee.logo.png',
+        'images/harborph_ss.png'
       ];
 
-      criticalImages.forEach(src => {
-        const img = new Image();
-        img.src = src;
+      let loadedCount = 0;
+      const totalImages = criticalImages.length;
+
+      return new Promise((resolve) => {
+        if (totalImages === 0) {
+          resolve();
+          return;
+        }
+
+        criticalImages.forEach(src => {
+          const img = new Image();
+          img.onload = img.onerror = () => {
+            loadedCount++;
+            if (loadedCount === totalImages) {
+              resolve();
+            }
+          };
+          img.src = src;
+        });
       });
+    },
+
+    // Hide loading screen
+    hideLoadingScreen() {
+      const loadingScreen = document.getElementById('loading-screen');
+      if (loadingScreen) {
+        loadingScreen.classList.add('hidden');
+        setTimeout(() => {
+          loadingScreen.style.display = 'none';
+        }, 500);
+      }
+      document.body.classList.add('loaded');
     },
 
     // Get category display name
@@ -425,34 +465,81 @@ createApp({
         'soft-skills': 'Soft Skills'
       };
       return categoryNames[category] || category;
+    },
+
+    // Add error handling for images
+    handleImageError(event) {
+      console.warn('Image failed to load:', event.target.src);
+      // You could set a fallback image here
+      // event.target.src = 'images/placeholder.jpg';
+    },
+
+    // Lazy load images when they come into view
+    setupLazyLoading() {
+      if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              if (img.dataset.src) {
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+                img.classList.remove('lazy');
+                observer.unobserve(img);
+              }
+            }
+          });
+        });
+
+        document.querySelectorAll('img[data-src]').forEach(img => {
+          imageObserver.observe(img);
+        });
+      }
     }
   },
 
-  mounted() {
-    // Initialize all functionality
-    this.setupAnimations();
-    this.animateSkillBars();
-    this.preloadImages();
+  async mounted() {
+    // Show loading screen initially
+    document.body.classList.add('loading');
 
-    // Add event listeners
-    window.addEventListener('scroll', this.handleScroll);
-    document.addEventListener('keydown', this.handleKeyboard);
+    try {
+      // Initialize functionality
+      this.setupAnimations();
+      this.animateSkillBars();
+      this.setupLazyLoading();
+      
+      // Preload critical images
+      await this.preloadImages();
+      
+      // Add event listeners
+      window.addEventListener('scroll', this.handleScroll);
+      document.addEventListener('keydown', this.handleKeyboard);
 
-    // Set initial active section
-    this.handleScroll();
+      // Set initial active section
+      this.handleScroll();
 
-    // Add loading animation
-    document.body.classList.add('loaded');
-
-    // Initialize skill bar data attributes
-    this.$nextTick(() => {
-      const skillBars = document.querySelectorAll('.skill-progress');
-      skillBars.forEach(bar => {
-        const percentage = bar.style.width;
-        bar.setAttribute('data-width', percentage);
-        bar.style.width = '0%';
+      // Initialize skill bar data attributes
+      this.$nextTick(() => {
+        const skillBars = document.querySelectorAll('.skill-progress');
+        skillBars.forEach(bar => {
+          const percentage = bar.style.width;
+          bar.setAttribute('data-width', percentage);
+          bar.style.width = '0%';
+        });
       });
-    });
+
+      // Small delay to ensure smooth transition
+      setTimeout(() => {
+        this.hideLoadingScreen();
+      }, 300);
+
+    } catch (error) {
+      console.warn('Some images failed to load, but continuing...', error);
+      // Hide loading screen even if some images fail
+      setTimeout(() => {
+        this.hideLoadingScreen();
+      }, 1000);
+    }
   },
 
   beforeUnmount() {
