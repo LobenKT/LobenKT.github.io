@@ -405,17 +405,7 @@ createApp({
       });
     },
 
-    // Hide loading screen
-    hideLoadingScreen() {
-      const loadingScreen = document.getElementById('loading-screen');
-      if (loadingScreen) {
-        loadingScreen.classList.add('hidden');
-        setTimeout(() => {
-          loadingScreen.style.display = 'none';
-        }, 500);
-      }
-      document.body.classList.add('loaded');
-    },
+
 
     // Get category display name
     getCategoryName(category) {
@@ -462,16 +452,10 @@ createApp({
   },
 
   async mounted() {
-    // Show loading screen initially
-    document.body.classList.add('loading');
-
     try {
       // Initialize functionality
       this.setupAnimations();
       this.setupLazyLoading();
-      
-      // Preload critical images
-      await this.preloadImages();
       
       // Add event listeners
       window.addEventListener('scroll', this.handleScroll);
@@ -480,19 +464,20 @@ createApp({
       // Set initial active section
       this.handleScroll();
 
+      // Preload critical images in background
+      this.preloadImages().then(() => {
+        console.log('Images preloaded successfully');
+      }).catch(error => {
+        console.warn('Some images failed to preload:', error);
+      });
 
-
-      // Small delay to ensure smooth transition
-      setTimeout(() => {
-        this.hideLoadingScreen();
-      }, 300);
+      // Hide loading screen immediately
+      this.hideLoadingScreen();
 
     } catch (error) {
-      console.warn('Some images failed to load, but continuing...', error);
-      // Hide loading screen even if some images fail
-      setTimeout(() => {
-        this.hideLoadingScreen();
-      }, 1000);
+      console.warn('Initialization error:', error);
+      // Hide loading screen even if there's an error
+      this.hideLoadingScreen();
     }
   },
 
