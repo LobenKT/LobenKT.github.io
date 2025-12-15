@@ -5,6 +5,10 @@ createApp({
     return {
       mobileMenuActive: false,
       activeSection: 'hero',
+      backgroundAnimations: {
+        intervals: [],
+        elements: []
+      },
       skills: [
         {
           name: 'HTML',
@@ -448,6 +452,243 @@ createApp({
           imageObserver.observe(img);
         });
       }
+    },
+
+    // Dynamic Background Animation System
+    initBackgroundAnimations() {
+      const heroBackground = document.getElementById('hero-background');
+      if (!heroBackground) return;
+      
+      // Check for reduced motion preference
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return; // Don't start animations if user prefers reduced motion
+      }
+
+      // Code snippets pool
+      const codeSnippets = [
+        'function()', 'const', 'let', 'var', 'return', 'import', 'export',
+        'class', 'async', 'await', 'if', 'else', 'for', 'while', 'try',
+        'catch', 'new', 'this', 'super', 'extends', 'static', 'public',
+        'private', 'protected', '{ }', '[ ]', '( )', '<>', '/>', '&&', '||',
+        '=>', '===', '!==', '++', '--', '+=', '-=', '*=', '/=', '??', '?.', 
+        'null', 'undefined', 'true', 'false', 'typeof', 'instanceof'
+      ];
+
+      // Binary sequences
+      const binarySequences = [
+        '01001', '11010', '00110', '10101', '01110', '11001', '00101',
+        '10011', '01100', '11100', '00011', '10110', '01010', '11111'
+      ];
+
+      // Create code snippet
+      const createCodeSnippet = () => {
+        const element = document.createElement('div');
+        element.className = 'bg-element code-snippet';
+        element.textContent = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+        
+        // Random positioning
+        element.style.left = Math.random() * 100 + '%';
+        element.style.top = Math.random() * 100 + '%';
+        element.style.fontSize = (12 + Math.random() * 8) + 'px';
+        
+        heroBackground.appendChild(element);
+        this.backgroundAnimations.elements.push(element);
+        
+        // Animate
+        this.animateElement(element, 'float');
+        
+        // Remove after animation
+        setTimeout(() => {
+          if (element.parentNode) {
+            element.parentNode.removeChild(element);
+            const index = this.backgroundAnimations.elements.indexOf(element);
+            if (index > -1) {
+              this.backgroundAnimations.elements.splice(index, 1);
+            }
+          }
+        }, 15000 + Math.random() * 10000);
+      };
+
+      // Create binary rain
+      const createBinaryRain = () => {
+        const element = document.createElement('div');
+        element.className = 'bg-element binary-element';
+        element.textContent = binarySequences[Math.floor(Math.random() * binarySequences.length)];
+        
+        element.style.left = Math.random() * 100 + '%';
+        element.style.top = '-10%';
+        element.style.fontSize = (10 + Math.random() * 4) + 'px';
+        
+        heroBackground.appendChild(element);
+        this.backgroundAnimations.elements.push(element);
+        
+        // Animate downward
+        this.animateElement(element, 'rain');
+        
+        setTimeout(() => {
+          if (element.parentNode) {
+            element.parentNode.removeChild(element);
+            const index = this.backgroundAnimations.elements.indexOf(element);
+            if (index > -1) {
+              this.backgroundAnimations.elements.splice(index, 1);
+            }
+          }
+        }, 12000);
+      };
+
+      // Create typing cursor
+      const createTypingCursor = () => {
+        const element = document.createElement('div');
+        element.className = 'bg-element typing-cursor';
+        element.textContent = '|';
+        
+        element.style.left = Math.random() * 90 + '%';
+        element.style.top = Math.random() * 90 + '%';
+        element.style.fontSize = (16 + Math.random() * 8) + 'px';
+        
+        heroBackground.appendChild(element);
+        this.backgroundAnimations.elements.push(element);
+        
+        setTimeout(() => {
+          if (element.parentNode) {
+            element.parentNode.removeChild(element);
+            const index = this.backgroundAnimations.elements.indexOf(element);
+            if (index > -1) {
+              this.backgroundAnimations.elements.splice(index, 1);
+            }
+          }
+        }, 8000 + Math.random() * 5000);
+      };
+
+      // Create typing effect
+      const createTypingEffect = () => {
+        const phrases = [
+          'console.log("Hello World");',
+          'npm install react',
+          'git commit -m "fix bug"',
+          'const app = new Vue();',
+          'python manage.py runserver',
+          'docker build -t myapp .',
+          'SELECT * FROM users;',
+          'function fibonacci(n) {',
+          'import { useState } from "react";'
+        ];
+        
+        const element = document.createElement('div');
+        element.className = 'bg-element typing-text';
+        
+        element.style.left = Math.random() * 70 + '%';
+        element.style.top = Math.random() * 80 + '%';
+        element.style.fontSize = (11 + Math.random() * 3) + 'px';
+        
+        heroBackground.appendChild(element);
+        this.backgroundAnimations.elements.push(element);
+        
+        // Typing animation
+        const phrase = phrases[Math.floor(Math.random() * phrases.length)];
+        let i = 0;
+        const typeInterval = setInterval(() => {
+          element.textContent = phrase.substring(0, i);
+          i++;
+          if (i > phrase.length) {
+            clearInterval(typeInterval);
+            setTimeout(() => {
+              if (element.parentNode) {
+                element.parentNode.removeChild(element);
+                const index = this.backgroundAnimations.elements.indexOf(element);
+                if (index > -1) {
+                  this.backgroundAnimations.elements.splice(index, 1);
+                }
+              }
+            }, 3000);
+          }
+        }, 100 + Math.random() * 100);
+      };
+
+      // Create geometric shape
+      const createGeometricShape = () => {
+        const shapes = ['square', 'circle', 'triangle'];
+        const element = document.createElement('div');
+        element.className = `bg-element tech-shape ${shapes[Math.floor(Math.random() * shapes.length)]}`;
+        
+        const size = 20 + Math.random() * 30;
+        element.style.width = size + 'px';
+        element.style.height = size + 'px';
+        element.style.left = Math.random() * 95 + '%';
+        element.style.top = Math.random() * 95 + '%';
+        
+        heroBackground.appendChild(element);
+        this.backgroundAnimations.elements.push(element);
+        
+        this.animateElement(element, 'geometric');
+        
+        setTimeout(() => {
+          if (element.parentNode) {
+            element.parentNode.removeChild(element);
+            const index = this.backgroundAnimations.elements.indexOf(element);
+            if (index > -1) {
+              this.backgroundAnimations.elements.splice(index, 1);
+            }
+          }
+        }, 20000 + Math.random() * 10000);
+      };
+
+      // Adjust intervals based on screen size and performance
+      const isMobile = window.innerWidth < 768;
+      const multiplier = isMobile ? 2 : 1; // Slower on mobile for performance
+      
+      // Start intervals
+      this.backgroundAnimations.intervals = [
+        setInterval(createCodeSnippet, (2000 + Math.random() * 3000) * multiplier),
+        setInterval(createBinaryRain, (4000 + Math.random() * 2000) * multiplier),
+        setInterval(createTypingCursor, (6000 + Math.random() * 4000) * multiplier),
+        setInterval(createTypingEffect, (8000 + Math.random() * 5000) * multiplier),
+        setInterval(createGeometricShape, (10000 + Math.random() * 8000) * multiplier)
+      ];
+      
+      // Limit total elements for performance
+      setInterval(() => {
+        if (this.backgroundAnimations.elements.length > 20) {
+          const oldestElement = this.backgroundAnimations.elements.shift();
+          if (oldestElement && oldestElement.parentNode) {
+            oldestElement.parentNode.removeChild(oldestElement);
+          }
+        }
+      }, 5000);
+    },
+
+    // Animate elements
+    animateElement(element, type) {
+      const duration = 15000 + Math.random() * 10000;
+      
+      switch(type) {
+        case 'float':
+          element.style.animation = `codeFloat ${duration}ms ease-in-out infinite`;
+          break;
+        case 'rain':
+          element.style.animation = `binaryRain ${12000}ms linear forwards`;
+          break;
+        case 'geometric':
+          element.style.animation = `geometricFloat ${duration}ms ease-in-out infinite`;
+          break;
+      }
+    },
+
+    // Clean up background animations
+    cleanupBackgroundAnimations() {
+      // Clear intervals
+      this.backgroundAnimations.intervals.forEach(interval => {
+        clearInterval(interval);
+      });
+      this.backgroundAnimations.intervals = [];
+      
+      // Remove elements
+      this.backgroundAnimations.elements.forEach(element => {
+        if (element.parentNode) {
+          element.parentNode.removeChild(element);
+        }
+      });
+      this.backgroundAnimations.elements = [];
     }
   },
 
@@ -456,6 +697,11 @@ createApp({
       // Initialize functionality
       this.setupAnimations();
       this.setupLazyLoading();
+      
+      // Initialize dynamic background animations
+      setTimeout(() => {
+        this.initBackgroundAnimations();
+      }, 1000); // Delay to ensure DOM is ready
       
       // Add event listeners
       window.addEventListener('scroll', this.handleScroll);
@@ -485,5 +731,8 @@ createApp({
     // Clean up event listeners
     window.removeEventListener('scroll', this.handleScroll);
     document.removeEventListener('keydown', this.handleKeyboard);
+    
+    // Clean up background animations
+    this.cleanupBackgroundAnimations();
   }
 }).mount('#app');
