@@ -176,6 +176,14 @@ createApp({
         },
         {
           id: 2,
+          name: 'Word Battle',
+          description: '2v2 Wordle-style multiplayer word guessing game with real-time gameplay',
+          image: 'images/under_construction_PNG.png',
+          link: 'projects/word-battle.html',
+          technologies: ['JavaScript', 'CSS3', 'Game Logic', 'Multiplayer']
+        },
+        {
+          id: 3,
           name: 'To-Do App',
           description: 'A modern task management application built with Vue.js and Tailwind CSS',
           image: 'images/under_construction_PNG.png',
@@ -183,7 +191,7 @@ createApp({
           technologies: ['Vue.js', 'Tailwind CSS', 'JavaScript']
         },
         {
-          id: 3,
+          id: 4,
           name: 'Weather App',
           description: 'Real-time weather application with location-based forecasts',
           image: 'images/under_construction_PNG.png',
@@ -191,7 +199,7 @@ createApp({
           technologies: ['Vue.js', 'API Integration', 'CSS3']
         },
         {
-          id: 4,
+          id: 5,
           name: 'Sample Gallery',
           description: 'Responsive image gallery showcasing modern web design principles',
           image: 'images/under_construction_PNG.png',
@@ -199,7 +207,7 @@ createApp({
           technologies: ['HTML5', 'CSS3', 'JavaScript']
         },
         {
-          id: 5,
+          id: 6,
           name: 'Expense Logger',
           description: 'Personal finance tracking application with data visualization',
           image: 'images/under_construction_PNG.png',
@@ -207,7 +215,7 @@ createApp({
           technologies: ['JavaScript', 'jQuery', 'Local Storage']
         },
         {
-          id: 6,
+          id: 7,
           name: 'Profile Page',
           description: 'Dynamic personal profile page with interactive elements',
           image: 'images/under_construction_PNG.png',
