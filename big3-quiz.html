@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Which Big 3 University Stereotype Are You?</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --up-maroon: #8B0000;
+            --admu-blue: #003366;
+            --dlsu-green: #006633;
+            --gradient-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--gradient-bg);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.95);
+        }
+
+        .landing-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 1rem;
+            text-shadow: var(--text-shadow);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .btn-start {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border: none;
+            border-radius: 50px;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-start:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            color: white;
+        }
+
+        .question-card {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .choice-btn {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+            text-align: left;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .choice-btn:hover {
+            border-color: #4ecdc4;
+            background: linear-gradient(45deg, rgba(78, 205, 196, 0.1), rgba(255, 107, 107, 0.1));
+            transform: translateX(10px);
+        }
+
+        .progress-bar {
+            height: 10px;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            transition: width 0.5s ease;
+        }
+
+        .result-card {
+            text-align: center;
+            animation: bounceIn 0.8s ease-out;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .result-image {
+            max-width: 90%;
+            width: 300px;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            margin: 20px auto;
+            display: block;
+        }
+
+        .share-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .share-btn {
+            padding: 12px 20px;
+            border-radius: 50px;
+            border: none;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .share-btn.facebook {
+            background: #3b5998;
+        }
+
+        .share-btn.twitter {
+            background: #1da1f2;
+        }
+
+        .share-btn.instagram {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        }
+
+        .share-btn.download {
+            background: #28a745;
+        }
+
+        .nickname-input {
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nickname-input:focus {
+            border-color: #4ecdc4;
+            box-shadow: 0 0 0 0.2rem rgba(78, 205, 196, 0.25);
+        }
+
+        .university-colors {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .color-dot {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .up-color { background: var(--up-maroon); }
+        .admu-color { background: var(--admu-blue); }
+        .dlsu-color { background: var(--dlsu-green); }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            .landing-title {
+                font-size: 2rem;
+            }
+            
+            .quiz-container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="quiz-container">
+            <!-- Landing View -->
+            <div v-if="currentView === 'landing'" class="card p-5">
+                <h1 class="landing-title">Which "Big 3" University Stereotype Are You?</h1>
+                <p class="subtitle">Discover your Filipino university personality! 🎓</p>
+                
+                <div class="university-colors">
+                    <div class="color-dot up-color"></div>
+                    <div class="color-dot admu-color"></div>
+                    <div class="color-dot dlsu-color"></div>
+                </div>
+                
+                <button 
+                    @click="startQuiz" 
+                    class="btn btn-start w-100"
+                >
+                    <i class="fas fa-play me-2"></i>Start Quiz
+                </button>
+            </div>
+
+            <!-- Quiz View -->
+            <div v-if="currentView === 'quiz'" class="card p-4 question-card">
+                <div class="mb-3">
+                    <div class="progress" style="height: 10px;">
+                        <div 
+                            class="progress-bar" 
+                            :style="{width: ((currentQuestion + 1) / quizData.questions.length) * 100 + '%'}"
+                        ></div>
+                    </div>
+                    <small class="text-muted">Question {{ currentQuestion + 1 }} of {{ quizData.questions.length }}</small>
+                </div>
+
+                <h3 class="mb-4">{{ quizData.questions[currentQuestion].question }}</h3>
+
+                <div class="choices">
+                    <button 
+                        v-for="(choice, index) in quizData.questions[currentQuestion].choices"
+                        :key="index"
+                        @click="selectAnswer(choice)"
+                        class="choice-btn"
+                    >
+                        <i :class="choice.icon" class="me-3"></i>
+                        {{ choice.text }}
+                    </button>
+                </div>
+            </div>
+
+            <!-- Result View -->
+            <div v-if="currentView === 'result'" class="card p-4 result-card">
+                <h2 class="mb-3">Your Result:</h2>
+                <canvas ref="resultCanvas" width="540" height="960" style="display: none;"></canvas>
+                <img v-if="resultImageUrl" :src="resultImageUrl" alt="Your Result" class="result-image">
+                
+                <div class="mt-4">
+                    <h4>{{ finalResult.title }}</h4>
+                    <p class="lead mb-2"><strong>"{{ finalResult.tagline }}"</strong></p>
+                    <p class="mb-3">{{ finalResult.bio }}</p>
+                    <div class="text-muted">
+                        <strong>Starter Pack:</strong> {{ finalResult.starterPack }}
+                    </div>
+                </div>
+
+                <div class="share-buttons">
+                    <button @click="shareResult('facebook')" class="share-btn facebook">
+                        <i class="fab fa-facebook-f me-2"></i>Facebook
+                    </button>
+                    <button @click="shareResult('twitter')" class="share-btn twitter">
+                        <i class="fab fa-twitter me-2"></i>Twitter
+                    </button>
+                    <button @click="shareToInstagram" class="share-btn instagram">
+                        <i class="fab fa-instagram me-2"></i>Instagram
+                    </button>
+                    <button @click="downloadResult" class="share-btn download">
+                        <i class="fas fa-download me-2"></i>Save Image
+                    </button>
+                </div>
+
+                <button @click="restartQuiz" class="btn btn-outline-primary mt-4 w-100">
+                    <i class="fas fa-redo me-2"></i>Take Quiz Again
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vue.js 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const { createApp } = Vue;
+
+        const quizData = {
+            questions: [
+                {
+                    question: "How do you usually get to school?",
+                    choices: [
+                        { text: "Jeepney/Bus - One with the masses", icon: "fas fa-bus", scores: { up: 3, admu: 0, dlsu: 0 }, subScores: { up_tibak: 2, up_delayed: 1 } },
+                        { text: "Car with driver - Why stress?", icon: "fas fa-car", scores: { up: 0, admu: 1, dlsu: 3 }, subScores: { dlsu_royalty: 3, up_burgis: 2, admu_philosopher: 1 } },
+                        { text: "Own car - I drive my friends around", icon: "fas fa-car-side", scores: { up: 1, admu: 3, dlsu: 2 }, subScores: { admu_chill: 3, dlsu_conyo: 2, up_burgis: 1 } },
+                        { text: "Grab/Angkas - Efficient and convenient", icon: "fas fa-mobile-alt", scores: { up: 0, admu: 2, dlsu: 3 }, subScores: { dlsu_shark: 2, admu_socialite: 1 } }
+                    ]
+                },
+                {
+                    question: "What's your go-to study spot?",
+                    choices: [
+                        { text: "Starbucks UPTC - Good vibes, good wifi", icon: "fas fa-coffee", scores: { up: 2, admu: 1, dlsu: 2 }, subScores: { up_burgis: 3, dlsu_conyo: 2, admu_philosopher: 1 } },
+                        { text: "Library - Classic and quiet", icon: "fas fa-book", scores: { up: 2, admu: 3, dlsu: 1 }, subScores: { up_tibak: 2, admu_philosopher: 3, up_delayed: 1 } },
+                        { text: "Dorm/Condo - My own space", icon: "fas fa-home", scores: { up: 1, admu: 2, dlsu: 3 }, subScores: { dlsu_royalty: 3, admu_chill: 2, up_delayed: 1 } },
+                        { text: "Anywhere with friends - Study group vibes", icon: "fas fa-users", scores: { up: 1, admu: 3, dlsu: 2 }, subScores: { admu_socialite: 3, dlsu_conyo: 2, up_tibak: 1 } }
+                    ]
+                },
+                {
+                    question: "How do you speak with your barkada?",
+                    choices: [
+                        { text: "Pure English - 'That's so fetch!'", icon: "fas fa-globe", scores: { up: 0, admu: 3, dlsu: 2 }, subScores: { admu_philosopher: 3, dlsu_royalty: 2, up_burgis: 1 } },
+                        { text: "Conyo mix - 'Grabe naman the exam!'", icon: "fas fa-comments", scores: { up: 1, admu: 2, dlsu: 3 }, subScores: { dlsu_conyo: 3, up_burgis: 2, admu_chill: 1 } },
+                        { text: "Taglish - Best of both worlds", icon: "fas fa-language", scores: { up: 2, admu: 2, dlsu: 2 }, subScores: { up_burgis: 2, admu_socialite: 2, dlsu_shark: 2 } },
+                        { text: "Straight Tagalog - Proud Pinoy", icon: "fas fa-flag", scores: { up: 3, admu: 0, dlsu: 0 }, subScores: { up_tibak: 3, up_delayed: 2 } }
+                    ]
+                },
+                {
+                    question: "What's your ideal Holy Week break?",
+                    choices: [
+                        { text: "Amanpulo/Balesin - Living my best life", icon: "fas fa-umbrella-beach", scores: { up: 0, admu: 1, dlsu: 3 }, subScores: { dlsu_royalty: 3, admu_philosopher: 1 } },
+                        { text: "Boracay with the squad - Laboracay!", icon: "fas fa-cocktail", scores: { up: 1, admu: 2, dlsu: 3 }, subScores: { dlsu_conyo: 3, admu_socialite: 2, up_burgis: 1 } },
+                        { text: "Baguio/Tagaytay - Chill mountain vibes", icon: "fas fa-mountain", scores: { up: 2, admu: 3, dlsu: 1 }, subScores: { admu_chill: 3, up_burgis: 2, admu_philosopher: 1 } },
+                        { text: "Stay home - Save money, catch up on sleep", icon: "fas fa-home", scores: { up: 3, admu: 1, dlsu: 0 }, subScores: { up_delayed: 3, up_tibak: 2 } }
+                    ]
+                },
+                {
+                    question: "Your approach to group projects:",
+                    choices: [
+                        { text: "I delegate - I have connections", icon: "fas fa-crown", scores: { up: 0, admu: 2, dlsu: 3 }, subScores: { dlsu_royalty: 3, admu_socialite: 2 } },
+                        { text: "I lead with passion - For the greater good!", icon: "fas fa-fist-raised", scores: { up: 3, admu: 3, dlsu: 1 }, subScores: { up_tibak: 3, admu_socialite: 3, admu_philosopher: 2 } },
+                        { text: "I handle the business side - ROI mindset", icon: "fas fa-chart-line", scores: { up: 1, admu: 1, dlsu: 3 }, subScores: { dlsu_shark: 3, up_burgis: 1 } },
+                        { text: "Chill lang - It'll work out somehow", icon: "fas fa-leaf", scores: { up: 2, admu: 2, dlsu: 2 }, subScores: { admu_chill: 3, dlsu_conyo: 2, up_delayed: 2 } }
+                    ]
+                },
+                {
+                    question: "Your relationship with deadlines:",
+                    choices: [
+                        { text: "Deadlines are suggestions - I have other priorities", icon: "fas fa-clock", scores: { up: 1, admu: 1, dlsu: 3 }, subScores: { dlsu_royalty: 3, dlsu_conyo: 2, up_delayed: 1 } },
+                        { text: "I plan everything in advance - Very organized", icon: "fas fa-calendar-check", scores: { up: 2, admu: 3, dlsu: 2 }, subScores: { admu_socialite: 3, dlsu_shark: 2, up_tibak: 2 } },
+                        { text: "Last minute pero solid pa rin - Pressure makes diamonds", icon: "fas fa-fire", scores: { up: 3, admu: 2, dlsu: 1 }, subScores: { up_delayed: 3, admu_chill: 2, up_burgis: 1 } },
+                        { text: "I work steadily - Consistent effort", icon: "fas fa-chart-bar", scores: { up: 2, admu: 2, dlsu: 2 }, subScores: { admu_philosopher: 2, dlsu_shark: 2, up_tibak: 2 } }
+                    ]
+                }
+            ],
+            archetypes: {
+                // DLSU Archetypes
+                dlsu_royalty: {
+                    title: "The Taft Royalty (The Nepo Baby)",
+                    university: "DLSU",
+                    tagline: "School is my side hustle.",
+                    bio: "You drive a car that costs more than a house. You consider attendance \"optional\" and Balesin your second campus. You've never touched a rag in your life, but you handle \"business\" like a pro.",
+                    starterPack: "Fortuner/Raptor • Amanpulo trips • \"Ask ko si Daddy\"",
+                    color: "#006633",
+                    bgColor: "#006633"
+                },
+                dlsu_conyo: {
+                    title: "The Happy-Go-Lucky Conyo",
+                    university: "DLSU",
+                    tagline: "Carps? Sheesh.",
+                    bio: "You are allergic to stress. You pass subjects purely on \"vibes\" and groupmates carrying you. Your vocabulary is 90% slang. You are definitely going to Laboracay even if you have finals week.",
+                    starterPack: "Vape • \"Solid bro\" • Agno heavy meals • Cutting classes",
+                    color: "#006633",
+                    bgColor: "#006633"
+                },
+                dlsu_shark: {
+                    title: "The Business Shark",
+                    university: "DLSU",
+                    tagline: "Open Minded Ka Ba?",
+                    bio: "You wear a suit in 35-degree heat. You trade crypto during Theology class. You calculate the ROI of your relationships. You don't just want a diploma; you want a conglomerate.",
+                    starterPack: "LinkedIn Premium • Macalister Hall • \"Let's connect\"",
+                    color: "#006633",
+                    bgColor: "#006633"
+                },
+                // ADMU Archetypes
+                admu_philosopher: {
+                    title: "The English-Speaking Philosopher",
+                    university: "ADMU",
+                    tagline: "It's about the nuance.",
+                    bio: "You don't talk; you discourse. You love deconstructing sociopolitical issues while sipping an overpriced artisanal latte in Katipunan. You speak with a specific accent that scares Grab drivers.",
+                    starterPack: "Tote bag • Film camera • Using the word \"inherently\"",
+                    color: "#003366",
+                    bgColor: "#003366"
+                },
+                admu_socialite: {
+                    title: "The \"Org is Life\" Socialite",
+                    university: "ADMU",
+                    tagline: "Bibbo Kid of Katipunan.",
+                    bio: "You have 5 executive positions and sleep 3 hours a day. You are fighting for social justice in the morning and partying at Pop Up in the evening. You know everyone.",
+                    starterPack: "Google Calendar is full • \"Blue Energy\" • 3-page Resume",
+                    color: "#003366",
+                    bgColor: "#003366"
+                },
+                admu_chill: {
+                    title: "The Chill \"Pards\"",
+                    university: "ADMU",
+                    tagline: "Solid pards.",
+                    bio: "You play ultimate frisbee/futsal and strictly wear oversized shirts. You get B+ grades without trying. You are effortlessly cool and low-key rich. You drive your friends to Antipolo for \"clouds\" at 2 AM.",
+                    starterPack: "Guitar • Car keys • JSEC meals • Sleeping in the library",
+                    color: "#003366",
+                    bgColor: "#003366"
+                },
+                // UP Archetypes
+                up_burgis: {
+                    title: "The U.P. Town Center \"Burgis\"",
+                    university: "UP",
+                    tagline: "Conyo with a cause.",
+                    bio: "You study in UP but live the Ateneo lifestyle. You refuse to eat at the canteen; it has to be Starbucks or UPTC. You bridge the gap between the struggle and the aircon. You are \"one with the masses\" (via iPhone 16).",
+                    starterPack: "Private car but parks far away • Starbucks planner • Aesthetic notes",
+                    color: "#8B0000",
+                    bgColor: "#8B0000"
+                },
+                up_tibak: {
+                    title: "The \"Tibak\" (Activist)",
+                    university: "UP",
+                    tagline: "Serve the People.",
+                    bio: "You've attended more rallies than parties. You can quote history books from memory. You win every argument at family reunions (and your Titos hate it). You own a Sablay even if you haven't graduated yet.",
+                    starterPack: "Red scarf • Megaphone • Cigarettes • Intense gaze",
+                    color: "#8B0000",
+                    bgColor: "#8B0000"
+                },
+                up_delayed: {
+                    title: "The \"Delayed\" Legend",
+                    university: "UP",
+                    tagline: "Maximum Residency.",
+                    bio: "The campus is your home. You know every guard by name. You survive on Pancit Canton and spite. Graduation is a myth; survival is the reality. You are the scariest person during enlistment.",
+                    starterPack: "Form 5 issues • Eyebags • Photox readings • \"Isang sem na lang (daw)\"",
+                    color: "#8B0000",
+                    bgColor: "#8B0000"
+                }
+            }
+        };
+
+        createApp({
+            data() {
+                return {
+                    currentView: 'landing',
+                    userNickname: '',
+                    currentQuestion: 0,
+                    universityScores: {
+                        up: 0,
+                        admu: 0,
+                        dlsu: 0
+                    },
+                    subScores: {
+                        // UP sub-scores
+                        up_burgis: 0,
+                        up_tibak: 0,
+                        up_delayed: 0,
+                        // ADMU sub-scores
+                        admu_philosopher: 0,
+                        admu_socialite: 0,
+                        admu_chill: 0,
+                        // DLSU sub-scores
+                        dlsu_royalty: 0,
+                        dlsu_conyo: 0,
+                        dlsu_shark: 0
+                    },
+                    finalResult: null,
+                    resultImageUrl: null,
+                    quizData: quizData
+                }
+            },
+            methods: {
+                startQuiz() {
+                    this.currentView = 'quiz';
+                    this.currentQuestion = 0;
+                    this.resetScores();
+                },
+                
+                resetScores() {
+                    // Reset university scores
+                    Object.keys(this.universityScores).forEach(key => {
+                        this.universityScores[key] = 0;
+                    });
+                    // Reset sub-scores
+                    Object.keys(this.subScores).forEach(key => {
+                        this.subScores[key] = 0;
+                    });
+                },
+                
+                selectAnswer(choice) {
+                    // Add university scores
+                    Object.keys(choice.scores).forEach(university => {
+                        this.universityScores[university] += choice.scores[university];
+                    });
+                    
+                    // Add sub-scores if they exist
+                    if (choice.subScores) {
+                        Object.keys(choice.subScores).forEach(archetype => {
+                            if (this.subScores.hasOwnProperty(archetype)) {
+                                this.subScores[archetype] += choice.subScores[archetype];
+                            }
+                        });
+                    }
+                    
+                    // Move to next question or show result
+                    if (this.currentQuestion < this.quizData.questions.length - 1) {
+                        this.currentQuestion++;
+                    } else {
+                        this.showResult();
+                    }
+                },
+                
+                showResult() {
+                    // First, determine which university scored highest
+                    let maxUniversityScore = 0;
+                    let winningUniversity = 'up';
+                    
+                    Object.keys(this.universityScores).forEach(university => {
+                        if (this.universityScores[university] > maxUniversityScore) {
+                            maxUniversityScore = this.universityScores[university];
+                            winningUniversity = university;
+                        }
+                    });
+                    
+                    // Then, find the highest sub-score within that university
+                    let maxSubScore = 0;
+                    let resultKey = '';
+                    
+                    // Get all archetypes for the winning university
+                    const universityArchetypes = Object.keys(this.subScores).filter(key => 
+                        key.startsWith(winningUniversity + '_')
+                    );
+                    
+                    universityArchetypes.forEach(archetype => {
+                        if (this.subScores[archetype] > maxSubScore) {
+                            maxSubScore = this.subScores[archetype];
+                            resultKey = archetype;
+                        }
+                    });
+                    
+                    // If no sub-scores or tie, randomly pick from university archetypes
+                    if (!resultKey || maxSubScore === 0) {
+                        const randomIndex = Math.floor(Math.random() * universityArchetypes.length);
+                        resultKey = universityArchetypes[randomIndex];
+                    }
+                    
+                    this.finalResult = this.quizData.archetypes[resultKey];
+                    this.currentView = 'result';
+                    
+                    // Generate result image
+                    this.$nextTick(() => {
+                        this.generateResultImage();
+                    });
+                },
+                
+                generateResultImage() {
+                    const canvas = this.$refs.resultCanvas;
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Set canvas size for Instagram story format
+                    canvas.width = 540;
+                    canvas.height = 960;
+                    
+                    // Background
+                    ctx.fillStyle = this.finalResult.bgColor;
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Add gradient overlay
+                    const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+                    gradient.addColorStop(0, this.finalResult.bgColor);
+                    gradient.addColorStop(1, this.adjustColor(this.finalResult.bgColor, -30));
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Add decorative elements
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+                    for (let i = 0; i < 20; i++) {
+                        ctx.beginPath();
+                        ctx.arc(
+                            Math.random() * canvas.width,
+                            Math.random() * canvas.height,
+                            Math.random() * 30 + 10,
+                            0,
+                            2 * Math.PI
+                        );
+                        ctx.fill();
+                    }
+                    
+                    // Title text
+                    ctx.fillStyle = 'white';
+                    ctx.font = 'bold 28px Poppins, Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('BIG 3 UNIVERSITY QUIZ', canvas.width / 2, 70);
+                    
+                    // Random nickname
+                    const randomNicknames = ['Bestie', 'Bro', 'Sis', 'Fam', 'Dude', 'Pare', 'Mars', 'Tol'];
+                    const randomNickname = randomNicknames[Math.floor(Math.random() * randomNicknames.length)];
+                    ctx.font = 'bold 36px Poppins, Arial';
+                    ctx.fillText(randomNickname.toUpperCase(), canvas.width / 2, 120);
+                    
+                    // "You are..." text
+                    ctx.font = '20px Poppins, Arial';
+                    ctx.fillText('You are...', canvas.width / 2, 160);
+                    
+                    // Result title - adaptive font size
+                    let titleFontSize = 32;
+                    ctx.font = `bold ${titleFontSize}px Poppins, Arial`;
+                    while (ctx.measureText(this.finalResult.title).width > canvas.width - 40 && titleFontSize > 20) {
+                        titleFontSize -= 2;
+                        ctx.font = `bold ${titleFontSize}px Poppins, Arial`;
+                    }
+                    
+                    const titleLines = this.wrapText(ctx, this.finalResult.title, canvas.width - 40);
+                    let y = 200;
+                    titleLines.forEach(line => {
+                        ctx.fillText(line, canvas.width / 2, y);
+                        y += titleFontSize + 5;
+                    });
+                    
+                    // University badge
+                    y += 20;
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                    ctx.fillRect(canvas.width / 2 - 80, y - 25, 160, 50);
+                    ctx.fillStyle = this.finalResult.bgColor;
+                    ctx.font = 'bold 24px Poppins, Arial';
+                    ctx.fillText(this.finalResult.university, canvas.width / 2, y + 5);
+                    
+                    // Tagline
+                    y += 60;
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+                    ctx.font = 'bold 24px Poppins, Arial';
+                    ctx.fillText(`"${this.finalResult.tagline}"`, canvas.width / 2, y);
+                    
+                    // Bio - adaptive font size
+                    y += 40;
+                    ctx.fillStyle = 'white';
+                    let bioFontSize = 16;
+                    ctx.font = `${bioFontSize}px Poppins, Arial`;
+                    const bioLines = this.wrapText(ctx, this.finalResult.bio, canvas.width - 60);
+                    
+                    // Adjust bio font size if too many lines
+                    if (bioLines.length > 6) {
+                        bioFontSize = 14;
+                        ctx.font = `${bioFontSize}px Poppins, Arial`;
+                    }
+                    
+                    bioLines.forEach(line => {
+                        ctx.fillText(line, canvas.width / 2, y);
+                        y += bioFontSize + 8;
+                    });
+                    
+                    // Starter Pack
+                    y += 30;
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                    ctx.font = 'bold 18px Poppins, Arial';
+                    ctx.fillText('STARTER PACK:', canvas.width / 2, y);
+                    
+                    y += 25;
+                    ctx.font = '16px Poppins, Arial';
+                    const starterPackLines = this.wrapText(ctx, this.finalResult.starterPack, canvas.width - 60);
+                    starterPackLines.forEach(line => {
+                        ctx.fillText(line, canvas.width / 2, y);
+                        y += 22;
+                    });
+                    
+                    // Footer
+                    ctx.font = '16px Poppins, Arial';
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                    ctx.fillText('Take the quiz at lobenkt.github.io/big3-quiz.html', canvas.width / 2, canvas.height - 30);
+                    
+                    // Convert to image
+                    this.resultImageUrl = canvas.toDataURL('image/png');
+                },
+                
+                wrapText(ctx, text, maxWidth) {
+                    const words = text.split(' ');
+                    const lines = [];
+                    let currentLine = words[0];
+                    
+                    for (let i = 1; i < words.length; i++) {
+                        const word = words[i];
+                        const width = ctx.measureText(currentLine + ' ' + word).width;
+                        if (width < maxWidth) {
+                            currentLine += ' ' + word;
+                        } else {
+                            lines.push(currentLine);
+                            currentLine = word;
+                        }
+                    }
+                    lines.push(currentLine);
+                    return lines;
+                },
+                
+                adjustColor(color, amount) {
+                    const usePound = color[0] === '#';
+                    const col = usePound ? color.slice(1) : color;
+                    const num = parseInt(col, 16);
+                    let r = (num >> 16) + amount;
+                    let g = (num >> 8 & 0x00FF) + amount;
+                    let b = (num & 0x0000FF) + amount;
+                    r = r > 255 ? 255 : r < 0 ? 0 : r;
+                    g = g > 255 ? 255 : g < 0 ? 0 : g;
+                    b = b > 255 ? 255 : b < 0 ? 0 : b;
+                    return (usePound ? '#' : '') + (r << 16 | g << 8 | b).toString(16).padStart(6, '0');
+                },
+                
+                shareResult(platform) {
+                    const text = `I got "${this.finalResult.title}" in the Big 3 University Quiz! What's your stereotype?`;
+                    const url = window.location.href;
+                    
+                    let shareUrl = '';
+                    switch (platform) {
+                        case 'facebook':
+                            shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`;
+                            break;
+                        case 'twitter':
+                            shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+                            break;
+                    }
+                    
+                    if (shareUrl) {
+                        window.open(shareUrl, '_blank', 'width=600,height=400');
+                    }
+                },
+                
+                shareToInstagram() {
+                    // For mobile devices, try to open Instagram directly
+                    if (navigator.share && navigator.canShare) {
+                        // Convert canvas to blob for native sharing
+                        this.$refs.resultCanvas.toBlob((blob) => {
+                            const file = new File([blob], 'big3-quiz-result.png', { type: 'image/png' });
+                            if (navigator.canShare({ files: [file] })) {
+                                navigator.share({
+                                    title: 'My Big 3 University Quiz Result!',
+                                    text: `I got "${this.finalResult.title}" in the Big 3 University Quiz!`,
+                                    files: [file]
+                                });
+                            } else {
+                                this.downloadResult();
+                            }
+                        });
+                    } else {
+                        // Fallback: download the image
+                        this.downloadResult();
+                        // Show instruction
+                        alert('Image saved! You can now upload it to your Instagram story 📸');
+                    }
+                },
+                
+                downloadResult() {
+                    const link = document.createElement('a');
+                    link.download = `big3-quiz-result.png`;
+                    link.href = this.resultImageUrl;
+                    link.click();
+                },
+                
+                restartQuiz() {
+                    this.currentView = 'landing';
+                    this.userNickname = '';
+                    this.currentQuestion = 0;
+                    this.resetScores();
+                    this.finalResult = null;
+                    this.resultImageUrl = null;
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
