@@ -340,7 +340,7 @@
                 <!-- The "Plug" Button -->
                 <div class="mt-3">
                     <button @click="openGitHub" class="btn btn-outline-secondary btn-sm w-100" style="border-radius: 25px; font-size: 0.9rem;">
-                        <i class="fab fa-github me-2"></i>I built this instead of sleeping. Stalk my GitHub.
+                        <i class="fab fa-instagram me-2"></i>I built this instead of sleeping. Stalk my IG.
                     </button>
                 </div>
 
@@ -362,57 +362,138 @@
         const quizData = {
             questions: [
                 {
-                    question: "How do you usually get to school?",
+                    question: "It's 7:00 AM. How are you getting to your 8:30 class?",
                     choices: [
-                        { text: "Jeepney/Bus - One with the masses", icon: "fas fa-bus", scores: { up: 3, admu: 0, dlsu: 0 }, subScores: { up_tibak: 2, up_delayed: 1 } },
-                        { text: "Car with driver - Why stress?", icon: "fas fa-car", scores: { up: 0, admu: 1, dlsu: 3 }, subScores: { dlsu_royalty: 3, up_burgis: 2, admu_philosopher: 1 } },
-                        { text: "Own car - I drive my friends around", icon: "fas fa-car-side", scores: { up: 1, admu: 3, dlsu: 2 }, subScores: { admu_chill: 3, dlsu_conyo: 2, up_burgis: 1 } },
-                        { text: "Grab/Angkas - Efficient and convenient", icon: "fas fa-mobile-alt", scores: { up: 0, admu: 2, dlsu: 3 }, subScores: { dlsu_shark: 2, admu_socialite: 1 } }
+                        { text: "My driver is already outside. I'm just finishing my Nespresso.", icon: "fas fa-car", scores: { up: 0, admu: 0, dlsu: 3 }, subScores: { dlsu_royalty: 3 } },
+                        { text: "Booking a Grab. I cannot deal with the heat today.", icon: "fas fa-mobile-alt", scores: { up: 0, admu: 2, dlsu: 1 }, subScores: { admu_chill: 2, dlsu_conyo: 1 } },
+                        { text: "Ikot Jeep or walking. Cardio is life, struggle is real.", icon: "fas fa-walking", scores: { up: 3, admu: 0, dlsu: 0 }, subScores: { up_tibak: 2, up_delayed: 1 } },
+                        { text: "Carpool with friends! We're passing by the drive-thru.", icon: "fas fa-users", scores: { up: 0, admu: 3, dlsu: 0 }, subScores: { admu_socialite: 3 } }
                     ]
                 },
                 {
-                    question: "What's your go-to study spot?",
+                    question: "Your friend asks to hang out. What is your response?",
                     choices: [
-                        { text: "Starbucks UPTC - Good vibes, good wifi", icon: "fas fa-coffee", scores: { up: 2, admu: 1, dlsu: 2 }, subScores: { up_burgis: 3, dlsu_conyo: 2, admu_philosopher: 1 } },
-                        { text: "Library - Classic and quiet", icon: "fas fa-book", scores: { up: 2, admu: 3, dlsu: 1 }, subScores: { up_tibak: 2, admu_philosopher: 3, up_delayed: 1 } },
-                        { text: "Dorm/Condo - My own space", icon: "fas fa-home", scores: { up: 1, admu: 2, dlsu: 3 }, subScores: { dlsu_royalty: 3, admu_chill: 2, up_delayed: 1 } },
-                        { text: "Anywhere with friends - Study group vibes", icon: "fas fa-users", scores: { up: 1, admu: 3, dlsu: 2 }, subScores: { admu_socialite: 3, dlsu_conyo: 2, up_tibak: 1 } }
+                        { text: "G! Lezzgo. Where to? BGC?", icon: "fas fa-city", scores: { up: 0, admu: 1, dlsu: 2 }, subScores: { dlsu_conyo: 2, admu_chill: 1 } },
+                        { text: "Carps. Solid. I'm down.", icon: "fas fa-thumbs-up", scores: { up: 0, admu: 0, dlsu: 3 }, subScores: { dlsu_conyo: 3 } },
+                        { text: "Sige, but I have to finish this paper first. Area 2?", icon: "fas fa-book", scores: { up: 3, admu: 0, dlsu: 0 }, subScores: { up_tibak: 2, up_delayed: 1 } },
+                        { text: "Deins ako pwede, org meeting later!", icon: "fas fa-calendar", scores: { up: 0, admu: 3, dlsu: 0 }, subScores: { admu_socialite: 3 } }
                     ]
                 },
                 {
-                    question: "How do you speak with your barkada?",
+                    question: "Where are we eating lunch?",
                     choices: [
-                        { text: "Pure English - 'That's so fetch!'", icon: "fas fa-globe", scores: { up: 0, admu: 3, dlsu: 2 }, subScores: { admu_philosopher: 3, dlsu_royalty: 2, up_burgis: 1 } },
-                        { text: "Conyo mix - 'Grabe naman the exam!'", icon: "fas fa-comments", scores: { up: 1, admu: 2, dlsu: 3 }, subScores: { dlsu_conyo: 3, up_burgis: 2, admu_chill: 1 } },
-                        { text: "Taglish - Best of both worlds", icon: "fas fa-language", scores: { up: 2, admu: 2, dlsu: 2 }, subScores: { up_burgis: 2, admu_socialite: 2, dlsu_shark: 2 } },
-                        { text: "Straight Tagalog - Proud Pinoy", icon: "fas fa-flag", scores: { up: 3, admu: 0, dlsu: 0 }, subScores: { up_tibak: 3, up_delayed: 2 } }
+                        { text: "Mary Grace, Wildflour, or somewhere aesthetic.", icon: "fas fa-camera", scores: { up: 0, admu: 3, dlsu: 1 }, subScores: { admu_philosopher: 2, admu_socialite: 1, dlsu_royalty: 1 } },
+                        { text: "Agno, Ate Rica's, or McDo Taft. Fast and greasy.", icon: "fas fa-hamburger", scores: { up: 1, admu: 0, dlsu: 2 }, subScores: { dlsu_conyo: 2, up_delayed: 1 } },
+                        { text: "Rodic's Tapsilog or Fishball. Petsa de peligro na.", icon: "fas fa-coins", scores: { up: 3, admu: 0, dlsu: 0 }, subScores: { up_delayed: 2, up_tibak: 1 } },
+                        { text: "Samgyup! My treat, kakakuha ko lang allowance.", icon: "fas fa-fire", scores: { up: 0, admu: 0, dlsu: 3 }, subScores: { dlsu_royalty: 2, dlsu_conyo: 1 } }
                     ]
                 },
                 {
-                    question: "What's your ideal Holy Week break?",
+                    question: "You failed a major exam. Reaction?",
                     choices: [
-                        { text: "Amanpulo/Balesin - Living my best life", icon: "fas fa-umbrella-beach", scores: { up: 0, admu: 1, dlsu: 3 }, subScores: { dlsu_royalty: 3, admu_philosopher: 1 } },
-                        { text: "Boracay with the squad - Laboracay!", icon: "fas fa-cocktail", scores: { up: 1, admu: 2, dlsu: 3 }, subScores: { dlsu_conyo: 3, admu_socialite: 2, up_burgis: 1 } },
-                        { text: "Baguio/Tagaytay - Chill mountain vibes", icon: "fas fa-mountain", scores: { up: 2, admu: 3, dlsu: 1 }, subScores: { admu_chill: 3, up_burgis: 2, admu_philosopher: 1 } },
-                        { text: "Stay home - Save money, catch up on sleep", icon: "fas fa-home", scores: { up: 3, admu: 1, dlsu: 0 }, subScores: { up_delayed: 3, up_tibak: 2 } }
+                        { text: "It's okay. Grades don't define me. I might shift courses.", icon: "fas fa-leaf", scores: { up: 0, admu: 3, dlsu: 0 }, subScores: { admu_chill: 2, admu_philosopher: 1 } },
+                        { text: "Can I talk to the Dean? My dad knows him.", icon: "fas fa-phone", scores: { up: 0, admu: 0, dlsu: 3 }, subScores: { dlsu_royalty: 3 } },
+                        { text: "First time? I'm already delayed. Part of the character arc.", icon: "fas fa-clock", scores: { up: 3, admu: 0, dlsu: 0 }, subScores: { up_delayed: 3 } },
+                        { text: "Rage tweet about the system. Then study harder.", icon: "fas fa-angry", scores: { up: 2, admu: 1, dlsu: 0 }, subScores: { up_tibak: 2, admu_philosopher: 1 } }
                     ]
                 },
                 {
-                    question: "Your approach to group projects:",
+                    question: "It's Friday night. Where are you?",
                     choices: [
-                        { text: "I delegate - I have connections", icon: "fas fa-crown", scores: { up: 0, admu: 2, dlsu: 3 }, subScores: { dlsu_royalty: 3, admu_socialite: 2 } },
-                        { text: "I lead with passion - For the greater good!", icon: "fas fa-fist-raised", scores: { up: 3, admu: 3, dlsu: 1 }, subScores: { up_tibak: 3, admu_socialite: 3, admu_philosopher: 2 } },
-                        { text: "I handle the business side - ROI mindset", icon: "fas fa-chart-line", scores: { up: 1, admu: 1, dlsu: 3 }, subScores: { dlsu_shark: 3, up_burgis: 1 } },
-                        { text: "Chill lang - It'll work out somehow", icon: "fas fa-leaf", scores: { up: 2, admu: 2, dlsu: 2 }, subScores: { admu_chill: 3, dlsu_conyo: 2, up_delayed: 2 } }
+                        { text: "Xylo or The Palace. We got a table.", icon: "fas fa-cocktail", scores: { up: 0, admu: 0, dlsu: 3 }, subScores: { dlsu_royalty: 2, dlsu_shark: 1 } },
+                        { text: "Pop Up Katipunan. Beer and feelings.", icon: "fas fa-beer", scores: { up: 0, admu: 3, dlsu: 0 }, subScores: { admu_chill: 2, admu_socialite: 1 } },
+                        { text: "Dorm/Condo. Netflix or Valorant. Too tired.", icon: "fas fa-home", scores: { up: 1, admu: 1, dlsu: 0 }, subScores: { up_delayed: 1, admu_chill: 1 } },
+                        { text: "Drinking Gin Bilog on a sidewalk or Cubao X.", icon: "fas fa-glass", scores: { up: 3, admu: 0, dlsu: 0 }, subScores: { up_tibak: 2, up_delayed: 1 } }
                     ]
                 },
                 {
-                    question: "Your relationship with deadlines:",
+                    question: "Pick your OOTD (Outfit).",
                     choices: [
-                        { text: "Deadlines are suggestions - I have other priorities", icon: "fas fa-clock", scores: { up: 1, admu: 1, dlsu: 3 }, subScores: { dlsu_royalty: 3, dlsu_conyo: 2, up_delayed: 1 } },
-                        { text: "I plan everything in advance - Very organized", icon: "fas fa-calendar-check", scores: { up: 2, admu: 3, dlsu: 2 }, subScores: { admu_socialite: 3, dlsu_shark: 2, up_tibak: 2 } },
-                        { text: "Last minute pero solid pa rin - Pressure makes diamonds", icon: "fas fa-fire", scores: { up: 3, admu: 2, dlsu: 1 }, subScores: { up_delayed: 3, admu_chill: 2, up_burgis: 1 } },
-                        { text: "I work steadily - Consistent effort", icon: "fas fa-chart-bar", scores: { up: 2, admu: 2, dlsu: 2 }, subScores: { admu_philosopher: 2, dlsu_shark: 2, up_tibak: 2 } }
+                        { text: "Designer Streetwear (Off-White, Jordans, Essentials).", icon: "fas fa-tshirt", scores: { up: 0, admu: 0, dlsu: 3 }, subScores: { dlsu_royalty: 2, dlsu_shark: 1 } },
+                        { text: "Linen shirt, shorts, Birkenstocks. Presko fit.", icon: "fas fa-sun", scores: { up: 0, admu: 3, dlsu: 0 }, subScores: { admu_chill: 3 } },
+                        { text: "Org shirt, lanyard, jeans, heavy backpack.", icon: "fas fa-id-badge", scores: { up: 3, admu: 0, dlsu: 0 }, subScores: { up_tibak: 2, up_delayed: 1 } },
+                        { text: "Whatever was on the floor.", icon: "fas fa-question", scores: { up: 2, admu: 0, dlsu: 0 }, subScores: { up_delayed: 2 } }
+                    ]
+                },
+                {
+                    question: "It's time for a group project. What is your role?",
+                    choices: [
+                        { text: "The Leader. I'll do everything because I don't trust you guys.", icon: "fas fa-crown", scores: { up: 0, admu: 2, dlsu: 2 }, subScores: { admu_socialite: 2, dlsu_shark: 2 } },
+                        { text: "The Funder. I'll print the papers and buy the snacks. Just put my name on it.", icon: "fas fa-money-bill", scores: { up: 0, admu: 0, dlsu: 3 }, subScores: { dlsu_royalty: 3 } },
+                        { text: "The Ghost. I will reply to the chat 1 hour before the deadline.", icon: "fas fa-ghost", scores: { up: 1, admu: 1, dlsu: 0 }, subScores: { up_delayed: 1, admu_chill: 1 } },
+                        { text: "The Intellectual. I'll write the 'Analysis' part but refuse to format.", icon: "fas fa-brain", scores: { up: 3, admu: 0, dlsu: 0 }, subScores: { up_tibak: 3 } }
+                    ]
+                },
+                {
+                    question: "Choose your weapon (Gadget).",
+                    choices: [
+                        { text: "Latest MacBook Pro. Space Gray. Stickers from expensive brands.", icon: "fas fa-laptop", scores: { up: 0, admu: 3, dlsu: 0 }, subScores: { admu_philosopher: 2, admu_socialite: 1 } },
+                        { text: "Gaming Laptop (ROG/Legion). Fans are louder than the prof.", icon: "fas fa-gamepad", scores: { up: 1, admu: 0, dlsu: 2 }, subScores: { dlsu_conyo: 2, up_delayed: 1 } },
+                        { text: "iPad Pro with Magic Keyboard. I don't need a laptop, I'm 'minimalist'.", icon: "fas fa-tablet", scores: { up: 0, admu: 1, dlsu: 3 }, subScores: { dlsu_royalty: 2, dlsu_shark: 1, admu_chill: 1 } },
+                        { text: "A battered ThinkPad/Dell that has survived 3 rallies and a flood.", icon: "fas fa-laptop-code", scores: { up: 3, admu: 0, dlsu: 0 }, subScores: { up_tibak: 2, up_delayed: 1 } }
+                    ]
+                },
+                {
+                    question: "You are stuck in traffic on EDSA. What are you listening to?",
+                    choices: [
+                        { text: "Taylor Swift (The Eras Tour Setlist) on repeat.", icon: "fas fa-music", scores: { up: 0, admu: 2, dlsu: 2 }, subScores: { admu_socialite: 2, dlsu_conyo: 2 } },
+                        { text: "Indie OPM (Munimuni, The Ridleys). Magmumuni-muni lang.", icon: "fas fa-guitar", scores: { up: 2, admu: 2, dlsu: 0 }, subScores: { up_tibak: 1, up_delayed: 1, admu_philosopher: 2 } },
+                        { text: "Podcast about 'Self-Improvement', 'Stocks', or 'Crypto'.", icon: "fas fa-podcast", scores: { up: 0, admu: 0, dlsu: 3 }, subScores: { dlsu_shark: 3 } },
+                        { text: "Angsty underground rap or Tubero.", icon: "fas fa-microphone", scores: { up: 3, admu: 0, dlsu: 0 }, subScores: { up_tibak: 3 } }
+                    ]
+                },
+                {
+                    question: "What is your relationship status?",
+                    choices: [
+                        { text: "Retrorunning. Situationship. It's complicated.", icon: "fas fa-heart-broken", scores: { up: 0, admu: 3, dlsu: 0 }, subScores: { admu_philosopher: 2, admu_chill: 1 } },
+                        { text: "Single by choice (the choice is academic requirements).", icon: "fas fa-book-open", scores: { up: 3, admu: 0, dlsu: 0 }, subScores: { up_delayed: 2, up_tibak: 1 } },
+                        { text: "Taken. We met in Boracay/La Union.", icon: "fas fa-heart", scores: { up: 0, admu: 0, dlsu: 3 }, subScores: { dlsu_royalty: 2, dlsu_conyo: 1 } },
+                        { text: "Talking stage with 3 different people from 3 different schools.", icon: "fas fa-comments", scores: { up: 1, admu: 0, dlsu: 2 }, subScores: { dlsu_shark: 2, up_burgis: 1 } }
+                    ]
+                },
+                {
+                    question: "The professor cancels class last minute. What do you do?",
+                    choices: [
+                        { text: "Drive to Tagaytay for coffee. G na agad.", icon: "fas fa-car-side", scores: { up: 0, admu: 0, dlsu: 3 }, subScores: { dlsu_royalty: 2, dlsu_conyo: 1 } },
+                        { text: "Study in the library anyway. Sayang tuition.", icon: "fas fa-book", scores: { up: 0, admu: 2, dlsu: 0 }, subScores: { admu_philosopher: 2 } },
+                        { text: "Sleep on a bench or the grass. Finally, rest.", icon: "fas fa-bed", scores: { up: 3, admu: 0, dlsu: 0 }, subScores: { up_delayed: 3 } },
+                        { text: "Inuman na! It's 10 AM but who cares.", icon: "fas fa-glass-cheers", scores: { up: 2, admu: 0, dlsu: 1 }, subScores: { up_tibak: 2, dlsu_conyo: 1 } }
+                    ]
+                },
+                {
+                    question: "It's finals week. What is your caffeine source?",
+                    choices: [
+                        { text: "Venti Oatmilk White Mocha with 2 pumps of...", icon: "fas fa-coffee", scores: { up: 0, admu: 0, dlsu: 3 }, subScores: { dlsu_royalty: 2, dlsu_conyo: 1 } },
+                        { text: "Pour-over, single-origin beans, black. No sugar.", icon: "fas fa-mug-hot", scores: { up: 0, admu: 3, dlsu: 0 }, subScores: { admu_philosopher: 3 } },
+                        { text: "Kopiko 78, Sting, or whatever is in the vending machine.", icon: "fas fa-bolt", scores: { up: 3, admu: 0, dlsu: 0 }, subScores: { up_delayed: 2, up_tibak: 1 } },
+                        { text: "Matcha Latte. Coffee makes me palpitate.", icon: "fas fa-leaf", scores: { up: 0, admu: 2, dlsu: 1 }, subScores: { admu_chill: 2, dlsu_conyo: 1 } }
+                    ]
+                },
+                {
+                    question: "Where are you spending the break?",
+                    choices: [
+                        { text: "Europe or Japan. Family trip.", icon: "fas fa-plane", scores: { up: 0, admu: 1, dlsu: 3 }, subScores: { dlsu_royalty: 3, admu_philosopher: 1 } },
+                        { text: "Elyu (La Union) or Siargao. Surfing and vibes.", icon: "fas fa-water", scores: { up: 0, admu: 3, dlsu: 1 }, subScores: { admu_chill: 3, dlsu_conyo: 1 } },
+                        { text: "Summer sem. I need to catch up on units.", icon: "fas fa-graduation-cap", scores: { up: 3, admu: 0, dlsu: 0 }, subScores: { up_delayed: 3 } },
+                        { text: "Internship. I need to build my LinkedIn.", icon: "fas fa-briefcase", scores: { up: 0, admu: 2, dlsu: 2 }, subScores: { admu_socialite: 2, dlsu_shark: 2 } }
+                    ]
+                },
+                {
+                    question: "You ran out of money. What do you do?",
+                    choices: [
+                        { text: "Call Dad/Mom. Transfer agad via online banking.", icon: "fas fa-phone", scores: { up: 0, admu: 0, dlsu: 3 }, subScores: { dlsu_royalty: 3 } },
+                        { text: "Borrow from a friend, promise to pay via GCash.", icon: "fas fa-handshake", scores: { up: 0, admu: 2, dlsu: 1 }, subScores: { admu_socialite: 2, dlsu_conyo: 1 } },
+                        { text: "Siomai Rice for 3 days straight. Kaya pa to.", icon: "fas fa-utensils", scores: { up: 3, admu: 0, dlsu: 0 }, subScores: { up_delayed: 2, up_tibak: 1 } },
+                        { text: "Sell my old clothes/gadgets on Carousell.", icon: "fas fa-tags", scores: { up: 2, admu: 1, dlsu: 0 }, subScores: { up_delayed: 2, admu_chill: 1 } }
+                    ]
+                },
+                {
+                    question: "What is the goal after graduation?",
+                    choices: [
+                        { text: "Take over the family business.", icon: "fas fa-building", scores: { up: 0, admu: 0, dlsu: 3 }, subScores: { dlsu_royalty: 2, dlsu_shark: 1 } },
+                        { text: "Law School or working for an NGO.", icon: "fas fa-balance-scale", scores: { up: 1, admu: 3, dlsu: 0 }, subScores: { admu_philosopher: 2, admu_socialite: 1, up_tibak: 1 } },
+                        { text: "Corporate slave or Med School.", icon: "fas fa-user-tie", scores: { up: 0, admu: 1, dlsu: 1 }, subScores: { admu_socialite: 1, dlsu_shark: 1 } },
+                        { text: "Serve the people (or disappear to the mountains).", icon: "fas fa-fist-raised", scores: { up: 3, admu: 0, dlsu: 0 }, subScores: { up_tibak: 3 } }
                     ]
                 }
             ],
@@ -839,7 +920,7 @@
                 },
                 
                 openGitHub() {
-                    window.open('https://github.com/LobenKT', '_blank');
+                    window.open('https://www.instagram.com/lobenkt/', '_blank');
                 },
                 
                 restartQuiz() {
