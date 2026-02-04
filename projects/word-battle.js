@@ -1,112 +1,122 @@
-// Word Battle Game Logic
-class WordBattleGame {
+// Letter-Link Battle Game - Enhanced Version with Firebase
+class LetterLinkBattle {
     constructor() {
         this.gameState = {
             currentScreen: 'menu',
             roomCode: null,
-            players: [],
-            currentPlayer: null,
-            targetWord: null,
+            playerId: null,
+            playerName: null,
+            gameMode: 'chain', // 'chain' or 'classic'
+            players: {},
+            currentTurn: null,
             gameStarted: false,
-            winner: null,
-            guesses: [],
-            playerGuesses: {}
+            round: 0,
+            maxRounds: 10,
+            roundTime: 15,
+            wordChain: [],
+            ghostLetters: [],
+            scores: {},
+            health: {},
+            timer: null,
+            timeLeft: 0
         };
         
-        // Word database - in a real app, this would be much larger
-        this.wordDatabase = [
-            'apple', 'brave', 'crane', 'dance', 'eagle', 'flame', 'grace', 'house',
-            'image', 'judge', 'knife', 'light', 'mouse', 'nurse', 'ocean', 'peace',
-            'queen', 'river', 'stone', 'table', 'uncle', 'voice', 'water', 'youth',
-            'zebra', 'about', 'above', 'abuse', 'actor', 'acute', 'admit', 'adopt',
-            'adult', 'after', 'again', 'agent', 'agree', 'ahead', 'alarm', 'album',
-            'alert', 'alien', 'align', 'alike', 'alive', 'allow', 'alone', 'along',
-            'alter', 'among', 'anger', 'angle', 'angry', 'apart', 'apple', 'apply',
-            'arena', 'argue', 'arise', 'array', 'arrow', 'aside', 'asset', 'avoid',
-            'awake', 'award', 'aware', 'badly', 'baker', 'bases', 'basic', 'beach',
-            'began', 'begin', 'being', 'below', 'bench', 'billy', 'birth', 'black',
-            'blame', 'blind', 'block', 'blood', 'board', 'boost', 'booth', 'bound',
-            'brain', 'brand', 'brass', 'brave', 'bread', 'break', 'breed', 'brief',
-            'bring', 'broad', 'broke', 'brown', 'build', 'built', 'buyer', 'cable',
-            'calif', 'carry', 'catch', 'cause', 'chain', 'chair', 'chaos', 'charm',
-            'chart', 'chase', 'cheap', 'check', 'chest', 'chief', 'child', 'china',
-            'chose', 'civil', 'claim', 'class', 'clean', 'clear', 'click', 'climb',
-            'clock', 'close', 'cloud', 'coach', 'coast', 'could', 'count', 'court',
-            'cover', 'craft', 'crash', 'crazy', 'cream', 'crime', 'cross', 'crowd',
-            'crown', 'crude', 'curve', 'cycle', 'daily', 'dance', 'dated', 'dealt',
-            'death', 'debut', 'delay', 'depth', 'doing', 'doubt', 'dozen', 'draft',
-            'drama', 'drank', 'dream', 'dress', 'drill', 'drink', 'drive', 'drove',
-            'dying', 'eager', 'early', 'earth', 'eight', 'elite', 'empty', 'enemy',
-            'enjoy', 'enter', 'entry', 'equal', 'error', 'event', 'every', 'exact',
-            'exist', 'extra', 'faith', 'false', 'fault', 'fiber', 'field', 'fifth',
-            'fifty', 'fight', 'final', 'first', 'fixed', 'flash', 'fleet', 'floor',
-            'fluid', 'focus', 'force', 'forth', 'forty', 'forum', 'found', 'frame',
-            'frank', 'fraud', 'fresh', 'front', 'fruit', 'fully', 'funny', 'giant',
-            'given', 'glass', 'globe', 'going', 'grace', 'grade', 'grand', 'grant',
-            'grass', 'grave', 'great', 'green', 'gross', 'group', 'grown', 'guard',
-            'guess', 'guest', 'guide', 'happy', 'harry', 'heart', 'heavy', 'hence',
-            'henry', 'horse', 'hotel', 'house', 'human', 'ideal', 'image', 'index',
-            'inner', 'input', 'issue', 'japan', 'jimmy', 'joint', 'jones', 'judge',
-            'known', 'label', 'large', 'laser', 'later', 'laugh', 'layer', 'learn',
-            'lease', 'least', 'leave', 'legal', 'level', 'lewis', 'light', 'limit',
-            'links', 'lives', 'local', 'loose', 'lower', 'lucky', 'lunch', 'lying',
-            'magic', 'major', 'maker', 'march', 'maria', 'match', 'maybe', 'mayor',
-            'meant', 'media', 'metal', 'might', 'minor', 'minus', 'mixed', 'model',
-            'money', 'month', 'moral', 'motor', 'mount', 'mouse', 'mouth', 'moved',
-            'movie', 'music', 'needs', 'never', 'newly', 'night', 'noise', 'north',
-            'noted', 'novel', 'nurse', 'occur', 'ocean', 'offer', 'often', 'order',
-            'other', 'ought', 'paint', 'panel', 'paper', 'party', 'peace', 'peter',
-            'phase', 'phone', 'photo', 'piano', 'piece', 'pilot', 'pitch', 'place',
-            'plain', 'plane', 'plant', 'plate', 'point', 'pound', 'power', 'press',
-            'price', 'pride', 'prime', 'print', 'prior', 'prize', 'proof', 'proud',
-            'prove', 'queen', 'quick', 'quiet', 'quite', 'radio', 'raise', 'range',
-            'rapid', 'ratio', 'reach', 'ready', 'realm', 'rebel', 'refer', 'relax',
-            'repay', 'reply', 'right', 'rigid', 'rival', 'river', 'robin', 'roger',
-            'roman', 'rough', 'round', 'route', 'royal', 'rural', 'scale', 'scene',
-            'scope', 'score', 'sense', 'serve', 'seven', 'shall', 'shape', 'share',
-            'sharp', 'sheet', 'shelf', 'shell', 'shift', 'shine', 'shirt', 'shock',
-            'shoot', 'short', 'shown', 'sides', 'sight', 'silly', 'since', 'sixth',
-            'sixty', 'sized', 'skill', 'sleep', 'slide', 'small', 'smart', 'smile',
-            'smith', 'smoke', 'snake', 'snow', 'social', 'solid', 'solve', 'sorry',
-            'sound', 'south', 'space', 'spare', 'speak', 'speed', 'spend', 'spent',
-            'split', 'spoke', 'sport', 'staff', 'stage', 'stake', 'stand', 'start',
-            'state', 'steam', 'steel', 'steep', 'steer', 'steve', 'stick', 'still',
-            'stock', 'stone', 'stood', 'store', 'storm', 'story', 'strip', 'stuck',
-            'study', 'stuff', 'style', 'sugar', 'suite', 'super', 'sweet', 'table',
-            'taken', 'taste', 'taxes', 'teach', 'teeth', 'terry', 'texas', 'thank',
-            'theft', 'their', 'theme', 'there', 'these', 'thick', 'thing', 'think',
-            'third', 'those', 'three', 'threw', 'throw', 'thumb', 'tiger', 'tight',
-            'timer', 'tired', 'title', 'today', 'topic', 'total', 'touch', 'tough',
-            'tower', 'track', 'trade', 'train', 'treat', 'trend', 'trial', 'tribe',
-            'trick', 'tried', 'tries', 'truck', 'truly', 'trunk', 'trust', 'truth',
-            'twice', 'uncle', 'under', 'undue', 'union', 'unity', 'until', 'upper',
-            'upset', 'urban', 'usage', 'usual', 'valid', 'value', 'video', 'virus',
-            'visit', 'vital', 'vocal', 'voice', 'waste', 'watch', 'water', 'wheel',
-            'where', 'which', 'while', 'white', 'whole', 'whose', 'woman', 'women',
-            'world', 'worry', 'worse', 'worst', 'worth', 'would', 'write', 'wrong',
-            'wrote', 'young', 'youth', 'zebra'
-        ];
+        // Firebase configuration (you'll need to replace with your config)
+        this.firebaseConfig = {
+            apiKey: "demo-key",
+            authDomain: "demo-project.firebaseapp.com",
+            databaseURL: "https://demo-project-default-rtdb.firebaseio.com/",
+            projectId: "demo-project"
+        };
+        
+        // Enhanced word database with difficulty ratings
+        this.wordDatabase = {
+            easy: ['apple', 'house', 'water', 'light', 'music', 'dance', 'smile', 'heart', 'peace', 'dream'],
+            medium: ['brave', 'flame', 'grace', 'judge', 'knife', 'ocean', 'queen', 'river', 'stone', 'voice'],
+            hard: ['azure', 'blitz', 'fjord', 'glyph', 'jinxed', 'quartz', 'sphinx', 'waltz', 'zephyr', 'rhythm']
+        };
+        
+        // Letter difficulty multipliers
+        this.letterDifficulty = {
+            'q': 2.0, 'x': 2.0, 'z': 2.0, 'j': 1.8, 'k': 1.5, 'v': 1.5, 'w': 1.5, 'y': 1.5,
+            'f': 1.3, 'h': 1.3, 'b': 1.2, 'c': 1.2, 'd': 1.2, 'g': 1.2, 'm': 1.2, 'p': 1.2,
+            'a': 1.0, 'e': 1.0, 'i': 1.0, 'l': 1.0, 'n': 1.0, 'o': 1.0, 'r': 1.0, 's': 1.0, 't': 1.0, 'u': 1.0
+        };
         
         this.init();
     }
     
-    init() {
+    async init() {
+        // Initialize Firebase (in demo mode, we'll simulate it)
+        this.initFirebase();
+        
         // Initialize event listeners
-        document.getElementById('guessInput').addEventListener('keypress', (e) => {
+        this.setupEventListeners();
+        
+        // Initialize game mode selector
+        this.setupGameModeSelector();
+        
+        // Generate unique player ID
+        this.gameState.playerId = 'player_' + Math.random().toString(36).substr(2, 9);
+    }
+    
+    initFirebase() {
+        // In a real implementation, you would initialize Firebase here
+        // For demo purposes, we'll simulate Firebase functionality
+        console.log('Firebase initialized (demo mode)');
+        this.updateConnectionStatus('connected');
+        
+        // Simulate Firebase real-time database
+        this.database = {
+            ref: (path) => ({
+                set: (data) => console.log(`Setting ${path}:`, data),
+                update: (data) => console.log(`Updating ${path}:`, data),
+                on: (event, callback) => console.log(`Listening to ${path} for ${event}`),
+                off: () => console.log(`Stopped listening to ${path}`),
+                once: (event) => Promise.resolve({ val: () => null })
+            })
+        };
+    }
+    
+    setupEventListeners() {
+        // Word input enter key
+        document.getElementById('wordInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
-                this.makeGuess();
+                this.submitWord();
             }
         });
         
-        // Auto-uppercase letter inputs
-        ['startLetter', 'endLetter'].forEach(id => {
-            document.getElementById(id).addEventListener('input', (e) => {
-                e.target.value = e.target.value.toUpperCase();
+        // Player name enter key
+        document.getElementById('playerName').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                this.createRoom();
+            }
+        });
+        
+        // Room code enter key
+        document.getElementById('roomCode').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                this.joinRoom();
+            }
+        });
+    }
+    
+    setupGameModeSelector() {
+        document.querySelectorAll('.mode-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                this.gameState.gameMode = btn.dataset.mode;
             });
         });
     }
     
-    // Generate a random room code
+    updateConnectionStatus(status) {
+        const statusEl = document.getElementById('connectionStatus');
+        statusEl.textContent = status === 'connected' ? '🟢 Connected' : '🔴 Disconnected';
+        statusEl.className = `connection-status ${status}`;
+    }
+    
     generateRoomCode() {
         const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         let result = '';
@@ -116,20 +126,7 @@ class WordBattleGame {
         return result;
     }
     
-    // Find words that start and end with specific letters
-    findWordsWithConstraints(startLetter, endLetter) {
-        const start = startLetter.toLowerCase();
-        const end = endLetter.toLowerCase();
-        
-        return this.wordDatabase.filter(word => 
-            word.charAt(0) === start && 
-            word.charAt(word.length - 1) === end &&
-            word.length >= 4 && word.length <= 8
-        );
-    }
-    
-    // Create a new game room
-    createRoom() {
+    async createRoom() {
         const playerName = document.getElementById('playerName').value.trim();
         if (!playerName) {
             alert('Please enter your name!');
@@ -137,26 +134,44 @@ class WordBattleGame {
         }
         
         this.gameState.roomCode = this.generateRoomCode();
-        this.gameState.currentPlayer = {
-            name: playerName,
-            id: 'player1',
-            letters: null,
-            guesses: 0
+        this.gameState.playerName = playerName;
+        
+        // Initialize room data
+        const roomData = {
+            host: this.gameState.playerId,
+            gameMode: this.gameState.gameMode,
+            players: {
+                [this.gameState.playerId]: {
+                    name: playerName,
+                    score: 0,
+                    health: 100,
+                    ready: false
+                }
+            },
+            gameState: 'lobby',
+            settings: {
+                roundTime: 15,
+                maxRounds: 10
+            }
         };
-        this.gameState.players = [this.gameState.currentPlayer];
+        
+        // In real Firebase implementation:
+        // await this.database.ref(`rooms/${this.gameState.roomCode}`).set(roomData);
+        
+        this.gameState.players = roomData.players;
+        this.gameState.scores = { [this.gameState.playerId]: 0 };
+        this.gameState.health = { [this.gameState.playerId]: 100 };
         
         this.showScreen('lobby');
         document.getElementById('displayRoomCode').textContent = this.gameState.roomCode;
         this.updateLobby();
     }
     
-    // Show join room input
     showJoinRoom() {
         document.getElementById('join-room-section').style.display = 'block';
     }
     
-    // Join an existing room
-    joinRoom() {
+    async joinRoom() {
         const playerName = document.getElementById('playerName').value.trim();
         const roomCode = document.getElementById('roomCode').value.trim().toUpperCase();
         
@@ -165,266 +180,481 @@ class WordBattleGame {
             return;
         }
         
-        // In a real implementation, this would connect to a server
-        // For demo purposes, we'll simulate joining
         this.gameState.roomCode = roomCode;
-        this.gameState.currentPlayer = {
-            name: playerName,
-            id: 'player2',
-            letters: null,
-            guesses: 0
+        this.gameState.playerName = playerName;
+        
+        // In real Firebase implementation, check if room exists and join
+        // For demo, simulate joining
+        const player2Id = 'player_' + Math.random().toString(36).substr(2, 9);
+        this.gameState.playerId = player2Id;
+        
+        this.gameState.players = {
+            'player_host': { name: 'Host Player', score: 0, health: 100, ready: true },
+            [player2Id]: { name: playerName, score: 0, health: 100, ready: false }
         };
         
-        // Simulate existing player
-        this.gameState.players = [
-            { name: 'Player 1', id: 'player1', letters: null, guesses: 0 },
-            this.gameState.currentPlayer
-        ];
+        this.gameState.scores = { 'player_host': 0, [player2Id]: 0 };
+        this.gameState.health = { 'player_host': 100, [player2Id]: 100 };
         
         this.showScreen('lobby');
         document.getElementById('displayRoomCode').textContent = this.gameState.roomCode;
         this.updateLobby();
     }
     
-    // Update lobby display
     updateLobby() {
         const lobbyPlayers = document.getElementById('lobbyPlayers');
         lobbyPlayers.innerHTML = '';
         
-        this.gameState.players.forEach(player => {
+        Object.entries(this.gameState.players).forEach(([playerId, player]) => {
             const playerCard = document.createElement('div');
-            playerCard.className = 'player-card';
-            if (player.id === this.gameState.currentPlayer.id) {
+            playerCard.className = 'stat-card';
+            if (playerId === this.gameState.playerId) {
                 playerCard.classList.add('active');
             }
             
             playerCard.innerHTML = `
-                <h4>${player.name}</h4>
-                <p>Status: ${player.letters ? 'Ready' : 'Choosing letters...'}</p>
-                ${player.letters ? `<p>Letters: ${player.letters.start} → ${player.letters.end}</p>` : ''}
+                <div class="stat-value">${player.name}</div>
+                <div class="stat-label">Status: ${player.ready ? '✅ Ready' : '⏳ Waiting'}</div>
+                <div class="stat-label">Score: ${player.score}</div>
             `;
             
             lobbyPlayers.appendChild(playerCard);
         });
         
-        // Show letter selection if current player hasn't chosen
-        if (!this.gameState.currentPlayer.letters) {
-            document.getElementById('letter-selection').style.display = 'block';
-        }
-        
-        // Show start button if both players are ready
-        if (this.gameState.players.length === 2 && 
-            this.gameState.players.every(p => p.letters)) {
+        // Show start button if we have 2 players and current player is host
+        const playerCount = Object.keys(this.gameState.players).length;
+        if (playerCount === 2) {
             document.getElementById('startGameBtn').style.display = 'block';
         }
     }
     
-    // Submit letter choices
-    submitLetters() {
-        const startLetter = document.getElementById('startLetter').value.trim().toUpperCase();
-        const endLetter = document.getElementById('endLetter').value.trim().toUpperCase();
-        
-        if (!startLetter || !endLetter) {
-            alert('Please choose both starting and ending letters!');
-            return;
-        }
-        
-        if (startLetter === endLetter) {
-            alert('Starting and ending letters must be different!');
-            return;
-        }
-        
-        this.gameState.currentPlayer.letters = {
-            start: startLetter,
-            end: endLetter
-        };
-        
-        document.getElementById('letter-selection').style.display = 'none';
-        this.updateLobby();
-    }
-    
-    // Start the game
-    startGame() {
-        if (this.gameState.players.length !== 2) {
+    async startGame() {
+        if (Object.keys(this.gameState.players).length !== 2) {
             alert('Need 2 players to start!');
             return;
         }
         
-        // Combine letter constraints from both players
-        const allLetters = this.gameState.players.flatMap(p => [p.letters.start, p.letters.end]);
-        const startLetter = allLetters[Math.floor(Math.random() * allLetters.length)];
-        const endLetter = allLetters[Math.floor(Math.random() * allLetters.length)];
+        // Get game settings
+        this.gameState.roundTime = parseInt(document.getElementById('roundTime').value) || 15;
+        this.gameState.maxRounds = parseInt(document.getElementById('maxRounds').value) || 10;
         
-        // Find valid words
-        const validWords = this.findWordsWithConstraints(startLetter, endLetter);
-        
-        if (validWords.length === 0) {
-            alert('No valid words found with those letters! Please choose different letters.');
-            return;
-        }
-        
-        // Select random word
-        this.gameState.targetWord = validWords[Math.floor(Math.random() * validWords.length)];
+        // Initialize game state
         this.gameState.gameStarted = true;
-        this.gameState.playerGuesses = {};
-        this.gameState.guesses = [];
+        this.gameState.round = 1;
+        this.gameState.wordChain = [];
+        this.gameState.ghostLetters = [];
+        
+        // Set first player (random)
+        const playerIds = Object.keys(this.gameState.players);
+        this.gameState.currentTurn = playerIds[Math.floor(Math.random() * playerIds.length)];
         
         this.showScreen('game');
         this.updateGameDisplay();
+        this.startRound();
     }
     
-    // Update game display
+    startRound() {
+        this.gameState.timeLeft = this.gameState.roundTime;
+        this.updateTimer();
+        
+        // Start countdown timer
+        this.gameState.timer = setInterval(() => {
+            this.gameState.timeLeft--;
+            this.updateTimer();
+            
+            if (this.gameState.timeLeft <= 0) {
+                this.handleTimeout();
+            }
+        }, 1000);
+        
+        // Update ghost letters every 3 rounds
+        if (this.gameState.round % 3 === 0) {
+            this.updateGhostLetters();
+        }
+        
+        this.updateGameStatus();
+    }
+    
+    updateTimer() {
+        const timerFill = document.getElementById('timerFill');
+        const timerText = document.getElementById('timerText');
+        
+        const percentage = (this.gameState.timeLeft / this.gameState.roundTime) * 100;
+        timerFill.style.width = percentage + '%';
+        timerText.textContent = `${this.gameState.timeLeft}s remaining`;
+        
+        // Change timer color based on time left
+        timerFill.className = 'timer-fill';
+        if (percentage <= 30) {
+            timerFill.classList.add('danger');
+        } else if (percentage <= 60) {
+            timerFill.classList.add('warning');
+        }
+    }
+    
+    updateGhostLetters() {
+        const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const numGhostLetters = Math.min(3, Math.floor(this.gameState.round / 3));
+        
+        this.gameState.ghostLetters = [];
+        for (let i = 0; i < numGhostLetters; i++) {
+            let letter;
+            do {
+                letter = alphabet[Math.floor(Math.random() * alphabet.length)];
+            } while (this.gameState.ghostLetters.includes(letter));
+            this.gameState.ghostLetters.push(letter);
+        }
+        
+        const ghostDiv = document.getElementById('ghostLetters');
+        const ghostList = document.getElementById('ghostLettersList');
+        
+        if (this.gameState.ghostLetters.length > 0) {
+            ghostDiv.style.display = 'block';
+            ghostList.innerHTML = this.gameState.ghostLetters
+                .map(letter => `<span class="ghost-letter">${letter}</span>`)
+                .join('');
+        } else {
+            ghostDiv.style.display = 'none';
+        }
+    }
+    
     updateGameDisplay() {
-        const word = this.gameState.targetWord;
-        const clue = word.charAt(0).toUpperCase() + 
-                    '_'.repeat(word.length - 2) + 
-                    word.charAt(word.length - 1).toUpperCase();
+        // Update player stats
+        Object.entries(this.gameState.players).forEach(([playerId, player], index) => {
+            const playerNum = index + 1;
+            document.getElementById(`player${playerNum}Name`).textContent = player.name;
+            document.getElementById(`player${playerNum}Score`).textContent = this.gameState.scores[playerId] || 0;
+            document.getElementById(`player${playerNum}Health`).textContent = this.gameState.health[playerId] || 100;
+            
+            const card = document.getElementById(`player${playerNum}Card`);
+            card.classList.toggle('active', playerId === this.gameState.currentTurn);
+        });
         
-        document.getElementById('wordClue').textContent = clue;
-        document.getElementById('player1Name').textContent = this.gameState.players[0].name;
-        document.getElementById('player2Name').textContent = this.gameState.players[1].name;
-        document.getElementById('player1Guesses').textContent = this.gameState.players[0].guesses;
-        document.getElementById('player2Guesses').textContent = this.gameState.players[1].guesses;
-        
-        // Update guess history
-        this.updateGuessHistory();
+        // Update word chain display
+        this.updateWordChainDisplay();
     }
     
-    // Make a guess
-    makeGuess() {
-        const guessInput = document.getElementById('guessInput');
-        const guess = guessInput.value.trim().toLowerCase();
+    updateWordChainDisplay() {
+        const chainDisplay = document.getElementById('word-chain-display');
+        chainDisplay.innerHTML = '';
         
-        if (!guess) {
-            alert('Please enter a guess!');
+        if (this.gameState.wordChain.length === 0) {
+            chainDisplay.innerHTML = '<div class="chain-word">Start the chain!</div>';
             return;
         }
         
-        if (guess.length !== this.gameState.targetWord.length) {
-            alert(`Word must be ${this.gameState.targetWord.length} letters long!`);
+        this.gameState.wordChain.forEach((wordData, index) => {
+            if (index > 0) {
+                const arrow = document.createElement('div');
+                arrow.className = 'chain-arrow';
+                arrow.textContent = '→';
+                chainDisplay.appendChild(arrow);
+            }
+            
+            const wordDiv = document.createElement('div');
+            wordDiv.className = 'chain-word';
+            wordDiv.textContent = `${wordData.word.toUpperCase()} (+${wordData.score})`;
+            chainDisplay.appendChild(wordDiv);
+        });
+    }
+    
+    updateGameStatus() {
+        const statusEl = document.getElementById('gameStatus');
+        const isMyTurn = this.gameState.currentTurn === this.gameState.playerId;
+        
+        if (isMyTurn) {
+            const lastWord = this.gameState.wordChain[this.gameState.wordChain.length - 1];
+            if (this.gameState.gameMode === 'chain' && lastWord) {
+                const requiredStart = lastWord.word.slice(-1).toUpperCase();
+                statusEl.textContent = `Your turn! Word must start with "${requiredStart}"`;
+            } else {
+                statusEl.textContent = 'Your turn! Enter any word to start the chain.';
+            }
+        } else {
+            const currentPlayerName = this.gameState.players[this.gameState.currentTurn]?.name || 'Opponent';
+            statusEl.textContent = `${currentPlayerName}'s turn...`;
+        }
+    }
+    
+    async submitWord() {
+        const wordInput = document.getElementById('wordInput');
+        const word = wordInput.value.trim().toLowerCase();
+        
+        if (!word) {
+            alert('Please enter a word!');
             return;
         }
         
-        // Check if word is correct
-        if (guess === this.gameState.targetWord) {
-            this.gameState.winner = this.gameState.currentPlayer;
+        if (this.gameState.currentTurn !== this.gameState.playerId) {
+            alert('Not your turn!');
+            return;
+        }
+        
+        // Validate word
+        const validation = this.validateWord(word);
+        if (!validation.valid) {
+            alert(validation.error);
+            return;
+        }
+        
+        // Calculate score
+        const score = this.calculateScore(word);
+        
+        // Add to word chain
+        const wordData = {
+            word: word,
+            player: this.gameState.playerId,
+            playerName: this.gameState.players[this.gameState.playerId].name,
+            score: score,
+            round: this.gameState.round
+        };
+        
+        this.gameState.wordChain.push(wordData);
+        this.gameState.scores[this.gameState.playerId] += score;
+        
+        // Show score popup
+        this.showScorePopup(score);
+        
+        // Clear input
+        wordInput.value = '';
+        
+        // Clear timer
+        if (this.gameState.timer) {
+            clearInterval(this.gameState.timer);
+        }
+        
+        // Switch turns
+        this.switchTurns();
+        
+        // Check for game end
+        if (this.gameState.round >= this.gameState.maxRounds) {
+            this.endGame();
+        } else {
+            this.gameState.round++;
+            this.startRound();
+        }
+        
+        this.updateGameDisplay();
+    }
+    
+    validateWord(word) {
+        // Check if word exists in database
+        const allWords = [...this.wordDatabase.easy, ...this.wordDatabase.medium, ...this.wordDatabase.hard];
+        if (!allWords.includes(word)) {
+            return { valid: false, error: 'Word not found in dictionary!' };
+        }
+        
+        // Check minimum length
+        if (word.length < 3) {
+            return { valid: false, error: 'Word must be at least 3 letters long!' };
+        }
+        
+        // Check if word was already used
+        if (this.gameState.wordChain.some(w => w.word === word)) {
+            return { valid: false, error: 'Word already used!' };
+        }
+        
+        // Check ghost letters
+        const wordUpper = word.toUpperCase();
+        for (let letter of this.gameState.ghostLetters) {
+            if (wordUpper.startsWith(letter) || wordUpper.endsWith(letter)) {
+                return { valid: false, error: `Cannot use ghost letter "${letter}"!` };
+            }
+        }
+        
+        // Check chain connection (for chain mode)
+        if (this.gameState.gameMode === 'chain' && this.gameState.wordChain.length > 0) {
+            const lastWord = this.gameState.wordChain[this.gameState.wordChain.length - 1];
+            const requiredStart = lastWord.word.slice(-1).toLowerCase();
+            if (!word.startsWith(requiredStart)) {
+                return { valid: false, error: `Word must start with "${requiredStart.toUpperCase()}"!` };
+            }
+        }
+        
+        return { valid: true };
+    }
+    
+    calculateScore(word) {
+        let baseScore = word.length;
+        
+        // Difficulty multiplier based on letters
+        let difficultyMultiplier = 1.0;
+        for (let letter of word.toLowerCase()) {
+            if (this.letterDifficulty[letter]) {
+                difficultyMultiplier *= this.letterDifficulty[letter];
+            }
+        }
+        
+        // Word difficulty bonus
+        let wordDifficultyBonus = 1.0;
+        if (this.wordDatabase.hard.includes(word)) {
+            wordDifficultyBonus = 2.0;
+        } else if (this.wordDatabase.medium.includes(word)) {
+            wordDifficultyBonus = 1.5;
+        }
+        
+        // Perfect match bonus (if word length equals round number)
+        let perfectMatchBonus = this.gameState.round === word.length ? 1.5 : 1.0;
+        
+        const finalScore = Math.round(baseScore * difficultyMultiplier * wordDifficultyBonus * perfectMatchBonus);
+        return Math.max(finalScore, 1); // Minimum 1 point
+    }
+    
+    showScorePopup(score) {
+        const popup = document.createElement('div');
+        popup.className = 'score-popup';
+        popup.textContent = `+${score} points!`;
+        document.body.appendChild(popup);
+        
+        setTimeout(() => {
+            document.body.removeChild(popup);
+        }, 2000);
+    }
+    
+    switchTurns() {
+        const playerIds = Object.keys(this.gameState.players);
+        const currentIndex = playerIds.indexOf(this.gameState.currentTurn);
+        const nextIndex = (currentIndex + 1) % playerIds.length;
+        this.gameState.currentTurn = playerIds[nextIndex];
+    }
+    
+    handleTimeout() {
+        if (this.gameState.timer) {
+            clearInterval(this.gameState.timer);
+        }
+        
+        // Reduce health for current player
+        const currentPlayerId = this.gameState.currentTurn;
+        this.gameState.health[currentPlayerId] = Math.max(0, this.gameState.health[currentPlayerId] - 10);
+        
+        // Check if player is eliminated
+        if (this.gameState.health[currentPlayerId] <= 0) {
             this.endGame();
             return;
         }
         
-        // Add guess to history
-        const guessResult = this.evaluateGuess(guess);
-        this.gameState.guesses.push({
-            player: this.gameState.currentPlayer.name,
-            word: guess,
-            result: guessResult
-        });
+        // Switch turns and continue
+        this.switchTurns();
+        this.gameState.round++;
         
-        this.gameState.currentPlayer.guesses++;
-        guessInput.value = '';
+        if (this.gameState.round >= this.gameState.maxRounds) {
+            this.endGame();
+        } else {
+            this.startRound();
+        }
         
         this.updateGameDisplay();
-        
-        // Check for max guesses (optional)
-        if (this.gameState.currentPlayer.guesses >= 6) {
-            document.getElementById('gameStatus').textContent = 'Maximum guesses reached!';
-        }
     }
     
-    // Evaluate guess (Wordle-style)
-    evaluateGuess(guess) {
-        const target = this.gameState.targetWord;
-        const result = [];
-        
-        for (let i = 0; i < guess.length; i++) {
-            if (guess[i] === target[i]) {
-                result.push('correct');
-            } else if (target.includes(guess[i])) {
-                result.push('present');
-            } else {
-                result.push('absent');
-            }
-        }
-        
-        return result;
-    }
-    
-    // Update guess history display
-    updateGuessHistory() {
-        const historyDiv = document.getElementById('guessHistory');
-        historyDiv.innerHTML = '';
-        
-        this.gameState.guesses.slice(-5).forEach(guess => {
-            const guessDiv = document.createElement('div');
-            guessDiv.className = 'guess-grid';
-            
-            for (let i = 0; i < guess.word.length; i++) {
-                const letterBox = document.createElement('div');
-                letterBox.className = `letter-box ${guess.result[i]}`;
-                letterBox.textContent = guess.word[i].toUpperCase();
-                guessDiv.appendChild(letterBox);
-            }
-            
-            const playerLabel = document.createElement('p');
-            playerLabel.textContent = `${guess.player}:`;
-            playerLabel.style.marginBottom = '0.5rem';
-            
-            const container = document.createElement('div');
-            container.appendChild(playerLabel);
-            container.appendChild(guessDiv);
-            container.style.marginBottom = '1rem';
-            
-            historyDiv.appendChild(container);
-        });
-    }
-    
-    // End the game
     endGame() {
-        this.showScreen('results');
-        document.getElementById('finalWord').textContent = this.gameState.targetWord.toUpperCase();
-        
-        if (this.gameState.winner) {
-            document.getElementById('gameResult').textContent = '🎉 Game Won!';
-            document.getElementById('winnerMessage').textContent = 
-                `${this.gameState.winner.name} found the word in ${this.gameState.winner.guesses + 1} guesses!`;
-        } else {
-            document.getElementById('gameResult').textContent = '⏰ Time\'s Up!';
-            document.getElementById('winnerMessage').textContent = 
-                `The word was: ${this.gameState.targetWord.toUpperCase()}`;
+        if (this.gameState.timer) {
+            clearInterval(this.gameState.timer);
         }
+        
+        // Determine winner
+        const playerIds = Object.keys(this.gameState.players);
+        let winner = null;
+        let highestScore = -1;
+        
+        playerIds.forEach(playerId => {
+            const score = this.gameState.scores[playerId] || 0;
+            const health = this.gameState.health[playerId] || 0;
+            
+            // Player with health > 0 and highest score wins
+            if (health > 0 && score > highestScore) {
+                highestScore = score;
+                winner = playerId;
+            }
+        });
+        
+        this.showScreen('results');
+        this.displayResults(winner);
     }
     
-    // Play again
+    displayResults(winnerId) {
+        const playerIds = Object.keys(this.gameState.players);
+        
+        // Update final scores
+        playerIds.forEach((playerId, index) => {
+            const playerNum = index + 1;
+            const player = this.gameState.players[playerId];
+            const score = this.gameState.scores[playerId] || 0;
+            
+            document.getElementById(`finalPlayer${playerNum}Name`).textContent = player.name;
+            document.getElementById(`finalPlayer${playerNum}Score`).textContent = score;
+        });
+        
+        // Display winner message
+        if (winnerId) {
+            const winnerName = this.gameState.players[winnerId].name;
+            document.getElementById('gameResult').textContent = '🎉 Game Over!';
+            document.getElementById('winnerMessage').textContent = `${winnerName} wins with ${this.gameState.scores[winnerId]} points!`;
+        } else {
+            document.getElementById('gameResult').textContent = '🤝 Draw!';
+            document.getElementById('winnerMessage').textContent = 'No clear winner!';
+        }
+        
+        // Display game statistics
+        const statsDiv = document.getElementById('gameStats');
+        statsDiv.innerHTML = `
+            <h4>Game Statistics</h4>
+            <p>Total Rounds: ${this.gameState.round}</p>
+            <p>Words Played: ${this.gameState.wordChain.length}</p>
+            <p>Longest Word: ${this.gameState.wordChain.reduce((longest, word) => 
+                word.word.length > longest.length ? word.word : longest, '').toUpperCase()}</p>
+        `;
+    }
+    
     playAgain() {
+        // Reset game state but keep players
         this.gameState.gameStarted = false;
-        this.gameState.winner = null;
-        this.gameState.targetWord = null;
-        this.gameState.guesses = [];
-        this.gameState.players.forEach(p => p.guesses = 0);
+        this.gameState.round = 0;
+        this.gameState.wordChain = [];
+        this.gameState.ghostLetters = [];
+        
+        Object.keys(this.gameState.players).forEach(playerId => {
+            this.gameState.scores[playerId] = 0;
+            this.gameState.health[playerId] = 100;
+        });
+        
+        if (this.gameState.timer) {
+            clearInterval(this.gameState.timer);
+        }
         
         this.showScreen('lobby');
         this.updateLobby();
     }
     
-    // Back to main menu
     backToMenu() {
+        // Reset everything
         this.gameState = {
             currentScreen: 'menu',
             roomCode: null,
-            players: [],
-            currentPlayer: null,
-            targetWord: null,
+            playerId: 'player_' + Math.random().toString(36).substr(2, 9),
+            playerName: null,
+            gameMode: 'chain',
+            players: {},
+            currentTurn: null,
             gameStarted: false,
-            winner: null,
-            guesses: [],
-            playerGuesses: {}
+            round: 0,
+            maxRounds: 10,
+            roundTime: 15,
+            wordChain: [],
+            ghostLetters: [],
+            scores: {},
+            health: {},
+            timer: null,
+            timeLeft: 0
         };
+        
+        if (this.gameState.timer) {
+            clearInterval(this.gameState.timer);
+        }
         
         this.showScreen('menu');
         document.getElementById('join-room-section').style.display = 'none';
     }
     
-    // Show specific screen
     showScreen(screenName) {
         document.querySelectorAll('.game-screen').forEach(screen => {
             screen.classList.remove('active');
@@ -449,16 +679,12 @@ function joinRoom() {
     game.joinRoom();
 }
 
-function submitLetters() {
-    game.submitLetters();
-}
-
 function startGame() {
     game.startGame();
 }
 
-function makeGuess() {
-    game.makeGuess();
+function submitWord() {
+    game.submitWord();
 }
 
 function playAgain() {
@@ -471,5 +697,5 @@ function backToMenu() {
 
 // Initialize game when page loads
 document.addEventListener('DOMContentLoaded', () => {
-    game = new WordBattleGame();
+    game = new LetterLinkBattle();
 });
