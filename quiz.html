@@ -1089,11 +1089,23 @@
                     
                     drawGlassPane(mainPaneX, mainPaneY, mainPaneWidth, mainPaneHeight, 30);
                     
-                    // Avatar emoji inside main pane
+                    // Avatar emoji inside main pane with glow effect
                     const avatarY = mainPaneY + 120;
+                    
+                    // Add glow effect to emoji
+                    ctx.shadowColor = uniData.neonColor;
+                    ctx.shadowBlur = 20;
+                    ctx.shadowOffsetX = 0;
+                    ctx.shadowOffsetY = 0;
+                    
                     ctx.font = '120px Arial';
                     ctx.textAlign = 'center';
+                    ctx.fillStyle = 'white';
                     ctx.fillText(uniData.emoji, canvas.width / 2, avatarY);
+                    
+                    // Reset shadow for other elements
+                    ctx.shadowColor = 'transparent';
+                    ctx.shadowBlur = 0;
                     
                     // User name with glass background
                     let displayName = '';
@@ -1152,23 +1164,48 @@
                     
                     drawGlassPane(statsPaneX, statsPaneY, statsPaneWidth, statsPaneHeight, 30);
                     
-                    // Starter pack section inside stats pane
+                    // Starter pack section inside stats pane with pill-style tags
                     let statsY = statsPaneY + 50;
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
                     ctx.font = 'bold 26px Arial, sans-serif';
                     ctx.fillText('STARTER PACK', canvas.width / 2, statsY);
                     
-                    statsY += 40;
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
-                    ctx.font = '22px Arial, sans-serif';
-                    const starterPackLines = this.wrapText(ctx, this.finalResult.starterPack, statsPaneWidth - 80);
-                    starterPackLines.forEach(line => {
-                        ctx.fillText(line, canvas.width / 2, statsY);
-                        statsY += 28;
+                    statsY += 50;
+                    
+                    // Convert starter pack to individual pill tags
+                    const starterItems = this.finalResult.starterPack.split(' • ');
+                    const pillsPerRow = 2;
+                    const pillWidth = 300;
+                    const pillHeight = 45;
+                    const pillSpacing = 20;
+                    const rowSpacing = 15;
+                    
+                    starterItems.forEach((item, index) => {
+                        const row = Math.floor(index / pillsPerRow);
+                        const col = index % pillsPerRow;
+                        
+                        const pillX = canvas.width / 2 - (pillsPerRow * pillWidth + (pillsPerRow - 1) * pillSpacing) / 2 + col * (pillWidth + pillSpacing);
+                        const pillY = statsY + row * (pillHeight + rowSpacing);
+                        
+                        // Pill background with glass effect
+                        ctx.fillStyle = `${uniData.neonColor}40`; // 25% opacity
+                        this.drawRoundedRect(ctx, pillX, pillY, pillWidth, pillHeight, 22);
+                        
+                        // Pill border
+                        ctx.strokeStyle = `${uniData.neonColor}80`; // 50% opacity
+                        ctx.lineWidth = 2;
+                        this.strokeRoundedRect(ctx, pillX, pillY, pillWidth, pillHeight, 22);
+                        
+                        // Pill text
+                        ctx.fillStyle = 'white';
+                        ctx.font = 'bold 18px Arial, sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.fillText(item.trim(), pillX + pillWidth / 2, pillY + pillHeight / 2 + 6);
                     });
                     
-                    // Trait bars with glass effect
-                    statsY += 40;
+                    // Adjust statsY for trait bars
+                    const totalRows = Math.ceil(starterItems.length / pillsPerRow);
+                    statsY += totalRows * (pillHeight + rowSpacing) + 30;
                     const barWidth = 650;
                     const barHeight = 40;
                     const barSpacing = 70;
