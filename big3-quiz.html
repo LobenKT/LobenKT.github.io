@@ -258,6 +258,20 @@
                     <div class="color-dot dlsu-color"></div>
                 </div>
                 
+                <!-- Optional IG Handle Input -->
+                <div class="mb-4">
+                    <label for="igHandle" class="form-label text-muted">Instagram Handle (optional)</label>
+                    <input 
+                        type="text" 
+                        id="igHandle"
+                        v-model="userIgHandle" 
+                        class="form-control nickname-input" 
+                        placeholder="@yourhandle"
+                        maxlength="30"
+                    >
+                    <small class="text-muted">This will appear on your result card for extra flex 📸</small>
+                </div>
+                
                 <button 
                     @click="startQuiz" 
                     class="btn btn-start w-100"
@@ -296,8 +310,8 @@
             <!-- Result View -->
             <div v-if="currentView === 'result'" class="card p-4 result-card">
                 <h2 class="mb-3">Your Result:</h2>
-                <canvas ref="resultCanvas" width="540" height="960" style="display: none;"></canvas>
-                <img v-if="resultImageUrl" :src="resultImageUrl" alt="Your Result" class="result-image">
+                <canvas ref="resultCanvas" width="1080" height="1920" style="display: none;"></canvas>
+                <img v-if="resultImageUrl" :src="resultImageUrl" alt="Your Result" class="result-image img-fluid shadow-lg rounded">
                 
                 <div class="mt-4">
                     <h4>{{ finalResult.title }}</h4>
@@ -320,6 +334,13 @@
                     </button>
                     <button @click="downloadResult" class="share-btn download">
                         <i class="fas fa-download me-2"></i>Save Image
+                    </button>
+                </div>
+
+                <!-- The "Plug" Button -->
+                <div class="mt-3">
+                    <button @click="openGitHub" class="btn btn-outline-secondary btn-sm w-100" style="border-radius: 25px; font-size: 0.9rem;">
+                        <i class="fab fa-github me-2"></i>I built this instead of sleeping. Stalk my GitHub.
                     </button>
                 </div>
 
@@ -488,6 +509,7 @@
                 return {
                     currentView: 'landing',
                     userNickname: '',
+                    userIgHandle: '',
                     currentQuestion: 0,
                     universityScores: {
                         up: 0,
@@ -601,116 +623,134 @@
                     const canvas = this.$refs.resultCanvas;
                     const ctx = canvas.getContext('2d');
                     
-                    // Set canvas size for Instagram story format
-                    canvas.width = 540;
-                    canvas.height = 960;
+                    // Set canvas size for Instagram story format (9:16 ratio)
+                    canvas.width = 1080;
+                    canvas.height = 1920;
                     
-                    // Background
+                    // Background - solid color
                     ctx.fillStyle = this.finalResult.bgColor;
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
                     
-                    // Add gradient overlay
+                    // Add subtle gradient overlay
                     const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
                     gradient.addColorStop(0, this.finalResult.bgColor);
-                    gradient.addColorStop(1, this.adjustColor(this.finalResult.bgColor, -30));
+                    gradient.addColorStop(1, this.adjustColor(this.finalResult.bgColor, -40));
                     ctx.fillStyle = gradient;
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
                     
-                    // Add decorative elements
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
-                    for (let i = 0; i < 20; i++) {
+                    // Add decorative circles for visual interest
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+                    for (let i = 0; i < 15; i++) {
                         ctx.beginPath();
                         ctx.arc(
                             Math.random() * canvas.width,
                             Math.random() * canvas.height,
-                            Math.random() * 30 + 10,
+                            Math.random() * 80 + 40,
                             0,
                             2 * Math.PI
                         );
                         ctx.fill();
                     }
                     
-                    // Title text
-                    ctx.fillStyle = 'white';
-                    ctx.font = 'bold 28px Poppins, Arial';
+                    // Header: "CERTIFIED" text
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                    ctx.font = 'bold 48px Poppins, Arial';
                     ctx.textAlign = 'center';
-                    ctx.fillText('BIG 3 UNIVERSITY QUIZ', canvas.width / 2, 70);
+                    ctx.fillText('CERTIFIED', canvas.width / 2, 150);
                     
-                    // Random nickname
-                    const randomNicknames = ['Bestie', 'Bro', 'Sis', 'Fam', 'Dude', 'Pare', 'Mars', 'Tol'];
-                    const randomNickname = randomNicknames[Math.floor(Math.random() * randomNicknames.length)];
-                    ctx.font = 'bold 36px Poppins, Arial';
-                    ctx.fillText(randomNickname.toUpperCase(), canvas.width / 2, 120);
+                    // User's IG Handle or random nickname
+                    let displayName = '';
+                    if (this.userIgHandle.trim()) {
+                        displayName = this.userIgHandle.startsWith('@') ? this.userIgHandle : '@' + this.userIgHandle;
+                    } else {
+                        const randomNicknames = ['BESTIE', 'BRO', 'SIS', 'FAM', 'DUDE', 'PARE', 'MARS', 'TOL'];
+                        displayName = randomNicknames[Math.floor(Math.random() * randomNicknames.length)];
+                    }
+                    
+                    // Name in large, bold gold/yellow text
+                    ctx.fillStyle = '#FFD700'; // Gold color
+                    ctx.font = 'bold 72px Poppins, Arial';
+                    ctx.fillText(displayName.toUpperCase(), canvas.width / 2, 280);
                     
                     // "You are..." text
-                    ctx.font = '20px Poppins, Arial';
-                    ctx.fillText('You are...', canvas.width / 2, 160);
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                    ctx.font = '36px Poppins, Arial';
+                    ctx.fillText('You are...', canvas.width / 2, 380);
                     
-                    // Result title - adaptive font size
-                    let titleFontSize = 32;
+                    // Archetype Title - adaptive font size
+                    let titleFontSize = 56;
                     ctx.font = `bold ${titleFontSize}px Poppins, Arial`;
-                    while (ctx.measureText(this.finalResult.title).width > canvas.width - 40 && titleFontSize > 20) {
-                        titleFontSize -= 2;
+                    ctx.fillStyle = 'white';
+                    
+                    // Adjust font size if title is too long
+                    while (ctx.measureText(this.finalResult.title).width > canvas.width - 80 && titleFontSize > 32) {
+                        titleFontSize -= 4;
                         ctx.font = `bold ${titleFontSize}px Poppins, Arial`;
                     }
                     
-                    const titleLines = this.wrapText(ctx, this.finalResult.title, canvas.width - 40);
-                    let y = 200;
+                    const titleLines = this.wrapText(ctx, this.finalResult.title, canvas.width - 80);
+                    let y = 480;
                     titleLines.forEach(line => {
                         ctx.fillText(line, canvas.width / 2, y);
-                        y += titleFontSize + 5;
+                        y += titleFontSize + 10;
                     });
                     
                     // University badge
-                    y += 20;
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                    ctx.fillRect(canvas.width / 2 - 80, y - 25, 160, 50);
-                    ctx.fillStyle = this.finalResult.bgColor;
-                    ctx.font = 'bold 24px Poppins, Arial';
-                    ctx.fillText(this.finalResult.university, canvas.width / 2, y + 5);
-                    
-                    // Tagline
-                    y += 60;
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
-                    ctx.font = 'bold 24px Poppins, Arial';
-                    ctx.fillText(`"${this.finalResult.tagline}"`, canvas.width / 2, y);
-                    
-                    // Bio - adaptive font size
                     y += 40;
+                    const badgeWidth = 200;
+                    const badgeHeight = 60;
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+                    ctx.fillRect(canvas.width / 2 - badgeWidth/2, y - badgeHeight/2, badgeWidth, badgeHeight);
+                    ctx.fillStyle = this.finalResult.bgColor;
+                    ctx.font = 'bold 32px Poppins, Arial';
+                    ctx.fillText(this.finalResult.university, canvas.width / 2, y + 8);
+                    
+                    // Tagline in quotes
+                    y += 100;
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+                    ctx.font = 'bold 40px Poppins, Arial';
+                    const taglineLines = this.wrapText(ctx, `"${this.finalResult.tagline}"`, canvas.width - 100);
+                    taglineLines.forEach(line => {
+                        ctx.fillText(line, canvas.width / 2, y);
+                        y += 50;
+                    });
+                    
+                    // Bio text - wrapped in center
+                    y += 60;
                     ctx.fillStyle = 'white';
-                    let bioFontSize = 16;
+                    let bioFontSize = 28;
                     ctx.font = `${bioFontSize}px Poppins, Arial`;
-                    const bioLines = this.wrapText(ctx, this.finalResult.bio, canvas.width - 60);
+                    const bioLines = this.wrapText(ctx, this.finalResult.bio, canvas.width - 120);
                     
                     // Adjust bio font size if too many lines
-                    if (bioLines.length > 6) {
-                        bioFontSize = 14;
+                    if (bioLines.length > 8) {
+                        bioFontSize = 24;
                         ctx.font = `${bioFontSize}px Poppins, Arial`;
                     }
                     
                     bioLines.forEach(line => {
                         ctx.fillText(line, canvas.width / 2, y);
-                        y += bioFontSize + 8;
+                        y += bioFontSize + 12;
                     });
                     
-                    // Starter Pack
-                    y += 30;
+                    // Starter Pack section
+                    y += 80;
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                    ctx.font = 'bold 18px Poppins, Arial';
+                    ctx.font = 'bold 32px Poppins, Arial';
                     ctx.fillText('STARTER PACK:', canvas.width / 2, y);
                     
-                    y += 25;
-                    ctx.font = '16px Poppins, Arial';
-                    const starterPackLines = this.wrapText(ctx, this.finalResult.starterPack, canvas.width - 60);
+                    y += 50;
+                    ctx.font = '28px Poppins, Arial';
+                    const starterPackLines = this.wrapText(ctx, this.finalResult.starterPack, canvas.width - 120);
                     starterPackLines.forEach(line => {
                         ctx.fillText(line, canvas.width / 2, y);
-                        y += 22;
+                        y += 36;
                     });
                     
-                    // Footer
-                    ctx.font = '16px Poppins, Arial';
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-                    ctx.fillText('Take the quiz at lobenkt.github.io/big3-quiz.html', canvas.width / 2, canvas.height - 30);
+                    // The Lowkey Flex (Watermark) - monospace font at bottom
+                    ctx.font = '20px Monaco, Courier, monospace';
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+                    ctx.fillText('Coded by @LobenKT', canvas.width / 2, canvas.height - 40);
                     
                     // Convert to image
                     this.resultImageUrl = canvas.toDataURL('image/png');
@@ -798,9 +838,14 @@
                     link.click();
                 },
                 
+                openGitHub() {
+                    window.open('https://github.com/LobenKT', '_blank');
+                },
+                
                 restartQuiz() {
                     this.currentView = 'landing';
                     this.userNickname = '';
+                    this.userIgHandle = '';
                     this.currentQuestion = 0;
                     this.resetScores();
                     this.finalResult = null;
