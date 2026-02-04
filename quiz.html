@@ -254,6 +254,103 @@
             100% { transform: scale(1); }
         }
 
+        /* Loading Overlay Styles */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: loadingPulse 2s ease-in-out infinite;
+        }
+
+        .loading-content {
+            text-align: center;
+            color: white;
+        }
+
+        .loading-spinner {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+        }
+
+        .spinner-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 3px solid transparent;
+            border-top: 3px solid rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite;
+        }
+
+        .spinner-ring:nth-child(2) {
+            width: 80%;
+            height: 80%;
+            top: 10%;
+            left: 10%;
+            animation-delay: -0.5s;
+            border-top-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .spinner-ring:nth-child(3) {
+            width: 60%;
+            height: 60%;
+            top: 20%;
+            left: 20%;
+            animation-delay: -1s;
+            border-top-color: rgba(255, 255, 255, 0.4);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes loadingPulse {
+            0%, 100% { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+            50% { background: linear-gradient(135deg, #764ba2 0%, #667eea 100%); }
+        }
+
+        .loading-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: textGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes textGlow {
+            0%, 100% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.8); }
+        }
+
+        .loading-progress {
+            width: 300px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+            border-radius: 3px;
+            transition: width 0.8s ease;
+        }
+
         @media (max-width: 768px) {
             .landing-title {
                 font-size: 2rem;
@@ -524,7 +621,7 @@
                 {
                     question: "It's Friday night. Where are you?",
                     choices: [
-                        { text: "Xylo or The Palace. We got a table.", icon: "fas fa-cocktail", scores: { up: 0, admu: 0, dlsu: 3 }, subScores: { dlsu_royalty: 2, dlsu_shark: 1 } },
+                        { text: "Yes Please or CH. We got a table.", icon: "fas fa-cocktail", scores: { up: 0, admu: 0, dlsu: 3 }, subScores: { dlsu_royalty: 2, dlsu_shark: 1 } },
                         { text: "Pop Up Katipunan. Beer and feelings.", icon: "fas fa-beer", scores: { up: 0, admu: 3, dlsu: 0 }, subScores: { admu_chill: 2, admu_socialite: 1 } },
                         { text: "Dorm/Condo. Netflix or Valorant. Too tired.", icon: "fas fa-home", scores: { up: 1, admu: 1, dlsu: 0 }, subScores: { up_delayed: 1, admu_chill: 1 } },
                         { text: "Drinking Gin Bilog on a sidewalk or Cubao X.", icon: "fas fa-glass", scores: { up: 3, admu: 0, dlsu: 0 }, subScores: { up_tibak: 2, up_delayed: 1 } }
@@ -738,7 +835,17 @@
                     finalResult: null,
                     resultImageUrl: null,
                     quizData: quizData,
-                    isMobile: false
+                    isMobile: false,
+                    // Loading state
+                    loadingMessage: '',
+                    loadingProgress: 0,
+                    loadingMessages: [
+                        "Calculating Privilege Level...",
+                        "Fighting for slots in CRS/Enlistment...",
+                        "Checking if your outfit is Conyo enough...",
+                        "Asking the Dean for approval...",
+                        "Finalizing the Vibe Check..."
+                    ]
                 }
             },
             mounted() {
@@ -844,12 +951,39 @@
                     }
                     
                     this.finalResult = this.quizData.archetypes[resultKey];
-                    this.currentView = 'result';
                     
-                    // Generate result image
-                    this.$nextTick(() => {
-                        this.generateResultImage();
-                    });
+                    // Start the loading phase instead of showing result immediately
+                    this.startLoadingPhase();
+                },
+                
+                startLoadingPhase() {
+                    this.currentView = 'loading';
+                    this.loadingProgress = 0;
+                    let messageIndex = 0;
+                    this.loadingMessage = this.loadingMessages[messageIndex];
+                    
+                    // Cycle through loading messages every 800ms
+                    const messageInterval = setInterval(() => {
+                        messageIndex = (messageIndex + 1) % this.loadingMessages.length;
+                        this.loadingMessage = this.loadingMessages[messageIndex];
+                    }, 800);
+                    
+                    // Animate progress bar
+                    const progressInterval = setInterval(() => {
+                        this.loadingProgress += 2;
+                    }, 60);
+                    
+                    // After 3 seconds, show the result
+                    setTimeout(() => {
+                        clearInterval(messageInterval);
+                        clearInterval(progressInterval);
+                        this.currentView = 'result';
+                        
+                        // Generate result image
+                        this.$nextTick(() => {
+                            this.generateResultImage();
+                        });
+                    }, 3000);
                 },
                 
                 generateResultImage() {
@@ -867,6 +1001,7 @@
                             primaryColor: '#8B0000', 
                             secondaryColor: '#B22222',
                             lightColor: '#FFB6C1',
+                            neonColor: '#FF4444', // Bright red for liquid effect
                             traits: ['TIBAK LEVEL', 'SURVIVAL SKILLS', 'ACTIVISM']
                         },
                         'ADMU': { 
@@ -874,6 +1009,7 @@
                             primaryColor: '#003366', 
                             secondaryColor: '#004080',
                             lightColor: '#87CEEB',
+                            neonColor: '#00BFFF', // Cyan for liquid effect
                             traits: ['CONYO LEVEL', 'PHILOSOPHY', 'ORG INVOLVEMENT']
                         },
                         'DLSU': { 
@@ -881,67 +1017,85 @@
                             primaryColor: '#006633', 
                             secondaryColor: '#228B22',
                             lightColor: '#90EE90',
+                            neonColor: '#00FF88', // Neon green for liquid effect
                             traits: ['CONYO LEVEL', 'BUSINESS SENSE', 'PRIVILEGE']
                         }
                     };
                     
                     const uniData = universityData[this.finalResult.university] || universityData['UP'];
                     
-                    // BACKGROUND: Professional gradient with subtle noise effect
-                    const bgGradient = ctx.createLinearGradient(0, 0, 0, canvas.height - 180); // Exclude footer area
-                    bgGradient.addColorStop(0, uniData.primaryColor);
-                    bgGradient.addColorStop(0.3, uniData.secondaryColor);
-                    bgGradient.addColorStop(1, this.adjustColor(uniData.primaryColor, -60));
-                    ctx.fillStyle = bgGradient;
-                    ctx.fillRect(0, 0, canvas.width, canvas.height - 180);
-                    
-                    // Add subtle geometric pattern for texture
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.03)';
-                    for (let i = 0; i < 50; i++) {
-                        const x = Math.random() * canvas.width;
-                        const y = Math.random() * (canvas.height - 180);
-                        const size = Math.random() * 20 + 5;
-                        ctx.fillRect(x, y, size, size);
-                    }
-                    
-                    // TOP HEADER: Official badge (pill-shaped) - More space from top
-                    const badgeY = 120;
-                    const badgeWidth = 450;
-                    const badgeHeight = 60;
-                    const badgeX = canvas.width / 2 - badgeWidth / 2;
-                    
-                    // Badge background
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
-                    this.drawRoundedRect(ctx, badgeX, badgeY - badgeHeight/2, badgeWidth, badgeHeight, 30);
-                    
-                    // Badge text
+                    // STEP A: LIQUID BACKGROUND - Dark base with radial gradient blobs
                     ctx.fillStyle = uniData.primaryColor;
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Create 4 large radial gradient blobs for liquid effect
+                    const blobs = [
+                        { x: canvas.width * 0.2, y: canvas.height * 0.15, radius: 300 },
+                        { x: canvas.width * 0.8, y: canvas.height * 0.35, radius: 250 },
+                        { x: canvas.width * 0.3, y: canvas.height * 0.65, radius: 280 },
+                        { x: canvas.width * 0.7, y: canvas.height * 0.85, radius: 200 }
+                    ];
+                    
+                    blobs.forEach(blob => {
+                        const gradient = ctx.createRadialGradient(blob.x, blob.y, 0, blob.x, blob.y, blob.radius);
+                        gradient.addColorStop(0, `${uniData.neonColor}40`); // 25% opacity
+                        gradient.addColorStop(0.5, `${uniData.neonColor}20`); // 12% opacity
+                        gradient.addColorStop(1, 'transparent');
+                        ctx.fillStyle = gradient;
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    });
+                    
+                    // Helper function to draw glass panes
+                    const drawGlassPane = (x, y, width, height, radius = 20) => {
+                        // Shadow
+                        ctx.shadowColor = 'rgba(0, 0, 0, 0.2)';
+                        ctx.shadowBlur = 15;
+                        ctx.shadowOffsetX = 0;
+                        ctx.shadowOffsetY = 5;
+                        
+                        // Glass background
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+                        this.drawRoundedRect(ctx, x, y, width, height, radius);
+                        
+                        // Glass border
+                        ctx.shadowColor = 'transparent';
+                        ctx.shadowBlur = 0;
+                        ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+                        ctx.lineWidth = 2;
+                        this.strokeRoundedRect(ctx, x, y, width, height, radius);
+                    };
+                    
+                    // STEP B: GLASS PANES LAYOUT
+                    
+                    // Header Pane - Top badge
+                    const headerPaneY = 60;
+                    const headerPaneWidth = 500;
+                    const headerPaneHeight = 80;
+                    const headerPaneX = canvas.width / 2 - headerPaneWidth / 2;
+                    
+                    drawGlassPane(headerPaneX, headerPaneY, headerPaneWidth, headerPaneHeight, 40);
+                    
+                    // Header text
+                    ctx.fillStyle = 'white';
                     ctx.font = 'bold 28px Arial, sans-serif';
                     ctx.textAlign = 'center';
-                    ctx.fillText('UNIVERSITY STEREOTYPE TEST', canvas.width / 2, badgeY + 10);
+                    ctx.fillText('UNIVERSITY STEREOTYPE TEST', canvas.width / 2, headerPaneY + 50);
                     
-                    // AVATAR AREA: Large university emoji
-                    const avatarY = 280;
-                    const avatarRadius = 110;
+                    // Main Result Pane - Large central pane
+                    const mainPaneY = 180;
+                    const mainPaneWidth = 800;
+                    const mainPaneHeight = 600;
+                    const mainPaneX = canvas.width / 2 - mainPaneWidth / 2;
                     
-                    // Avatar circle background
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
-                    ctx.beginPath();
-                    ctx.arc(canvas.width / 2, avatarY, avatarRadius, 0, 2 * Math.PI);
-                    ctx.fill();
+                    drawGlassPane(mainPaneX, mainPaneY, mainPaneWidth, mainPaneHeight, 30);
                     
-                    // Avatar circle border
-                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
-                    ctx.lineWidth = 4;
-                    ctx.stroke();
-                    
-                    // University emoji inside circle
+                    // Avatar emoji inside main pane
+                    const avatarY = mainPaneY + 120;
                     ctx.font = '120px Arial';
                     ctx.textAlign = 'center';
-                    ctx.fillText(uniData.emoji, canvas.width / 2, avatarY + 40);
+                    ctx.fillText(uniData.emoji, canvas.width / 2, avatarY);
                     
-                    // USER NAME: Better presentation with more space
-                    let y = 420;
+                    // User name with glass background
                     let displayName = '';
                     if (this.userIgHandle.trim()) {
                         displayName = this.userIgHandle.startsWith('@') ? this.userIgHandle : '@' + this.userIgHandle;
@@ -950,70 +1104,74 @@
                         displayName = randomNicknames[Math.floor(Math.random() * randomNicknames.length)];
                     }
                     
-                    // IG Handle background for better presentation
-                    const nameWidth = ctx.measureText(displayName).width;
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
-                    this.drawRoundedRect(ctx, canvas.width / 2 - nameWidth / 2 - 20, y - 25, nameWidth + 40, 50, 25);
-                    
-                    ctx.fillStyle = 'white';
+                    const nameY = avatarY + 100;
+                    ctx.fillStyle = uniData.lightColor;
                     ctx.font = 'italic 36px Brush Script MT, cursive';
-                    ctx.fillText(displayName, canvas.width / 2, y + 10);
+                    ctx.fillText(displayName, canvas.width / 2, nameY);
                     
-                    // ARCHETYPE TITLE: Big, bold, sans-serif - More space
-                    y += 100;
+                    // Archetype title
+                    let titleY = nameY + 80;
                     ctx.fillStyle = 'white';
-                    let titleFontSize = 52;
+                    let titleFontSize = 48;
                     ctx.font = `bold ${titleFontSize}px Arial, sans-serif`;
                     
                     // Adjust font size if title is too long
-                    while (ctx.measureText(this.finalResult.title).width > canvas.width - 100 && titleFontSize > 32) {
+                    while (ctx.measureText(this.finalResult.title).width > mainPaneWidth - 60 && titleFontSize > 28) {
                         titleFontSize -= 3;
                         ctx.font = `bold ${titleFontSize}px Arial, sans-serif`;
                     }
                     
-                    const titleLines = this.wrapText(ctx, this.finalResult.title.toUpperCase(), canvas.width - 100);
+                    const titleLines = this.wrapText(ctx, this.finalResult.title.toUpperCase(), mainPaneWidth - 60);
                     titleLines.forEach(line => {
-                        ctx.fillText(line, canvas.width / 2, y);
-                        y += titleFontSize + 15;
+                        ctx.fillText(line, canvas.width / 2, titleY);
+                        titleY += titleFontSize + 15;
                     });
                     
-                    // TAGLINE: More space
-                    y += 40;
+                    // Tagline
+                    titleY += 30;
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                    ctx.font = 'italic 32px Arial, sans-serif';
-                    ctx.fillText(`"${this.finalResult.tagline}"`, canvas.width / 2, y);
+                    ctx.font = 'italic 28px Arial, sans-serif';
+                    ctx.fillText(`"${this.finalResult.tagline}"`, canvas.width / 2, titleY);
                     
-                    // BIO: Clean, readable text with more space
-                    y += 70;
+                    // Bio text
+                    titleY += 60;
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
-                    ctx.font = '26px Arial, sans-serif';
-                    const bioLines = this.wrapText(ctx, this.finalResult.bio, canvas.width - 120);
+                    ctx.font = '24px Arial, sans-serif';
+                    const bioLines = this.wrapText(ctx, this.finalResult.bio, mainPaneWidth - 80);
                     
                     bioLines.forEach(line => {
-                        ctx.fillText(line, canvas.width / 2, y);
-                        y += 35;
+                        ctx.fillText(line, canvas.width / 2, titleY);
+                        titleY += 30;
                     });
                     
-                    // STARTER PACK: Enhanced section with more space
-                    y += 60;
+                    // Stats Pane - Bottom pane for trait bars
+                    const statsPaneY = 820;
+                    const statsPaneWidth = 850;
+                    const statsPaneHeight = 450;
+                    const statsPaneX = canvas.width / 2 - statsPaneWidth / 2;
+                    
+                    drawGlassPane(statsPaneX, statsPaneY, statsPaneWidth, statsPaneHeight, 30);
+                    
+                    // Starter pack section inside stats pane
+                    let statsY = statsPaneY + 50;
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                    ctx.font = 'bold 28px Arial, sans-serif';
-                    ctx.fillText('STARTER PACK', canvas.width / 2, y);
+                    ctx.font = 'bold 26px Arial, sans-serif';
+                    ctx.fillText('STARTER PACK', canvas.width / 2, statsY);
                     
-                    y += 45;
+                    statsY += 40;
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
-                    ctx.font = '24px Arial, sans-serif';
-                    const starterPackLines = this.wrapText(ctx, this.finalResult.starterPack, canvas.width - 120);
+                    ctx.font = '22px Arial, sans-serif';
+                    const starterPackLines = this.wrapText(ctx, this.finalResult.starterPack, statsPaneWidth - 80);
                     starterPackLines.forEach(line => {
-                        ctx.fillText(line, canvas.width / 2, y);
-                        y += 32;
+                        ctx.fillText(line, canvas.width / 2, statsY);
+                        statsY += 28;
                     });
                     
-                    // TRAIT BARS: Much better spacing and larger bars
-                    y += 80;
-                    const barWidth = 700;
-                    const barHeight = 45;
-                    const barSpacing = 90; // Even more space between bars
+                    // Trait bars with glass effect
+                    statsY += 40;
+                    const barWidth = 650;
+                    const barHeight = 40;
+                    const barSpacing = 70;
                     
                     // Generate random but believable percentages
                     const traitValues = [
@@ -1023,68 +1181,56 @@
                     ];
                     
                     uniData.traits.forEach((trait, index) => {
-                        const barY = y + (index * barSpacing);
+                        const barY = statsY + (index * barSpacing);
                         const barX = canvas.width / 2 - barWidth / 2;
                         const fillWidth = (barWidth * traitValues[index]) / 100;
                         
-                        // Trait label with proper spacing above bar
+                        // Trait label
                         ctx.fillStyle = 'white';
-                        ctx.font = 'bold 24px Arial, sans-serif';
+                        ctx.font = 'bold 22px Arial, sans-serif';
                         ctx.textAlign = 'left';
-                        ctx.fillText(trait, barX, barY - 20); // More space above bar
+                        ctx.fillText(trait, barX, barY - 15);
                         
-                        // Percentage aligned with label
+                        // Percentage
                         ctx.textAlign = 'right';
-                        ctx.fillText(`${traitValues[index]}%`, barX + barWidth, barY - 20);
+                        ctx.fillText(`${traitValues[index]}%`, barX + barWidth, barY - 15);
                         
-                        // Reset text alignment for bars
+                        // Reset alignment
                         ctx.textAlign = 'center';
                         
-                        // Bar background
-                        ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
-                        this.drawRoundedRect(ctx, barX, barY, barWidth, barHeight, 22);
+                        // Bar background with glass effect
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+                        this.drawRoundedRect(ctx, barX, barY, barWidth, barHeight, 20);
                         
-                        // Bar fill
+                        // Bar fill with neon gradient
                         const barGradient = ctx.createLinearGradient(barX, barY, barX + fillWidth, barY);
-                        barGradient.addColorStop(0, uniData.lightColor);
+                        barGradient.addColorStop(0, uniData.neonColor);
                         barGradient.addColorStop(1, 'rgba(255, 255, 255, 0.9)');
                         ctx.fillStyle = barGradient;
-                        this.drawRoundedRect(ctx, barX, barY, fillWidth, barHeight, 22);
+                        this.drawRoundedRect(ctx, barX, barY, fillWidth, barHeight, 20);
                         
                         // Bar border
                         ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
-                        ctx.lineWidth = 3;
-                        this.strokeRoundedRect(ctx, barX, barY, barWidth, barHeight, 22);
+                        ctx.lineWidth = 2;
+                        this.strokeRoundedRect(ctx, barX, barY, barWidth, barHeight, 20);
                     });
                     
-                    // FOOTER STRIP: QR Code and referral info (last 180px for more space)
+                    // FOOTER STRIP: QR Code and referral info with glass effect
                     const footerY = canvas.height - 180;
                     const footerHeight = 180;
                     
-                    // Footer background (boarding pass style)
-                    const footerGradient = ctx.createLinearGradient(0, footerY, 0, canvas.height);
-                    footerGradient.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
-                    footerGradient.addColorStop(1, 'rgba(240, 240, 240, 0.95)');
-                    ctx.fillStyle = footerGradient;
-                    ctx.fillRect(0, footerY, canvas.width, footerHeight);
-                    
-                    // Footer border line
-                    ctx.strokeStyle = 'rgba(0, 0, 0, 0.1)';
-                    ctx.lineWidth = 2;
-                    ctx.beginPath();
-                    ctx.moveTo(0, footerY);
-                    ctx.lineTo(canvas.width, footerY);
-                    ctx.stroke();
+                    // Footer glass pane
+                    drawGlassPane(0, footerY, canvas.width, footerHeight, 0);
                     
                     // Generate QR Code with dynamic URL
                     const qr = new QRious({
-                        value: window.location.href, // Dynamic current URL
+                        value: window.location.href,
                         size: 140,
                         background: 'white',
                         foreground: uniData.primaryColor
                     });
                     
-                    // Draw QR code on bottom right - larger size
+                    // Draw QR code
                     const qrSize = 120;
                     const qrX = canvas.width - qrSize - 40;
                     const qrY = footerY + 30;
@@ -1098,32 +1244,32 @@
                     };
                     qrImage.src = qr.toDataURL();
                     
-                    // Footer text (left side) - better spacing
+                    // Footer text
                     const textX = 50;
                     const textY = footerY + 60;
                     
-                    ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
                     ctx.font = '20px Arial, sans-serif';
                     ctx.textAlign = 'left';
                     ctx.fillText('Discover your stereotype at:', textX, textY);
                     
-                    ctx.fillStyle = uniData.primaryColor;
+                    ctx.fillStyle = 'white';
                     ctx.font = 'bold 28px Arial, sans-serif';
-                    ctx.fillText(window.location.host, textX, textY + 40); // Dynamic host
+                    ctx.fillText(window.location.host, textX, textY + 40);
                     
-                    // Decorative elements (boarding pass style) - better positioned
-                    ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+                    // Decorative glass dots
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
                     for (let i = 0; i < 25; i++) {
                         const dotX = 40 + (i * 30);
-                        if (dotX < canvas.width - 200) { // Don't overlap with QR code
+                        if (dotX < canvas.width - 200) {
                             ctx.beginPath();
                             ctx.arc(dotX, footerY + 100, 3, 0, 2 * Math.PI);
                             ctx.fill();
                         }
                     }
                     
-                    // Personal watermark (smaller, in footer)
-                    ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+                    // Personal watermark
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
                     ctx.font = '16px Monaco, Courier, monospace';
                     ctx.textAlign = 'center';
                     ctx.fillText('Built by @LobenKT', canvas.width / 2, canvas.height - 20);
