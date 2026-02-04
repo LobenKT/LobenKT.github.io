@@ -727,7 +727,8 @@
                     bio: "You drive a car 🚗 that costs more than a house 🏠. You consider attendance \"optional\" and Balesin your second campus 🏖️. You've never touched a rag in your life, but you handle \"business\" like a pro 💼.",
                     starterPack: "Fortuner/Raptor 🚙 • Amanpulo trips ✈️ • \"Ask ko si Daddy\" 💳",
                     color: "#006633",
-                    bgColor: "#006633"
+                    bgColor: "#006633",
+                    stats: ["Conyo Energy", "Tuition Fee", "Aircon Tolerance"]
                 },
                 dlsu_conyo: {
                     title: "The Happy-Go-Lucky Conyo",
@@ -736,7 +737,8 @@
                     bio: "You are allergic to stress 😅. You pass subjects purely on \"vibes\" ✨ and groupmates carrying you. Your vocabulary is 90% slang 💬. You are definitely going to Laboracay 🍻 even if you have finals week.",
                     starterPack: "Vape 💨 • \"Solid bro\" 🤙 • Agno heavy meals 🍽️ • Cutting classes 😴",
                     color: "#006633",
-                    bgColor: "#006633"
+                    bgColor: "#006633",
+                    stats: ["Chill Vibes", "Slang Usage", "Party Energy"]
                 },
                 dlsu_shark: {
                     title: "The Business Shark",
@@ -745,7 +747,8 @@
                     bio: "You wear a suit 👔 in 35-degree heat 🌡️. You trade crypto 📈 during Theology class. You calculate the ROI of your relationships 💰. You don't just want a diploma; you want a conglomerate 🏢.",
                     starterPack: "LinkedIn Premium 💼 • Macalister Hall 🏛️ • \"Let's connect\" 🤝",
                     color: "#006633",
-                    bgColor: "#006633"
+                    bgColor: "#006633",
+                    stats: ["Business Sense", "Networking", "Hustle Mentality"]
                 },
                 // ADMU Archetypes
                 admu_philosopher: {
@@ -755,7 +758,8 @@
                     bio: "You don't talk; you discourse 🎓. You love deconstructing sociopolitical issues while sipping an overpriced artisanal latte ☕ in Katipunan. You speak with a specific accent that scares Grab drivers 😰.",
                     starterPack: "Tote bag 👜 • Film camera 📷 • Using the word \"inherently\" 🤔",
                     color: "#003366",
-                    bgColor: "#003366"
+                    bgColor: "#003366",
+                    stats: ["English Vocabulary", "Privilege", "Blue Eagle Pride"]
                 },
                 admu_socialite: {
                     title: "The \"Org is Life\" Socialite",
@@ -764,7 +768,8 @@
                     bio: "You have 5 executive positions 📋 and sleep 3 hours a day 😴. You are fighting for social justice ✊ in the morning and partying at Pop Up 🍺 in the evening. You know everyone 👥.",
                     starterPack: "Google Calendar is full 📅 • \"Blue Energy\" ⚡ • 3-page Resume 📄",
                     color: "#003366",
-                    bgColor: "#003366"
+                    bgColor: "#003366",
+                    stats: ["Social Network", "Leadership", "Caffeine Dependency"]
                 },
                 admu_chill: {
                     title: "The Chill \"Pards\"",
@@ -773,7 +778,8 @@
                     bio: "You play ultimate frisbee/futsal ⚽ and strictly wear oversized shirts 👕. You get B+ grades without trying 📚. You are effortlessly cool 😎 and low-key rich. You drive your friends to Antipolo for \"clouds\" ☁️ at 2 AM.",
                     starterPack: "Guitar 🎸 • Car keys 🔑 • JSEC meals 🍱 • Sleeping in the library 😪",
                     color: "#003366",
-                    bgColor: "#003366"
+                    bgColor: "#003366",
+                    stats: ["Chill Factor", "Natural Talent", "Low-key Wealth"]
                 },
                 // UP Archetypes
                 up_burgis: {
@@ -783,7 +789,8 @@
                     bio: "You study in UP but live the Ateneo lifestyle 💅. You refuse to eat at the canteen; it has to be Starbucks ☕ or UPTC. You bridge the gap between the struggle and the aircon ❄️. You are \"one with the masses\" (via iPhone 16) 📱.",
                     starterPack: "Private car but parks far away 🚗 • Starbucks planner 📖 • Aesthetic notes ✨",
                     color: "#8B0000",
-                    bgColor: "#8B0000"
+                    bgColor: "#8B0000",
+                    stats: ["Privilege Guilt", "Aesthetic Sense", "Mall Dependency"]
                 },
                 up_tibak: {
                     title: "The \"Tibak\" (Activist)",
@@ -792,7 +799,8 @@
                     bio: "You've attended more rallies 📢 than parties. You can quote history books 📚 from memory. You win every argument at family reunions 🗣️ (and your Titos hate it). You own a Sablay even if you haven't graduated yet 🎓.",
                     starterPack: "Red scarf 🧣 • Megaphone 📢 • Cigarettes 🚬 • Intense gaze 👁️",
                     color: "#8B0000",
-                    bgColor: "#8B0000"
+                    bgColor: "#8B0000",
+                    stats: ["Rage", "Academic Backlog", "Walking Speed"]
                 },
                 up_delayed: {
                     title: "The \"Delayed\" Legend",
@@ -801,7 +809,8 @@
                     bio: "The campus is your home 🏠. You know every guard by name 👋. You survive on Pancit Canton 🍜 and spite. Graduation is a myth; survival is the reality 💪. You are the scariest person during enlistment 😈.",
                     starterPack: "Form 5 issues 📋 • Eyebags 😵 • Photox readings 📚 • \"Isang sem na lang (daw)\" 🤞",
                     color: "#8B0000",
-                    bgColor: "#8B0000"
+                    bgColor: "#8B0000",
+                    stats: ["Survival Instinct", "Procrastination", "Campus Knowledge"]
                 }
             }
         };
@@ -1081,10 +1090,10 @@
                     ctx.textAlign = 'center';
                     ctx.fillText('UNIVERSITY STEREOTYPE TEST', canvas.width / 2, headerPaneY + 50);
                     
-                    // Main Result Pane - Large central pane
+                    // Main Result Pane - Large central pane (reduced height)
                     const mainPaneY = 180;
                     const mainPaneWidth = 800;
-                    const mainPaneHeight = 600;
+                    const mainPaneHeight = 520; // Reduced from 600 to 520
                     const mainPaneX = canvas.width / 2 - mainPaneWidth / 2;
                     
                     drawGlassPane(mainPaneX, mainPaneY, mainPaneWidth, mainPaneHeight, 30);
@@ -1118,7 +1127,7 @@
                     
                     const nameY = avatarY + 100;
                     ctx.fillStyle = uniData.lightColor;
-                    ctx.font = 'italic 36px Brush Script MT, cursive';
+                    ctx.font = 'bold 32px Arial, sans-serif';
                     ctx.fillText(displayName, canvas.width / 2, nameY);
                     
                     // Archetype title
@@ -1145,32 +1154,32 @@
                     ctx.font = 'italic 28px Arial, sans-serif';
                     ctx.fillText(`"${this.finalResult.tagline}"`, canvas.width / 2, titleY);
                     
-                    // Bio text
-                    titleY += 60;
+                    // Bio text (optimized for smaller main pane)
+                    titleY += 40;
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
-                    ctx.font = '24px Arial, sans-serif';
+                    ctx.font = '20px Arial, sans-serif';
                     const bioLines = this.wrapText(ctx, this.finalResult.bio, mainPaneWidth - 80);
                     
                     bioLines.forEach(line => {
                         ctx.fillText(line, canvas.width / 2, titleY);
-                        titleY += 30;
+                        titleY += 25;
                     });
                     
-                    // Stats Pane - Bottom pane for trait bars
-                    const statsPaneY = 820;
+                    // Stats Pane - Just for starter pack (with proper spacing)
+                    const statsPaneY = mainPaneY + mainPaneHeight + 60; // 60px gap from main pane
                     const statsPaneWidth = 850;
-                    const statsPaneHeight = 450;
+                    const statsPaneHeight = 180; // Further reduced height
                     const statsPaneX = canvas.width / 2 - statsPaneWidth / 2;
                     
                     drawGlassPane(statsPaneX, statsPaneY, statsPaneWidth, statsPaneHeight, 30);
                     
                     // Starter pack section inside stats pane with pill-style tags
-                    let statsY = statsPaneY + 50;
+                    let statsY = statsPaneY + 40;
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                    ctx.font = 'bold 26px Arial, sans-serif';
+                    ctx.font = 'bold 24px Arial, sans-serif';
                     ctx.fillText('STARTER PACK', canvas.width / 2, statsY);
                     
-                    statsY += 50;
+                    statsY += 40;
                     
                     // Convert starter pack to individual pill tags
                     const starterItems = this.finalResult.starterPack.split(' • ');
@@ -1203,57 +1212,32 @@
                         ctx.fillText(item.trim(), pillX + pillWidth / 2, pillY + pillHeight / 2 + 6);
                     });
                     
-                    // Adjust statsY for trait bars
-                    const totalRows = Math.ceil(starterItems.length / pillsPerRow);
-                    statsY += totalRows * (pillHeight + rowSpacing) + 30;
-                    const barWidth = 650;
-                    const barHeight = 40;
-                    const barSpacing = 70;
+                    // PIE CHART PANE - Completely separate glass pane below starter pack
+                    const pieChartPaneY = statsPaneY + statsPaneHeight + 50; // 50px gap between panes
+                    const pieChartPaneWidth = 800;
+                    const pieChartPaneHeight = 180; // Reduced height
+                    const pieChartPaneX = canvas.width / 2 - pieChartPaneWidth / 2;
                     
-                    // Generate random but believable percentages
-                    const traitValues = [
-                        Math.floor(Math.random() * 40) + 60, // 60-100%
-                        Math.floor(Math.random() * 50) + 40, // 40-90%
-                        Math.floor(Math.random() * 60) + 30  // 30-90%
-                    ];
+                    drawGlassPane(pieChartPaneX, pieChartPaneY, pieChartPaneWidth, pieChartPaneHeight, 30);
                     
-                    uniData.traits.forEach((trait, index) => {
-                        const barY = statsY + (index * barSpacing);
-                        const barX = canvas.width / 2 - barWidth / 2;
-                        const fillWidth = (barWidth * traitValues[index]) / 100;
-                        
-                        // Trait label
-                        ctx.fillStyle = 'white';
-                        ctx.font = 'bold 22px Arial, sans-serif';
-                        ctx.textAlign = 'left';
-                        ctx.fillText(trait, barX, barY - 15);
-                        
-                        // Percentage
-                        ctx.textAlign = 'right';
-                        ctx.fillText(`${traitValues[index]}%`, barX + barWidth, barY - 15);
-                        
-                        // Reset alignment
-                        ctx.textAlign = 'center';
-                        
-                        // Bar background with glass effect
-                        ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
-                        this.drawRoundedRect(ctx, barX, barY, barWidth, barHeight, 20);
-                        
-                        // Bar fill with neon gradient
-                        const barGradient = ctx.createLinearGradient(barX, barY, barX + fillWidth, barY);
-                        barGradient.addColorStop(0, uniData.neonColor);
-                        barGradient.addColorStop(1, 'rgba(255, 255, 255, 0.9)');
-                        ctx.fillStyle = barGradient;
-                        this.drawRoundedRect(ctx, barX, barY, fillWidth, barHeight, 20);
-                        
-                        // Bar border
-                        ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
-                        ctx.lineWidth = 2;
-                        this.strokeRoundedRect(ctx, barX, barY, barWidth, barHeight, 20);
-                    });
+                    // PERSONALITY BREAKDOWN PIE CHART inside its own separate pane
+                    let pieChartY = pieChartPaneY + 35;
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                    ctx.font = 'bold 22px Arial, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('PERSONALITY BREAKDOWN', canvas.width / 2, pieChartY);
+                    
+                    pieChartY += 40;
+                    
+                    // Draw pie chart centered in its own pane
+                    const pieChartX = pieChartPaneX + 120; // Left side of pane
+                    const pieChartCenterY = pieChartY + 40;
+                    const pieRadius = 55;
+                    
+                    this.drawPieChart(ctx, pieChartX, pieChartCenterY, pieRadius, this.finalResult.stats, uniData, pieChartPaneX);
                     
                     // FOOTER STRIP: QR Code and referral info with glass effect
-                    const footerY = canvas.height - 180;
+                    const footerY = Math.max(pieChartPaneY + pieChartPaneHeight + 60, canvas.height - 180); // Ensure no overlap
                     const footerHeight = 180;
                     
                     // Footer glass pane
@@ -1342,6 +1326,75 @@
                     ctx.quadraticCurveTo(x, y, x + radius, y);
                     ctx.closePath();
                     ctx.stroke();
+                },
+                
+                // Helper function to draw pie chart
+                drawPieChart(ctx, centerX, centerY, radius, stats, uniData, paneX) {
+                    // Generate 3 random percentages that sum to 100%
+                    let percentages = [];
+                    let remaining = 100;
+                    
+                    // Generate first two percentages
+                    percentages[0] = Math.floor(Math.random() * 40) + 30; // 30-70%
+                    percentages[1] = Math.floor(Math.random() * (remaining - percentages[0] - 10)) + 10; // At least 10% for last slice
+                    percentages[2] = remaining - percentages[0] - percentages[1];
+                    
+                    // Colors for the slices
+                    const colors = [
+                        uniData.primaryColor,  // University main color
+                        'white',               // White
+                        '#333333'              // Dark accent
+                    ];
+                    
+                    // Draw pie slices
+                    let currentAngle = -Math.PI / 2; // Start from top
+                    
+                    percentages.forEach((percentage, index) => {
+                        const sliceAngle = (percentage / 100) * 2 * Math.PI;
+                        
+                        // Draw slice
+                        ctx.beginPath();
+                        ctx.moveTo(centerX, centerY);
+                        ctx.arc(centerX, centerY, radius, currentAngle, currentAngle + sliceAngle);
+                        ctx.closePath();
+                        ctx.fillStyle = colors[index];
+                        ctx.fill();
+                        
+                        // Add subtle border
+                        ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+                        ctx.lineWidth = 2;
+                        ctx.stroke();
+                        
+                        currentAngle += sliceAngle;
+                    });
+                    
+                    // Draw legend to the right of pie chart within the pane
+                    const legendX = centerX + radius + 30;
+                    const legendStartY = centerY - 45;
+                    const legendSpacing = 30;
+                    
+                    ctx.textAlign = 'left';
+                    ctx.font = 'bold 16px Arial, sans-serif';
+                    
+                    percentages.forEach((percentage, index) => {
+                        const legendY = legendStartY + (index * legendSpacing);
+                        
+                        // Draw color box
+                        ctx.fillStyle = colors[index];
+                        ctx.fillRect(legendX, legendY - 10, 16, 16);
+                        
+                        // Add border to color box
+                        ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+                        ctx.lineWidth = 1;
+                        ctx.strokeRect(legendX, legendY - 10, 16, 16);
+                        
+                        // Draw percentage and label
+                        ctx.fillStyle = 'white';
+                        ctx.fillText(`${percentage}% ${stats[index]}`, legendX + 25, legendY + 3);
+                    });
+                    
+                    // Reset text alignment
+                    ctx.textAlign = 'center';
                 },
                 
                 wrapText(ctx, text, maxWidth) {
