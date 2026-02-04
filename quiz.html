@@ -259,6 +259,94 @@
             
             .quiz-container {
                 padding: 10px;
+                margin: 10px;
+            }
+            
+            .card {
+                border-radius: 15px;
+                margin: 5px 0;
+            }
+            
+            .choice-btn {
+                padding: 15px;
+                font-size: 0.9rem;
+                margin: 8px 0;
+            }
+            
+            .share-buttons {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .share-btn {
+                min-width: 100%;
+                padding: 15px 20px;
+            }
+            
+            .result-image {
+                width: 100%;
+                max-width: 280px;
+            }
+            
+            .nickname-input {
+                padding: 12px 15px;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .landing-title {
+                font-size: 1.8rem;
+                line-height: 1.2;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .quiz-container {
+                padding: 8px;
+                margin: 5px;
+            }
+            
+            .choice-btn {
+                padding: 12px;
+                font-size: 0.85rem;
+            }
+            
+            .btn-start {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+            
+            h3 {
+                font-size: 1.3rem;
+            }
+            
+            .result-image {
+                max-width: 250px;
+            }
+        }
+        
+        /* Touch-friendly improvements */
+        @media (hover: none) and (pointer: coarse) {
+            .choice-btn {
+                padding: 18px;
+                margin: 12px 0;
+                font-size: 1rem;
+            }
+            
+            .choice-btn:active {
+                transform: translateX(5px);
+                background: linear-gradient(45deg, rgba(78, 205, 196, 0.2), rgba(255, 107, 107, 0.2));
+            }
+            
+            .btn-start:active {
+                transform: translateY(-1px);
+            }
+            
+            .share-btn:active {
+                transform: translateY(-1px);
             }
         }
     </style>
@@ -632,7 +720,35 @@
                     },
                     finalResult: null,
                     resultImageUrl: null,
-                    quizData: quizData
+                    quizData: quizData,
+                    isMobile: false
+                }
+            },
+            mounted() {
+                // Detect mobile device
+                this.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+                
+                // Add mobile-specific optimizations
+                if (this.isMobile) {
+                    // Prevent zoom on input focus
+                    const inputs = document.querySelectorAll('input');
+                    inputs.forEach(input => {
+                        input.addEventListener('focus', () => {
+                            document.querySelector('meta[name=viewport]').setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+                        });
+                        input.addEventListener('blur', () => {
+                            document.querySelector('meta[name=viewport]').setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+                        });
+                    });
+                    
+                    // Add touch feedback
+                    document.addEventListener('touchstart', function() {}, {passive: true});
+                }
+                
+                // Optimize canvas for mobile
+                if (this.isMobile && window.devicePixelRatio > 1) {
+                    // Handle high DPI displays
+                    this.optimizeCanvasForMobile = true;
                 }
             },
             methods: {
@@ -727,165 +843,220 @@
                     canvas.width = 1080;
                     canvas.height = 1920;
                     
-                    // University-specific emojis and colors
+                    // University-specific data with enhanced color schemes
                     const universityData = {
-                        'UP': { emoji: '✊', color: '#8B0000', accent: '#FFD700' },
-                        'ADMU': { emoji: '🦅', color: '#003366', accent: '#87CEEB' },
-                        'DLSU': { emoji: '🏹', color: '#006633', accent: '#90EE90' }
+                        'UP': { 
+                            letter: 'U', 
+                            primaryColor: '#8B0000', 
+                            secondaryColor: '#B22222',
+                            lightColor: '#FFB6C1',
+                            traits: ['TIBAK LEVEL', 'SURVIVAL SKILLS', 'ACTIVISM']
+                        },
+                        'ADMU': { 
+                            letter: 'A', 
+                            primaryColor: '#003366', 
+                            secondaryColor: '#004080',
+                            lightColor: '#87CEEB',
+                            traits: ['CONYO LEVEL', 'PHILOSOPHY', 'ORG INVOLVEMENT']
+                        },
+                        'DLSU': { 
+                            letter: 'D', 
+                            primaryColor: '#006633', 
+                            secondaryColor: '#228B22',
+                            lightColor: '#90EE90',
+                            traits: ['CONYO LEVEL', 'BUSINESS SENSE', 'PRIVILEGE']
+                        }
                     };
                     
                     const uniData = universityData[this.finalResult.university] || universityData['UP'];
                     
-                    // Background - solid color
-                    ctx.fillStyle = uniData.color;
+                    // BACKGROUND: Professional gradient with subtle noise effect
+                    const bgGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+                    bgGradient.addColorStop(0, uniData.primaryColor);
+                    bgGradient.addColorStop(0.3, uniData.secondaryColor);
+                    bgGradient.addColorStop(1, this.adjustColor(uniData.primaryColor, -60));
+                    ctx.fillStyle = bgGradient;
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
                     
-                    // Add subtle gradient overlay
-                    const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-                    gradient.addColorStop(0, uniData.color);
-                    gradient.addColorStop(1, this.adjustColor(uniData.color, -40));
-                    ctx.fillStyle = gradient;
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    
-                    // Add decorative circles with university accent color
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
-                    for (let i = 0; i < 15; i++) {
-                        ctx.beginPath();
-                        ctx.arc(
-                            Math.random() * canvas.width,
-                            Math.random() * canvas.height,
-                            Math.random() * 80 + 40,
-                            0,
-                            2 * Math.PI
-                        );
-                        ctx.fill();
+                    // Add subtle geometric pattern for texture
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.03)';
+                    for (let i = 0; i < 50; i++) {
+                        const x = Math.random() * canvas.width;
+                        const y = Math.random() * canvas.height;
+                        const size = Math.random() * 20 + 5;
+                        ctx.fillRect(x, y, size, size);
                     }
                     
-                    // University emoji at the top
-                    ctx.font = '80px Arial';
+                    // TOP HEADER: Official badge (pill-shaped)
+                    const badgeY = 80;
+                    const badgeWidth = 400;
+                    const badgeHeight = 50;
+                    const badgeX = canvas.width / 2 - badgeWidth / 2;
+                    
+                    // Badge background
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+                    this.drawRoundedRect(ctx, badgeX, badgeY - badgeHeight/2, badgeWidth, badgeHeight, 25);
+                    
+                    // Badge text
+                    ctx.fillStyle = uniData.primaryColor;
+                    ctx.font = 'bold 24px Arial, sans-serif';
                     ctx.textAlign = 'center';
-                    ctx.fillText(uniData.emoji, canvas.width / 2, 100);
+                    ctx.fillText('UNIVERSITY ARCHETYPE TEST', canvas.width / 2, badgeY + 8);
                     
-                    // Header: "CERTIFIED" text
+                    // AVATAR AREA: Large semi-transparent circle with university letter
+                    const avatarY = 220;
+                    const avatarRadius = 120;
+                    
+                    // Avatar circle background
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+                    ctx.beginPath();
+                    ctx.arc(canvas.width / 2, avatarY, avatarRadius, 0, 2 * Math.PI);
+                    ctx.fill();
+                    
+                    // Avatar circle border
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+                    ctx.lineWidth = 4;
+                    ctx.stroke();
+                    
+                    // University letter inside circle
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                    ctx.font = 'bold 48px Poppins, Arial';
-                    ctx.fillText('CERTIFIED', canvas.width / 2, 180);
+                    ctx.font = 'bold 140px Georgia, serif'; // Serif font for elegance
+                    ctx.textAlign = 'center';
+                    ctx.fillText(uniData.letter, canvas.width / 2, avatarY + 50);
                     
-                    // User's IG Handle or random nickname
+                    // USER NAME: Handwritten style above main title
                     let displayName = '';
                     if (this.userIgHandle.trim()) {
                         displayName = this.userIgHandle.startsWith('@') ? this.userIgHandle : '@' + this.userIgHandle;
                     } else {
-                        const randomNicknames = ['BESTIE', 'BRO', 'SIS', 'FAM', 'DUDE', 'PARE', 'MARS', 'TOL'];
+                        const randomNicknames = ['Bestie', 'Bro', 'Sis', 'Fam', 'Dude', 'Pare', 'Mars', 'Tol'];
                         displayName = randomNicknames[Math.floor(Math.random() * randomNicknames.length)];
                     }
                     
-                    // Name in large, bold gold/yellow text
-                    ctx.fillStyle = '#FFD700'; // Gold color
-                    ctx.font = 'bold 72px Poppins, Arial';
-                    ctx.fillText(displayName.toUpperCase(), canvas.width / 2, 310);
+                    ctx.fillStyle = uniData.lightColor;
+                    ctx.font = 'italic 36px Brush Script MT, cursive'; // Handwritten style
+                    ctx.fillText(displayName, canvas.width / 2, 400);
                     
-                    // "You are..." text
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-                    ctx.font = '36px Poppins, Arial';
-                    ctx.fillText('You are...', canvas.width / 2, 410);
-                    
-                    // Archetype Title - adaptive font size
-                    let titleFontSize = 56;
-                    ctx.font = `bold ${titleFontSize}px Poppins, Arial`;
+                    // ARCHETYPE TITLE: Big, bold, sans-serif (MBTI style)
+                    let y = 480;
                     ctx.fillStyle = 'white';
+                    let titleFontSize = 52;
+                    ctx.font = `bold ${titleFontSize}px Arial, sans-serif`;
                     
                     // Adjust font size if title is too long
-                    while (ctx.measureText(this.finalResult.title).width > canvas.width - 80 && titleFontSize > 32) {
-                        titleFontSize -= 4;
-                        ctx.font = `bold ${titleFontSize}px Poppins, Arial`;
+                    while (ctx.measureText(this.finalResult.title).width > canvas.width - 100 && titleFontSize > 32) {
+                        titleFontSize -= 3;
+                        ctx.font = `bold ${titleFontSize}px Arial, sans-serif`;
                     }
                     
-                    const titleLines = this.wrapText(ctx, this.finalResult.title, canvas.width - 80);
-                    let y = 510;
+                    const titleLines = this.wrapText(ctx, this.finalResult.title.toUpperCase(), canvas.width - 100);
                     titleLines.forEach(line => {
                         ctx.fillText(line, canvas.width / 2, y);
                         y += titleFontSize + 10;
                     });
                     
-                    // University badge with enhanced styling
+                    // TAGLINE: Smaller, italic
                     y += 40;
-                    const badgeWidth = 250;
-                    const badgeHeight = 70;
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                    ctx.font = 'italic 32px Arial, sans-serif';
+                    ctx.fillText(`"${this.finalResult.tagline}"`, canvas.width / 2, y);
                     
-                    // Badge background with university accent color
-                    ctx.fillStyle = uniData.accent;
-                    ctx.fillRect(canvas.width / 2 - badgeWidth/2, y - badgeHeight/2, badgeWidth, badgeHeight);
-                    
-                    // Badge border
-                    ctx.strokeStyle = 'white';
-                    ctx.lineWidth = 3;
-                    ctx.strokeRect(canvas.width / 2 - badgeWidth/2, y - badgeHeight/2, badgeWidth, badgeHeight);
-                    
-                    // University text
-                    ctx.fillStyle = uniData.color;
-                    ctx.font = 'bold 36px Poppins, Arial';
-                    ctx.fillText(this.finalResult.university, canvas.width / 2, y + 12);
-                    
-                    // University emoji next to badge
-                    ctx.font = '40px Arial';
-                    ctx.fillText(uniData.emoji, canvas.width / 2 + badgeWidth/2 + 30, y + 12);
-                    
-                    // Tagline in quotes
-                    y += 120;
+                    // BIO: Clean, readable text
+                    y += 80;
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
-                    ctx.font = 'bold 40px Poppins, Arial';
-                    const taglineLines = this.wrapText(ctx, `"${this.finalResult.tagline}"`, canvas.width - 100);
-                    taglineLines.forEach(line => {
-                        ctx.fillText(line, canvas.width / 2, y);
-                        y += 50;
-                    });
-                    
-                    // Bio text - wrapped in center
-                    y += 60;
-                    ctx.fillStyle = 'white';
-                    let bioFontSize = 28;
-                    ctx.font = `${bioFontSize}px Poppins, Arial`;
+                    ctx.font = '26px Arial, sans-serif';
                     const bioLines = this.wrapText(ctx, this.finalResult.bio, canvas.width - 120);
-                    
-                    // Adjust bio font size if too many lines
-                    if (bioLines.length > 8) {
-                        bioFontSize = 24;
-                        ctx.font = `${bioFontSize}px Poppins, Arial`;
-                    }
                     
                     bioLines.forEach(line => {
                         ctx.fillText(line, canvas.width / 2, y);
-                        y += bioFontSize + 12;
+                        y += 35;
                     });
                     
-                    // Starter Pack section with university flair
+                    // TRAIT BARS: The MBTI magic - fake personality stats
                     y += 80;
-                    ctx.fillStyle = uniData.accent;
-                    ctx.font = 'bold 32px Poppins, Arial';
-                    ctx.fillText('STARTER PACK:', canvas.width / 2, y);
+                    const barWidth = 600;
+                    const barHeight = 40;
+                    const barSpacing = 60;
                     
-                    // Add university emoji before starter pack
-                    ctx.font = '32px Arial';
-                    ctx.fillText(uniData.emoji, canvas.width / 2 - 150, y);
-                    ctx.fillText(uniData.emoji, canvas.width / 2 + 150, y);
+                    // Generate random but believable percentages
+                    const traitValues = [
+                        Math.floor(Math.random() * 40) + 60, // 60-100%
+                        Math.floor(Math.random() * 50) + 40, // 40-90%
+                        Math.floor(Math.random() * 60) + 30  // 30-90%
+                    ];
                     
-                    y += 50;
-                    ctx.fillStyle = 'white';
-                    ctx.font = '28px Poppins, Arial';
-                    const starterPackLines = this.wrapText(ctx, this.finalResult.starterPack, canvas.width - 120);
-                    starterPackLines.forEach(line => {
-                        ctx.fillText(line, canvas.width / 2, y);
-                        y += 36;
+                    uniData.traits.forEach((trait, index) => {
+                        const barY = y + (index * barSpacing);
+                        const barX = canvas.width / 2 - barWidth / 2;
+                        const fillWidth = (barWidth * traitValues[index]) / 100;
+                        
+                        // Trait label
+                        ctx.fillStyle = 'white';
+                        ctx.font = 'bold 22px Arial, sans-serif';
+                        ctx.textAlign = 'left';
+                        ctx.fillText(trait, barX, barY - 10);
+                        
+                        // Percentage
+                        ctx.textAlign = 'right';
+                        ctx.fillText(`${traitValues[index]}%`, barX + barWidth, barY - 10);
+                        
+                        // Bar background
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+                        this.drawRoundedRect(ctx, barX, barY, barWidth, barHeight, 20);
+                        
+                        // Bar fill
+                        const barGradient = ctx.createLinearGradient(barX, barY, barX + fillWidth, barY);
+                        barGradient.addColorStop(0, uniData.lightColor);
+                        barGradient.addColorStop(1, 'rgba(255, 255, 255, 0.9)');
+                        ctx.fillStyle = barGradient;
+                        this.drawRoundedRect(ctx, barX, barY, fillWidth, barHeight, 20);
+                        
+                        // Bar border
+                        ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+                        ctx.lineWidth = 2;
+                        this.strokeRoundedRect(ctx, barX, barY, barWidth, barHeight, 20);
                     });
                     
-                    // The Lowkey Flex (Watermark) - monospace font at bottom
-                    ctx.font = '20px Monaco, Courier, monospace';
+                    // FOOTER: Watermark
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
-                    ctx.fillText('Coded by @LobenKT', canvas.width / 2, canvas.height - 40);
+                    ctx.font = '18px Monaco, Courier, monospace';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('Built by @LobenKT', canvas.width / 2, canvas.height - 40);
                     
                     // Convert to image
                     this.resultImageUrl = canvas.toDataURL('image/png');
+                },
+                
+                // Helper function to draw rounded rectangles
+                drawRoundedRect(ctx, x, y, width, height, radius) {
+                    ctx.beginPath();
+                    ctx.moveTo(x + radius, y);
+                    ctx.lineTo(x + width - radius, y);
+                    ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+                    ctx.lineTo(x + width, y + height - radius);
+                    ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+                    ctx.lineTo(x + radius, y + height);
+                    ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+                    ctx.lineTo(x, y + radius);
+                    ctx.quadraticCurveTo(x, y, x + radius, y);
+                    ctx.closePath();
+                    ctx.fill();
+                },
+                
+                // Helper function to stroke rounded rectangles
+                strokeRoundedRect(ctx, x, y, width, height, radius) {
+                    ctx.beginPath();
+                    ctx.moveTo(x + radius, y);
+                    ctx.lineTo(x + width - radius, y);
+                    ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+                    ctx.lineTo(x + width, y + height - radius);
+                    ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+                    ctx.lineTo(x + radius, y + height);
+                    ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+                    ctx.lineTo(x, y + radius);
+                    ctx.quadraticCurveTo(x, y, x + radius, y);
+                    ctx.closePath();
+                    ctx.stroke();
                 },
                 
                 wrapText(ctx, text, maxWidth) {
@@ -940,8 +1111,8 @@
                 },
                 
                 shareToInstagram() {
-                    // For mobile devices, try to open Instagram directly
-                    if (navigator.share && navigator.canShare) {
+                    // Enhanced mobile sharing
+                    if (this.isMobile && navigator.share && navigator.canShare) {
                         // Convert canvas to blob for native sharing
                         this.$refs.resultCanvas.toBlob((blob) => {
                             const file = new File([blob], 'big3-quiz-result.png', { type: 'image/png' });
@@ -950,16 +1121,26 @@
                                     title: 'My Big 3 University Quiz Result!',
                                     text: `I got "${this.finalResult.title}" in the Big 3 University Quiz!`,
                                     files: [file]
+                                }).catch(err => {
+                                    console.log('Error sharing:', err);
+                                    this.downloadResult();
                                 });
                             } else {
                                 this.downloadResult();
                             }
-                        });
+                        }, 'image/png', 0.95);
                     } else {
                         // Fallback: download the image
                         this.downloadResult();
-                        // Show instruction
-                        alert('Image saved! You can now upload it to your Instagram story 📸');
+                        
+                        // Show mobile-friendly instruction
+                        if (this.isMobile) {
+                            setTimeout(() => {
+                                alert('Image saved! 📸\n\n1. Open your Photos app\n2. Find the downloaded image\n3. Share to Instagram Story\n4. Tag @lobenkt for a repost! 🔥');
+                            }, 500);
+                        } else {
+                            alert('Image saved! You can now upload it to your Instagram story 📸');
+                        }
                     }
                 },
                 
