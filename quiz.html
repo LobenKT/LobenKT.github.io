@@ -416,6 +416,21 @@
                 </div>
             </div>
 
+            <!-- Loading View -->
+            <div v-if="currentView === 'loading'" class="loading-overlay">
+                <div class="loading-content">
+                    <div class="loading-spinner">
+                        <div class="spinner-ring"></div>
+                        <div class="spinner-ring"></div>
+                        <div class="spinner-ring"></div>
+                    </div>
+                    <h3 class="loading-text">{{ loadingMessage }}</h3>
+                    <div class="loading-progress">
+                        <div class="progress-fill" :style="{width: loadingProgress + '%'}"></div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Result View -->
             <div v-if="currentView === 'result'" class="card p-4 result-card">
                 <h2 class="mb-3">Your Result:</h2>
@@ -612,8 +627,8 @@
                     title: "The Taft Royalty (The Nepo Baby)",
                     university: "DLSU",
                     tagline: "School is my side hustle.",
-                    bio: "You drive a car that costs more than a house. You consider attendance \"optional\" and Balesin your second campus. You've never touched a rag in your life, but you handle \"business\" like a pro.",
-                    starterPack: "Fortuner/Raptor • Amanpulo trips • \"Ask ko si Daddy\"",
+                    bio: "You drive a car 🚗 that costs more than a house 🏠. You consider attendance \"optional\" and Balesin your second campus 🏖️. You've never touched a rag in your life, but you handle \"business\" like a pro 💼.",
+                    starterPack: "Fortuner/Raptor 🚙 • Amanpulo trips ✈️ • \"Ask ko si Daddy\" 💳",
                     color: "#006633",
                     bgColor: "#006633"
                 },
@@ -621,8 +636,8 @@
                     title: "The Happy-Go-Lucky Conyo",
                     university: "DLSU",
                     tagline: "Carps? Sheesh.",
-                    bio: "You are allergic to stress. You pass subjects purely on \"vibes\" and groupmates carrying you. Your vocabulary is 90% slang. You are definitely going to Laboracay even if you have finals week.",
-                    starterPack: "Vape • \"Solid bro\" • Agno heavy meals • Cutting classes",
+                    bio: "You are allergic to stress 😅. You pass subjects purely on \"vibes\" ✨ and groupmates carrying you. Your vocabulary is 90% slang 💬. You are definitely going to Laboracay 🍻 even if you have finals week.",
+                    starterPack: "Vape 💨 • \"Solid bro\" 🤙 • Agno heavy meals 🍽️ • Cutting classes 😴",
                     color: "#006633",
                     bgColor: "#006633"
                 },
@@ -630,8 +645,8 @@
                     title: "The Business Shark",
                     university: "DLSU",
                     tagline: "Open Minded Ka Ba?",
-                    bio: "You wear a suit in 35-degree heat. You trade crypto during Theology class. You calculate the ROI of your relationships. You don't just want a diploma; you want a conglomerate.",
-                    starterPack: "LinkedIn Premium • Macalister Hall • \"Let's connect\"",
+                    bio: "You wear a suit 👔 in 35-degree heat 🌡️. You trade crypto 📈 during Theology class. You calculate the ROI of your relationships 💰. You don't just want a diploma; you want a conglomerate 🏢.",
+                    starterPack: "LinkedIn Premium 💼 • Macalister Hall 🏛️ • \"Let's connect\" 🤝",
                     color: "#006633",
                     bgColor: "#006633"
                 },
@@ -640,8 +655,8 @@
                     title: "The English-Speaking Philosopher",
                     university: "ADMU",
                     tagline: "It's about the nuance.",
-                    bio: "You don't talk; you discourse. You love deconstructing sociopolitical issues while sipping an overpriced artisanal latte in Katipunan. You speak with a specific accent that scares Grab drivers.",
-                    starterPack: "Tote bag • Film camera • Using the word \"inherently\"",
+                    bio: "You don't talk; you discourse 🎓. You love deconstructing sociopolitical issues while sipping an overpriced artisanal latte ☕ in Katipunan. You speak with a specific accent that scares Grab drivers 😰.",
+                    starterPack: "Tote bag 👜 • Film camera 📷 • Using the word \"inherently\" 🤔",
                     color: "#003366",
                     bgColor: "#003366"
                 },
@@ -649,8 +664,8 @@
                     title: "The \"Org is Life\" Socialite",
                     university: "ADMU",
                     tagline: "Bibbo Kid of Katipunan.",
-                    bio: "You have 5 executive positions and sleep 3 hours a day. You are fighting for social justice in the morning and partying at Pop Up in the evening. You know everyone.",
-                    starterPack: "Google Calendar is full • \"Blue Energy\" • 3-page Resume",
+                    bio: "You have 5 executive positions 📋 and sleep 3 hours a day 😴. You are fighting for social justice ✊ in the morning and partying at Pop Up 🍺 in the evening. You know everyone 👥.",
+                    starterPack: "Google Calendar is full 📅 • \"Blue Energy\" ⚡ • 3-page Resume 📄",
                     color: "#003366",
                     bgColor: "#003366"
                 },
@@ -658,8 +673,8 @@
                     title: "The Chill \"Pards\"",
                     university: "ADMU",
                     tagline: "Solid pards.",
-                    bio: "You play ultimate frisbee/futsal and strictly wear oversized shirts. You get B+ grades without trying. You are effortlessly cool and low-key rich. You drive your friends to Antipolo for \"clouds\" at 2 AM.",
-                    starterPack: "Guitar • Car keys • JSEC meals • Sleeping in the library",
+                    bio: "You play ultimate frisbee/futsal ⚽ and strictly wear oversized shirts 👕. You get B+ grades without trying 📚. You are effortlessly cool 😎 and low-key rich. You drive your friends to Antipolo for \"clouds\" ☁️ at 2 AM.",
+                    starterPack: "Guitar 🎸 • Car keys 🔑 • JSEC meals 🍱 • Sleeping in the library 😪",
                     color: "#003366",
                     bgColor: "#003366"
                 },
@@ -668,8 +683,8 @@
                     title: "The U.P. Town Center \"Burgis\"",
                     university: "UP",
                     tagline: "Conyo with a cause.",
-                    bio: "You study in UP but live the Ateneo lifestyle. You refuse to eat at the canteen; it has to be Starbucks or UPTC. You bridge the gap between the struggle and the aircon. You are \"one with the masses\" (via iPhone 16).",
-                    starterPack: "Private car but parks far away • Starbucks planner • Aesthetic notes",
+                    bio: "You study in UP but live the Ateneo lifestyle 💅. You refuse to eat at the canteen; it has to be Starbucks ☕ or UPTC. You bridge the gap between the struggle and the aircon ❄️. You are \"one with the masses\" (via iPhone 16) 📱.",
+                    starterPack: "Private car but parks far away 🚗 • Starbucks planner 📖 • Aesthetic notes ✨",
                     color: "#8B0000",
                     bgColor: "#8B0000"
                 },
@@ -677,8 +692,8 @@
                     title: "The \"Tibak\" (Activist)",
                     university: "UP",
                     tagline: "Serve the People.",
-                    bio: "You've attended more rallies than parties. You can quote history books from memory. You win every argument at family reunions (and your Titos hate it). You own a Sablay even if you haven't graduated yet.",
-                    starterPack: "Red scarf • Megaphone • Cigarettes • Intense gaze",
+                    bio: "You've attended more rallies 📢 than parties. You can quote history books 📚 from memory. You win every argument at family reunions 🗣️ (and your Titos hate it). You own a Sablay even if you haven't graduated yet 🎓.",
+                    starterPack: "Red scarf 🧣 • Megaphone 📢 • Cigarettes 🚬 • Intense gaze 👁️",
                     color: "#8B0000",
                     bgColor: "#8B0000"
                 },
@@ -686,8 +701,8 @@
                     title: "The \"Delayed\" Legend",
                     university: "UP",
                     tagline: "Maximum Residency.",
-                    bio: "The campus is your home. You know every guard by name. You survive on Pancit Canton and spite. Graduation is a myth; survival is the reality. You are the scariest person during enlistment.",
-                    starterPack: "Form 5 issues • Eyebags • Photox readings • \"Isang sem na lang (daw)\"",
+                    bio: "The campus is your home 🏠. You know every guard by name 👋. You survive on Pancit Canton 🍜 and spite. Graduation is a myth; survival is the reality 💪. You are the scariest person during enlistment 😈.",
+                    starterPack: "Form 5 issues 📋 • Eyebags 😵 • Photox readings 📚 • \"Isang sem na lang (daw)\" 🤞",
                     color: "#8B0000",
                     bgColor: "#8B0000"
                 }
@@ -848,21 +863,21 @@
                     // University-specific data with enhanced color schemes
                     const universityData = {
                         'UP': { 
-                            letter: 'U', 
+                            emoji: '✊', 
                             primaryColor: '#8B0000', 
                             secondaryColor: '#B22222',
                             lightColor: '#FFB6C1',
                             traits: ['TIBAK LEVEL', 'SURVIVAL SKILLS', 'ACTIVISM']
                         },
                         'ADMU': { 
-                            letter: 'A', 
+                            emoji: '🦅', 
                             primaryColor: '#003366', 
                             secondaryColor: '#004080',
                             lightColor: '#87CEEB',
                             traits: ['CONYO LEVEL', 'PHILOSOPHY', 'ORG INVOLVEMENT']
                         },
                         'DLSU': { 
-                            letter: 'D', 
+                            emoji: '🏹', 
                             primaryColor: '#006633', 
                             secondaryColor: '#228B22',
                             lightColor: '#90EE90',
@@ -873,41 +888,41 @@
                     const uniData = universityData[this.finalResult.university] || universityData['UP'];
                     
                     // BACKGROUND: Professional gradient with subtle noise effect
-                    const bgGradient = ctx.createLinearGradient(0, 0, 0, canvas.height - 150); // Exclude footer area
+                    const bgGradient = ctx.createLinearGradient(0, 0, 0, canvas.height - 180); // Exclude footer area
                     bgGradient.addColorStop(0, uniData.primaryColor);
                     bgGradient.addColorStop(0.3, uniData.secondaryColor);
                     bgGradient.addColorStop(1, this.adjustColor(uniData.primaryColor, -60));
                     ctx.fillStyle = bgGradient;
-                    ctx.fillRect(0, 0, canvas.width, canvas.height - 150);
+                    ctx.fillRect(0, 0, canvas.width, canvas.height - 180);
                     
                     // Add subtle geometric pattern for texture
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.03)';
                     for (let i = 0; i < 50; i++) {
                         const x = Math.random() * canvas.width;
-                        const y = Math.random() * (canvas.height - 150);
+                        const y = Math.random() * (canvas.height - 180);
                         const size = Math.random() * 20 + 5;
                         ctx.fillRect(x, y, size, size);
                     }
                     
-                    // TOP HEADER: Official badge (pill-shaped)
-                    const badgeY = 80;
-                    const badgeWidth = 400;
-                    const badgeHeight = 50;
+                    // TOP HEADER: Official badge (pill-shaped) - More space from top
+                    const badgeY = 120;
+                    const badgeWidth = 450;
+                    const badgeHeight = 60;
                     const badgeX = canvas.width / 2 - badgeWidth / 2;
                     
                     // Badge background
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
-                    this.drawRoundedRect(ctx, badgeX, badgeY - badgeHeight/2, badgeWidth, badgeHeight, 25);
+                    this.drawRoundedRect(ctx, badgeX, badgeY - badgeHeight/2, badgeWidth, badgeHeight, 30);
                     
                     // Badge text
                     ctx.fillStyle = uniData.primaryColor;
-                    ctx.font = 'bold 24px Arial, sans-serif';
+                    ctx.font = 'bold 28px Arial, sans-serif';
                     ctx.textAlign = 'center';
-                    ctx.fillText('UNIVERSITY ARCHETYPE TEST', canvas.width / 2, badgeY + 8);
+                    ctx.fillText('UNIVERSITY STEREOTYPE TEST', canvas.width / 2, badgeY + 10);
                     
-                    // AVATAR AREA: Large semi-transparent circle with university letter
-                    const avatarY = 200;
-                    const avatarRadius = 100;
+                    // AVATAR AREA: Large university emoji
+                    const avatarY = 280;
+                    const avatarRadius = 110;
                     
                     // Avatar circle background
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
@@ -920,13 +935,13 @@
                     ctx.lineWidth = 4;
                     ctx.stroke();
                     
-                    // University letter inside circle
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                    ctx.font = 'bold 120px Georgia, serif'; // Serif font for elegance
+                    // University emoji inside circle
+                    ctx.font = '120px Arial';
                     ctx.textAlign = 'center';
-                    ctx.fillText(uniData.letter, canvas.width / 2, avatarY + 40);
+                    ctx.fillText(uniData.emoji, canvas.width / 2, avatarY + 40);
                     
-                    // USER NAME: Handwritten style above main title
+                    // USER NAME: Better presentation with more space
+                    let y = 420;
                     let displayName = '';
                     if (this.userIgHandle.trim()) {
                         displayName = this.userIgHandle.startsWith('@') ? this.userIgHandle : '@' + this.userIgHandle;
@@ -935,18 +950,23 @@
                         displayName = randomNicknames[Math.floor(Math.random() * randomNicknames.length)];
                     }
                     
-                    ctx.fillStyle = uniData.lightColor;
-                    ctx.font = 'italic 32px Brush Script MT, cursive'; // Handwritten style
-                    ctx.fillText(displayName, canvas.width / 2, 340);
+                    // IG Handle background for better presentation
+                    const nameWidth = ctx.measureText(displayName).width;
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+                    this.drawRoundedRect(ctx, canvas.width / 2 - nameWidth / 2 - 20, y - 25, nameWidth + 40, 50, 25);
                     
-                    // ARCHETYPE TITLE: Big, bold, sans-serif (MBTI style)
-                    let y = 400;
                     ctx.fillStyle = 'white';
-                    let titleFontSize = 48;
+                    ctx.font = 'italic 36px Brush Script MT, cursive';
+                    ctx.fillText(displayName, canvas.width / 2, y + 10);
+                    
+                    // ARCHETYPE TITLE: Big, bold, sans-serif - More space
+                    y += 100;
+                    ctx.fillStyle = 'white';
+                    let titleFontSize = 52;
                     ctx.font = `bold ${titleFontSize}px Arial, sans-serif`;
                     
                     // Adjust font size if title is too long
-                    while (ctx.measureText(this.finalResult.title).width > canvas.width - 100 && titleFontSize > 28) {
+                    while (ctx.measureText(this.finalResult.title).width > canvas.width - 100 && titleFontSize > 32) {
                         titleFontSize -= 3;
                         ctx.font = `bold ${titleFontSize}px Arial, sans-serif`;
                     }
@@ -954,46 +974,46 @@
                     const titleLines = this.wrapText(ctx, this.finalResult.title.toUpperCase(), canvas.width - 100);
                     titleLines.forEach(line => {
                         ctx.fillText(line, canvas.width / 2, y);
-                        y += titleFontSize + 8;
+                        y += titleFontSize + 15;
                     });
                     
-                    // TAGLINE: Smaller, italic
-                    y += 30;
+                    // TAGLINE: More space
+                    y += 40;
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                    ctx.font = 'italic 28px Arial, sans-serif';
+                    ctx.font = 'italic 32px Arial, sans-serif';
                     ctx.fillText(`"${this.finalResult.tagline}"`, canvas.width / 2, y);
                     
-                    // BIO: Clean, readable text
-                    y += 50;
+                    // BIO: Clean, readable text with more space
+                    y += 70;
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
-                    ctx.font = '24px Arial, sans-serif';
+                    ctx.font = '26px Arial, sans-serif';
                     const bioLines = this.wrapText(ctx, this.finalResult.bio, canvas.width - 120);
                     
                     bioLines.forEach(line => {
                         ctx.fillText(line, canvas.width / 2, y);
-                        y += 30;
+                        y += 35;
                     });
                     
-                    // STARTER PACK: Enhanced section
-                    y += 40;
+                    // STARTER PACK: Enhanced section with more space
+                    y += 60;
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                    ctx.font = 'bold 26px Arial, sans-serif';
+                    ctx.font = 'bold 28px Arial, sans-serif';
                     ctx.fillText('STARTER PACK', canvas.width / 2, y);
                     
-                    y += 35;
+                    y += 45;
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
-                    ctx.font = '22px Arial, sans-serif';
+                    ctx.font = '24px Arial, sans-serif';
                     const starterPackLines = this.wrapText(ctx, this.finalResult.starterPack, canvas.width - 120);
                     starterPackLines.forEach(line => {
                         ctx.fillText(line, canvas.width / 2, y);
-                        y += 28;
+                        y += 32;
                     });
                     
-                    // TRAIT BARS: The MBTI magic - fake personality stats
-                    y += 50;
-                    const barWidth = 500;
-                    const barHeight = 35;
-                    const barSpacing = 50;
+                    // TRAIT BARS: Much better spacing and larger bars
+                    y += 80;
+                    const barWidth = 700;
+                    const barHeight = 45;
+                    const barSpacing = 90; // Even more space between bars
                     
                     // Generate random but believable percentages
                     const traitValues = [
@@ -1007,36 +1027,39 @@
                         const barX = canvas.width / 2 - barWidth / 2;
                         const fillWidth = (barWidth * traitValues[index]) / 100;
                         
-                        // Trait label
+                        // Trait label with proper spacing above bar
                         ctx.fillStyle = 'white';
-                        ctx.font = 'bold 20px Arial, sans-serif';
+                        ctx.font = 'bold 24px Arial, sans-serif';
                         ctx.textAlign = 'left';
-                        ctx.fillText(trait, barX, barY - 8);
+                        ctx.fillText(trait, barX, barY - 20); // More space above bar
                         
-                        // Percentage
+                        // Percentage aligned with label
                         ctx.textAlign = 'right';
-                        ctx.fillText(`${traitValues[index]}%`, barX + barWidth, barY - 8);
+                        ctx.fillText(`${traitValues[index]}%`, barX + barWidth, barY - 20);
+                        
+                        // Reset text alignment for bars
+                        ctx.textAlign = 'center';
                         
                         // Bar background
                         ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
-                        this.drawRoundedRect(ctx, barX, barY, barWidth, barHeight, 18);
+                        this.drawRoundedRect(ctx, barX, barY, barWidth, barHeight, 22);
                         
                         // Bar fill
                         const barGradient = ctx.createLinearGradient(barX, barY, barX + fillWidth, barY);
                         barGradient.addColorStop(0, uniData.lightColor);
                         barGradient.addColorStop(1, 'rgba(255, 255, 255, 0.9)');
                         ctx.fillStyle = barGradient;
-                        this.drawRoundedRect(ctx, barX, barY, fillWidth, barHeight, 18);
+                        this.drawRoundedRect(ctx, barX, barY, fillWidth, barHeight, 22);
                         
                         // Bar border
                         ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
-                        ctx.lineWidth = 2;
-                        this.strokeRoundedRect(ctx, barX, barY, barWidth, barHeight, 18);
+                        ctx.lineWidth = 3;
+                        this.strokeRoundedRect(ctx, barX, barY, barWidth, barHeight, 22);
                     });
                     
-                    // FOOTER STRIP: QR Code and referral info (last 150px)
-                    const footerY = canvas.height - 150;
-                    const footerHeight = 150;
+                    // FOOTER STRIP: QR Code and referral info (last 180px for more space)
+                    const footerY = canvas.height - 180;
+                    const footerHeight = 180;
                     
                     // Footer background (boarding pass style)
                     const footerGradient = ctx.createLinearGradient(0, footerY, 0, canvas.height);
@@ -1053,18 +1076,18 @@
                     ctx.lineTo(canvas.width, footerY);
                     ctx.stroke();
                     
-                    // Generate QR Code
+                    // Generate QR Code with dynamic URL
                     const qr = new QRious({
-                        value: window.location.href,
-                        size: 120,
+                        value: window.location.href, // Dynamic current URL
+                        size: 140,
                         background: 'white',
                         foreground: uniData.primaryColor
                     });
                     
-                    // Draw QR code on bottom right
-                    const qrSize = 100;
-                    const qrX = canvas.width - qrSize - 30;
-                    const qrY = footerY + 25;
+                    // Draw QR code on bottom right - larger size
+                    const qrSize = 120;
+                    const qrX = canvas.width - qrSize - 40;
+                    const qrY = footerY + 30;
                     
                     const qrImage = new Image();
                     qrImage.onload = () => {
@@ -1075,33 +1098,35 @@
                     };
                     qrImage.src = qr.toDataURL();
                     
-                    // Footer text (left side)
-                    const textX = 40;
-                    const textY = footerY + 50;
+                    // Footer text (left side) - better spacing
+                    const textX = 50;
+                    const textY = footerY + 60;
                     
                     ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
-                    ctx.font = '16px Arial, sans-serif';
+                    ctx.font = '20px Arial, sans-serif';
                     ctx.textAlign = 'left';
                     ctx.fillText('Discover your stereotype at:', textX, textY);
                     
                     ctx.fillStyle = uniData.primaryColor;
-                    ctx.font = 'bold 24px Arial, sans-serif';
-                    ctx.fillText(window.location.host, textX, textY + 30);
+                    ctx.font = 'bold 28px Arial, sans-serif';
+                    ctx.fillText(window.location.host, textX, textY + 40); // Dynamic host
                     
-                    // Decorative elements (boarding pass style)
+                    // Decorative elements (boarding pass style) - better positioned
                     ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-                    for (let i = 0; i < 20; i++) {
-                        const dotX = 30 + (i * 25);
-                        ctx.beginPath();
-                        ctx.arc(dotX, footerY + 75, 2, 0, 2 * Math.PI);
-                        ctx.fill();
+                    for (let i = 0; i < 25; i++) {
+                        const dotX = 40 + (i * 30);
+                        if (dotX < canvas.width - 200) { // Don't overlap with QR code
+                            ctx.beginPath();
+                            ctx.arc(dotX, footerY + 100, 3, 0, 2 * Math.PI);
+                            ctx.fill();
+                        }
                     }
                     
                     // Personal watermark (smaller, in footer)
                     ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
-                    ctx.font = '14px Monaco, Courier, monospace';
+                    ctx.font = '16px Monaco, Courier, monospace';
                     ctx.textAlign = 'center';
-                    ctx.fillText('Built by @LobenKT', canvas.width / 2, canvas.height - 15);
+                    ctx.fillText('Built by @LobenKT', canvas.width / 2, canvas.height - 20);
                 },
                 
                 // Helper function to draw rounded rectangles
