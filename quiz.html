@@ -30,6 +30,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- QR Code Generator -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
     
     <style>
         :root {
@@ -871,18 +873,18 @@
                     const uniData = universityData[this.finalResult.university] || universityData['UP'];
                     
                     // BACKGROUND: Professional gradient with subtle noise effect
-                    const bgGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+                    const bgGradient = ctx.createLinearGradient(0, 0, 0, canvas.height - 150); // Exclude footer area
                     bgGradient.addColorStop(0, uniData.primaryColor);
                     bgGradient.addColorStop(0.3, uniData.secondaryColor);
                     bgGradient.addColorStop(1, this.adjustColor(uniData.primaryColor, -60));
                     ctx.fillStyle = bgGradient;
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillRect(0, 0, canvas.width, canvas.height - 150);
                     
                     // Add subtle geometric pattern for texture
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.03)';
                     for (let i = 0; i < 50; i++) {
                         const x = Math.random() * canvas.width;
-                        const y = Math.random() * canvas.height;
+                        const y = Math.random() * (canvas.height - 150);
                         const size = Math.random() * 20 + 5;
                         ctx.fillRect(x, y, size, size);
                     }
@@ -904,8 +906,8 @@
                     ctx.fillText('UNIVERSITY ARCHETYPE TEST', canvas.width / 2, badgeY + 8);
                     
                     // AVATAR AREA: Large semi-transparent circle with university letter
-                    const avatarY = 220;
-                    const avatarRadius = 120;
+                    const avatarY = 200;
+                    const avatarRadius = 100;
                     
                     // Avatar circle background
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
@@ -920,9 +922,9 @@
                     
                     // University letter inside circle
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                    ctx.font = 'bold 140px Georgia, serif'; // Serif font for elegance
+                    ctx.font = 'bold 120px Georgia, serif'; // Serif font for elegance
                     ctx.textAlign = 'center';
-                    ctx.fillText(uniData.letter, canvas.width / 2, avatarY + 50);
+                    ctx.fillText(uniData.letter, canvas.width / 2, avatarY + 40);
                     
                     // USER NAME: Handwritten style above main title
                     let displayName = '';
@@ -934,17 +936,17 @@
                     }
                     
                     ctx.fillStyle = uniData.lightColor;
-                    ctx.font = 'italic 36px Brush Script MT, cursive'; // Handwritten style
-                    ctx.fillText(displayName, canvas.width / 2, 400);
+                    ctx.font = 'italic 32px Brush Script MT, cursive'; // Handwritten style
+                    ctx.fillText(displayName, canvas.width / 2, 340);
                     
                     // ARCHETYPE TITLE: Big, bold, sans-serif (MBTI style)
-                    let y = 480;
+                    let y = 400;
                     ctx.fillStyle = 'white';
-                    let titleFontSize = 52;
+                    let titleFontSize = 48;
                     ctx.font = `bold ${titleFontSize}px Arial, sans-serif`;
                     
                     // Adjust font size if title is too long
-                    while (ctx.measureText(this.finalResult.title).width > canvas.width - 100 && titleFontSize > 32) {
+                    while (ctx.measureText(this.finalResult.title).width > canvas.width - 100 && titleFontSize > 28) {
                         titleFontSize -= 3;
                         ctx.font = `bold ${titleFontSize}px Arial, sans-serif`;
                     }
@@ -952,31 +954,46 @@
                     const titleLines = this.wrapText(ctx, this.finalResult.title.toUpperCase(), canvas.width - 100);
                     titleLines.forEach(line => {
                         ctx.fillText(line, canvas.width / 2, y);
-                        y += titleFontSize + 10;
+                        y += titleFontSize + 8;
                     });
                     
                     // TAGLINE: Smaller, italic
-                    y += 40;
+                    y += 30;
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                    ctx.font = 'italic 32px Arial, sans-serif';
+                    ctx.font = 'italic 28px Arial, sans-serif';
                     ctx.fillText(`"${this.finalResult.tagline}"`, canvas.width / 2, y);
                     
                     // BIO: Clean, readable text
-                    y += 80;
+                    y += 50;
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
-                    ctx.font = '26px Arial, sans-serif';
+                    ctx.font = '24px Arial, sans-serif';
                     const bioLines = this.wrapText(ctx, this.finalResult.bio, canvas.width - 120);
                     
                     bioLines.forEach(line => {
                         ctx.fillText(line, canvas.width / 2, y);
-                        y += 35;
+                        y += 30;
+                    });
+                    
+                    // STARTER PACK: Enhanced section
+                    y += 40;
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                    ctx.font = 'bold 26px Arial, sans-serif';
+                    ctx.fillText('STARTER PACK', canvas.width / 2, y);
+                    
+                    y += 35;
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+                    ctx.font = '22px Arial, sans-serif';
+                    const starterPackLines = this.wrapText(ctx, this.finalResult.starterPack, canvas.width - 120);
+                    starterPackLines.forEach(line => {
+                        ctx.fillText(line, canvas.width / 2, y);
+                        y += 28;
                     });
                     
                     // TRAIT BARS: The MBTI magic - fake personality stats
-                    y += 80;
-                    const barWidth = 600;
-                    const barHeight = 40;
-                    const barSpacing = 60;
+                    y += 50;
+                    const barWidth = 500;
+                    const barHeight = 35;
+                    const barSpacing = 50;
                     
                     // Generate random but believable percentages
                     const traitValues = [
@@ -992,39 +1009,99 @@
                         
                         // Trait label
                         ctx.fillStyle = 'white';
-                        ctx.font = 'bold 22px Arial, sans-serif';
+                        ctx.font = 'bold 20px Arial, sans-serif';
                         ctx.textAlign = 'left';
-                        ctx.fillText(trait, barX, barY - 10);
+                        ctx.fillText(trait, barX, barY - 8);
                         
                         // Percentage
                         ctx.textAlign = 'right';
-                        ctx.fillText(`${traitValues[index]}%`, barX + barWidth, barY - 10);
+                        ctx.fillText(`${traitValues[index]}%`, barX + barWidth, barY - 8);
                         
                         // Bar background
                         ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
-                        this.drawRoundedRect(ctx, barX, barY, barWidth, barHeight, 20);
+                        this.drawRoundedRect(ctx, barX, barY, barWidth, barHeight, 18);
                         
                         // Bar fill
                         const barGradient = ctx.createLinearGradient(barX, barY, barX + fillWidth, barY);
                         barGradient.addColorStop(0, uniData.lightColor);
                         barGradient.addColorStop(1, 'rgba(255, 255, 255, 0.9)');
                         ctx.fillStyle = barGradient;
-                        this.drawRoundedRect(ctx, barX, barY, fillWidth, barHeight, 20);
+                        this.drawRoundedRect(ctx, barX, barY, fillWidth, barHeight, 18);
                         
                         // Bar border
                         ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
                         ctx.lineWidth = 2;
-                        this.strokeRoundedRect(ctx, barX, barY, barWidth, barHeight, 20);
+                        this.strokeRoundedRect(ctx, barX, barY, barWidth, barHeight, 18);
                     });
                     
-                    // FOOTER: Watermark
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
-                    ctx.font = '18px Monaco, Courier, monospace';
-                    ctx.textAlign = 'center';
-                    ctx.fillText('Built by @LobenKT', canvas.width / 2, canvas.height - 40);
+                    // FOOTER STRIP: QR Code and referral info (last 150px)
+                    const footerY = canvas.height - 150;
+                    const footerHeight = 150;
                     
-                    // Convert to image
-                    this.resultImageUrl = canvas.toDataURL('image/png');
+                    // Footer background (boarding pass style)
+                    const footerGradient = ctx.createLinearGradient(0, footerY, 0, canvas.height);
+                    footerGradient.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
+                    footerGradient.addColorStop(1, 'rgba(240, 240, 240, 0.95)');
+                    ctx.fillStyle = footerGradient;
+                    ctx.fillRect(0, footerY, canvas.width, footerHeight);
+                    
+                    // Footer border line
+                    ctx.strokeStyle = 'rgba(0, 0, 0, 0.1)';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.moveTo(0, footerY);
+                    ctx.lineTo(canvas.width, footerY);
+                    ctx.stroke();
+                    
+                    // Generate QR Code
+                    const qr = new QRious({
+                        value: window.location.href,
+                        size: 120,
+                        background: 'white',
+                        foreground: uniData.primaryColor
+                    });
+                    
+                    // Draw QR code on bottom right
+                    const qrSize = 100;
+                    const qrX = canvas.width - qrSize - 30;
+                    const qrY = footerY + 25;
+                    
+                    const qrImage = new Image();
+                    qrImage.onload = () => {
+                        ctx.drawImage(qrImage, qrX, qrY, qrSize, qrSize);
+                        
+                        // Convert to image after QR code is loaded
+                        this.resultImageUrl = canvas.toDataURL('image/png');
+                    };
+                    qrImage.src = qr.toDataURL();
+                    
+                    // Footer text (left side)
+                    const textX = 40;
+                    const textY = footerY + 50;
+                    
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+                    ctx.font = '16px Arial, sans-serif';
+                    ctx.textAlign = 'left';
+                    ctx.fillText('Discover your stereotype at:', textX, textY);
+                    
+                    ctx.fillStyle = uniData.primaryColor;
+                    ctx.font = 'bold 24px Arial, sans-serif';
+                    ctx.fillText(window.location.host, textX, textY + 30);
+                    
+                    // Decorative elements (boarding pass style)
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+                    for (let i = 0; i < 20; i++) {
+                        const dotX = 30 + (i * 25);
+                        ctx.beginPath();
+                        ctx.arc(dotX, footerY + 75, 2, 0, 2 * Math.PI);
+                        ctx.fill();
+                    }
+                    
+                    // Personal watermark (smaller, in footer)
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+                    ctx.font = '14px Monaco, Courier, monospace';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('Built by @LobenKT', canvas.width / 2, canvas.height - 15);
                 },
                 
                 // Helper function to draw rounded rectangles
