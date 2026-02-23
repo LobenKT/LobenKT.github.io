@@ -1,128 +1,123 @@
-/* You have full freedom on what to write inside this js file */
+/* Expense Logger - Fixed and Enhanced Version */
 /* LOBEN KLIEN A TIPAN S15 */
 
 $(document).ready(function () {
-    /* Write your code here. You may also opt out to not use jQuery. 
-    If so, you may remove everything in this file and write your js from scratch.*/
-
+    // Initialize total from existing items
+    updateTotal();
     
-    
-
+    // Filter functionality
     $("select#filter").change(function () { 
         var category = $(this).val();
-        $(".financeItem").each(function () {
-            if ($(this).find(".itemCategory").text() != category) {
-                $(this).hide();
+        
+        if (category === "All") {
+            $(".financeItem").show();
+        } else {
+            $(".financeItem").each(function () {
+                if ($(this).find(".itemCategory").text() === category) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+        
+        // Update total based on visible items
+        updateTotal();
+    });
+    
+    // Submit button functionality
+    $("#submitBtn").click(function () {
+        // Get form values
+        var amount = $("#amount").val().trim();
+        var date = $("#date").val();
+        var category = $("#category").val();
+        var description = $("#desc").val().trim();
+        
+        // Clear previous error
+        $("#errorText").text("");
+        
+        // Validate inputs
+        var errors = [];
+        
+        if (!date) {
+            errors.push("Date cannot be left unset");
+        }
+        if (!amount || parseFloat(amount) <= 0) {
+            errors.push("Amount must be a positive number");
+        }
+        if (!description) {
+            errors.push("Description cannot be left blank");
+        }
+        
+        // Display errors if any
+        if (errors.length > 0) {
+            if (errors.length > 1) {
+                $("#errorText").text("Multiple input fields are blank/invalid!");
+            } else {
+                $("#errorText").text(errors[0]);
             }
-            else {
-                $(this).show();
-                //if shown category is equal to bills then show the new filtered total
-                if (category == "Bills") {
-                    var total = 0;
-                    $(".financeItem").each(function () {
-                        total += parseFloat($(this).find(".itemAmount").text());
-                    });
-                    $("#financesTotal").text(total);
+            return;
+        }
+        
+        // Format amount to 2 decimal places
+        var formattedAmount = parseFloat(amount).toFixed(2);
+        
+        // Create new expense item
+        var newItem = `
+            <div class="financeItem">
+                <div class="itemHeader ${category}"> 
+                    <span class="itemCategory">${category}</span>
+                </div>
+                <div class="itemBody">
+                    <span class="itemDate">${date}</span>
+                    <span class="itemDescription">${description}</span>
+                    <span class="itemAmount">${formattedAmount}</span>
+                </div>
+            </div>
+        `;
+        
+        // Add to top of list
+        $(".itemsList").prepend(newItem);
+        
+        // Update total
+        updateTotal();
+        
+        // Reset form
+        $("#financesForm")[0].reset();
+        $("#errorText").text("");
+        
+        // Show success message briefly
+        $("#errorText").css("color", "green").text("Expense added successfully!");
+        setTimeout(function() {
+            $("#errorText").text("");
+            $("#errorText").css("color", "red");
+        }, 2000);
+    });
+    
+    // Function to calculate and update total
+    function updateTotal() {
+        var total = 0;
+        var filter = $("#filter").val();
+        
+        $(".financeItem").each(function () {
+            // Only count visible items
+            if ($(this).is(":visible")) {
+                var amount = parseFloat($(this).find(".itemAmount").text());
+                if (!isNaN(amount)) {
+                    total += amount;
                 }
             }
         });
-    
-    });
-    
-    //function to submit the form on click of the submit button
-    $("#submitBtn").click(function () {
-        //get the values of the form
-        var amount = $("#amount").val();
-        var date = $("#date").val();
-        var category = $("#category").val();
-        var description = $("#desc").val();
         
+        $("#financesTotal").text(total.toFixed(2));
+    }
     
-        //validate the inputs in the form
-        if (amount == "" || date == "" || description == "") {
-            //function to display the error message if date is missing
-            if (description == "" && amount == "" && date =="") {
-                $("#errorText").text("Multiple input fields are blank/unset!");
-            }
-            //function to display the error message if amount is missing
-            else if (amount == "") {
-                $("#errorText").text("Amount cannot be left blank.");
-            }
-            //function to display the error message if description is missing
-            else if (description == "") {
-                $("#errorText").text("Description cannot be left blank");
-            }
-            else if (date == ""){ //if multiple fields are missing
-                $("#errorText").text("Date cannot be left unset");    
-            }
-        
+    // Allow Enter key to submit
+    $("#financesForm input, #financesForm textarea, #financesForm select").keypress(function(e) {
+        if (e.which === 13 && e.target.tagName !== "TEXTAREA") {
+            e.preventDefault();
+            $("#submitBtn").click();
         }
-        else {
-            //function to get the total amount of all #amount values
-            //convert text string from span to float
-            var total = parseFloat($("#financesTotal").text());
-            $("#amount").each(function () {
-                total += parseFloat($(this).val());
-            });
-            //function to display the total amount
-            $("#financesTotal").text(total);
-
-            
-
-            //function to add new expense inside itemList div
-            if (category == "Bills") {
-            $(".itemsList").prepend(`
-            <div class='.financeItem' style="background-color: #e4e2e2;">
-            <div class="itemHeader Bills">
-                <span class='itemCategory'>${category}</span>
-                </div>
-            <div class="itemBody" >
-                <span class='itemDate'>${date}</span>   
-                <span class='itemDesc'>${description}</span> 
-                <span class='itemAmount'>${amount}</span>
-                </div>
-                
-             
-            </div><br>`);
-            
-            }
-            else if (category == "Food" ){
-                $(".itemsList").prepend(`
-                <div class='.financeItem' style="background-color: #e4e2e2;">
-                <div class="itemHeader Food">
-                    <span class='itemCategory'>${category}</span>
-                    </div>
-                <div class="itemBody">
-                    <span class='itemDate'>${date}</span>   
-                    <span class='itemDesc'>${description}</span> 
-                    <span class='itemAmount'>${amount}</span>
-                    </div>
-
-                </div><br>`);
-            }
-            
-            else if (category == "Leisure") {
-                $(".itemsList").prepend(`
-                <div class='.financeItem'>
-                <div class="itemHeader Leisure style="background-color: #e4e2e2;"">
-                    <span class='itemCategory'>${category}</span>
-                    </div>
-                <div class="itemBody">
-                    <span class='itemDate'>${date}</span>   
-                    <span class='itemDesc'>${description}</span> 
-                    <span class='itemAmount'>${amount}</span>
-                    </div>
-                </div><br>`);
-            }
-    
-            
-            //function to reset the form
-            $("#financesForm").trigger("reset");
-            $("#errorText").html("");
-        }
-
     });
-    
-
 });
 

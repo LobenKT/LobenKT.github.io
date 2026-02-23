@@ -13,36 +13,72 @@
     <!-- Vue App -->
     <div id="app" class="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
         <h1 class="text-2xl font-bold text-center mb-4">To-Do App</h1>
+        
+        <!-- Task Stats -->
+        <div class="flex justify-between text-sm text-gray-600 mb-4 bg-gray-50 p-3 rounded-lg">
+            <span>Active: <strong class="text-blue-600">{{ activeCount }}</strong></span>
+            <span>Completed: <strong class="text-green-600">{{ completedCount }}</strong></span>
+            <span>Total: <strong class="text-gray-800">{{ tasks.length }}</strong></span>
+        </div>
+        
         <form @submit.prevent="addTask" class="flex mb-4">
             <input 
                 type="text" 
                 v-model="newTask" 
                 placeholder="Add a new task..." 
                 class="flex-1 border rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                maxlength="100"
             />
             <button 
                 type="submit" 
-                class="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 transition">
+                class="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 transition disabled:bg-gray-400"
+                :disabled="!newTask.trim()">
                 Add
             </button>
         </form>
-        <ul>
-            <li v-for="(task, index) in tasks" :key="index" class="flex justify-between items-center p-2 border-b">
-                <span :class="{'line-through text-gray-400': task.completed}" class="cursor-pointer" @click="toggleComplete(index)">
-                    {{ task.text }}
-                </span>
+        
+        <ul class="space-y-2">
+            <li v-for="(task, index) in tasks" :key="task.id" 
+                class="flex justify-between items-center p-3 border rounded-lg hover:bg-gray-50 transition">
+                <div class="flex items-center gap-3 flex-1">
+                    <input 
+                        type="checkbox" 
+                        :checked="task.completed"
+                        @change="toggleComplete(index)"
+                        class="w-5 h-5 text-blue-500 rounded focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                    />
+                    <span 
+                        :class="{'line-through text-gray-400': task.completed, 'text-gray-800': !task.completed}" 
+                        class="cursor-pointer flex-1 break-words"
+                        @click="toggleComplete(index)">
+                        {{ task.text }}
+                    </span>
+                </div>
                 <button 
                     @click="deleteTask(index)" 
-                    class="text-red-500 hover:text-red-700 transition">
-                    Delete
+                    class="text-red-500 hover:text-red-700 transition ml-2 px-2 py-1 rounded hover:bg-red-50"
+                    title="Delete task">
+                    <i class="fas fa-trash"></i>
                 </button>
             </li>
         </ul>
-        <div v-if="tasks.length === 0" class="text-center text-gray-500 mt-4">
-            No tasks yet. Start adding some!
+        
+        <div v-if="tasks.length === 0" class="text-center text-gray-500 mt-8 py-8">
+            <i class="fas fa-clipboard-list text-5xl mb-3 text-gray-300"></i>
+            <p class="text-lg">No tasks yet. Start adding some!</p>
+        </div>
+        
+        <!-- Clear Completed Button -->
+        <div v-if="completedCount > 0" class="mt-4 text-center">
+            <button 
+                @click="clearCompleted"
+                class="text-sm text-red-500 hover:text-red-700 underline">
+                Clear {{ completedCount }} completed task{{ completedCount > 1 ? 's' : '' }}
+            </button>
         </div>
     </div>
     <!-- Link to app.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <script src="todo.js"></script>
 </body>
 </html>

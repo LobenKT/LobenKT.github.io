@@ -11,28 +11,63 @@
     <div id="app" class="w-full max-w-md mx-auto p-6 bg-white/90 rounded-2xl shadow-2xl">
         <h1 class="text-3xl font-extrabold text-center text-gray-700 mb-6">Weather in Manila</h1>
         
-        <!-- Weather Icon -->
-        <div v-if="weather" class="text-center mb-6">
-            <img :src="`https://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png`" alt="Weather Icon" class="mx-auto">
-            <p class="text-xl font-semibold text-gray-800 capitalize">{{ weather.weather[0].description }}</p>
+        <!-- Loading State -->
+        <div v-if="loading" class="text-center text-gray-700 py-8">
+            <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-500 mx-auto mb-4"></div>
+            <p class="text-lg">Loading weather data...</p>
         </div>
         
-        <!-- Temperature and Details -->
-        <div v-if="weather" class="text-center space-y-4">
-            <p class="text-6xl font-bold text-gray-800">{{ weather.main.temp }}°C</p>
-            <div class="text-lg text-gray-600 flex justify-center space-x-4">
-                <div>
-                    <span class="font-semibold">Humidity:</span> {{ weather.main.humidity }}%
-                </div>
-                <div>
-                    <span class="font-semibold">Wind:</span> {{ weather.wind.speed }} m/s
+        <!-- Error State -->
+        <div v-else-if="error" class="text-center text-red-600 py-8">
+            <i class="fas fa-exclamation-triangle text-5xl mb-4"></i>
+            <p class="text-lg">{{ error }}</p>
+            <button @click="fetchWeather" class="mt-4 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+                Try Again
+            </button>
+        </div>
+        
+        <!-- Weather Display -->
+        <div v-else-if="weather">
+            <!-- Weather Icon -->
+            <div class="text-center mb-6">
+                <img :src="`https://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png`" alt="Weather Icon" class="mx-auto">
+                <p class="text-xl font-semibold text-gray-800 capitalize">{{ weather.weather[0].description }}</p>
+            </div>
+            
+            <!-- Temperature and Details -->
+            <div class="text-center space-y-4">
+                <p class="text-6xl font-bold text-gray-800">{{ Math.round(weather.main.temp) }}°C</p>
+                <div class="grid grid-cols-2 gap-4 text-lg text-gray-600 mt-6">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <i class="fas fa-tint text-blue-500 mb-2"></i>
+                        <p class="font-semibold">Humidity</p>
+                        <p class="text-2xl font-bold">{{ weather.main.humidity }}%</p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <i class="fas fa-wind text-blue-500 mb-2"></i>
+                        <p class="font-semibold">Wind</p>
+                        <p class="text-2xl font-bold">{{ weather.wind.speed }} m/s</p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <i class="fas fa-temperature-high text-red-500 mb-2"></i>
+                        <p class="font-semibold">Feels Like</p>
+                        <p class="text-2xl font-bold">{{ Math.round(weather.main.feels_like) }}°C</p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <i class="fas fa-compress-arrows-alt text-purple-500 mb-2"></i>
+                        <p class="font-semibold">Pressure</p>
+                        <p class="text-2xl font-bold">{{ weather.main.pressure }} hPa</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Loading State -->
-        <div v-else class="text-center text-gray-700">
-            <p>Loading weather data...</p>
+            
+            <!-- Refresh Button -->
+            <div class="text-center mt-6">
+                <button @click="fetchWeather" class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition flex items-center gap-2 mx-auto">
+                    <i class="fas fa-sync-alt"></i>
+                    Refresh
+                </button>
+            </div>
         </div>
     </div>
 
