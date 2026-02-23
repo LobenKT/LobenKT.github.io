@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enigma Machine Simulator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #fff;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        .section h2 {
+            margin-bottom: 15px;
+            color: #ffd700;
+        }
+
+        .rotor-controls {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .rotor-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .rotor-group label {
+            font-size: 0.9em;
+            color: #ffd700;
+        }
+
+        .rotor-group input {
+            width: 60px;
+            padding: 8px;
+            font-size: 1.2em;
+            text-align: center;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #ffd700;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .current-state {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .rotor-display {
+            background: #000;
+            color: #0f0;
+            padding: 15px 20px;
+            border-radius: 5px;
+            font-size: 1.5em;
+            font-weight: bold;
+            border: 2px solid #0f0;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #ffd700;
+            border-radius: 5px;
+            resize: vertical;
+        }
+
+        .plugboard-input {
+            width: 100%;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #ffd700;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 1em;
+            font-weight: bold;
+            background: #ffd700;
+            color: #1e3c72;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #ffed4e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .decoder-section {
+            background: rgba(255, 100, 100, 0.1);
+            border: 2px solid #ff6b6b;
+        }
+
+        .decoder-output {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 5px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .attempt {
+            margin-bottom: 10px;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+        }
+
+        .attempt.success {
+            background: rgba(0, 255, 0, 0.2);
+            border: 1px solid #0f0;
+        }
+
+        .progress {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        small {
+            color: #ccc;
+            font-size: 0.85em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚙️ ENIGMA MACHINE SIMULATOR ⚙️</h1>
+
+        <!-- Encoder Section -->
+        <div class="section">
+            <h2>🔐 ENCODER</h2>
+            
+            <div class="rotor-controls">
+                <div class="rotor-group">
+                    <label>Rotor I Start:</label>
+                    <input type="text" id="rotor1Start" maxlength="1" value="A">
+                </div>
+                <div class="rotor-group">
+                    <label>Rotor II Start:</label>
+                    <input type="text" id="rotor2Start" maxlength="1" value="A">
+                </div>
+                <div class="rotor-group">
+                    <label>Rotor III Start:</label>
+                    <input type="text" id="rotor3Start" maxlength="1" value="A">
+                </div>
+                <button onclick="resetRotors()">Reset Rotors</button>
+            </div>
+
+            <div class="current-state">
+                <strong>Current State:</strong>
+                <div class="rotor-display" id="rotor1Display">A</div>
+                <div class="rotor-display" id="rotor2Display">A</div>
+                <div class="rotor-display" id="rotor3Display">A</div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <label><strong>Plugboard (pairs, e.g., AB CD EF):</strong></label>
+                <input type="text" class="plugboard-input" id="plugboard" placeholder="AB CD EF">
+                <small>Enter letter pairs separated by spaces</small>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <label><strong>Input Text:</strong></label>
+                <textarea id="inputText" placeholder="Type your message here..."></textarea>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <label><strong>Output Text:</strong></label>
+                <textarea id="outputText" readonly placeholder="Encrypted/Decrypted text will appear here..."></textarea>
+            </div>
+        </div>
+
+        <!-- Unit Test Section -->
+        <div class="section" style="background: rgba(100, 255, 100, 0.1); border: 2px solid #0f0;">
+            <h2>🧪 UNIT TESTS</h2>
+            <button onclick="runTests()">Run Tests</button>
+            <div id="testResults" style="margin-top: 15px; background: rgba(0, 0, 0, 0.5); padding: 15px; border-radius: 5px; font-size: 0.9em;"></div>
+        </div>
+
+        <!-- Decoder Section -->
+        <div class="section decoder-section">
+            <h2>🔓 BRUTE FORCE DECODER</h2>
+            
+            <div style="margin-bottom: 15px;">
+                <label><strong>Encrypted Message to Decode:</strong></label>
+                <textarea id="decodeInput" placeholder="Paste encrypted message here..."></textarea>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label><strong>Known Plaintext (optional):</strong></label>
+                <input type="text" class="plugboard-input" id="knownText" placeholder="e.g., 'THE' or 'HELLO'">
+                <small>If you know a word that appears in the original message</small>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label><strong>Speed:</strong></label>
+                <select id="bruteForceSpeed" class="plugboard-input" style="width: auto; padding: 8px;">
+                    <option value="slow">Slow (with delays - watch progress)</option>
+                    <option value="fast" selected>Fast (minimal delays)</option>
+                    <option value="instant">Instant (no delays - results only)</option>
+                </select>
+            </div>
+
+            <div class="button-group">
+                <button onclick="startBruteForce()">Start Brute Force</button>
+                <button onclick="stopBruteForce()">Stop</button>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <strong>Progress:</strong>
+                <div class="decoder-output" id="decoderOutput">
+                    <p>Click "Start Brute Force" to begin decoding...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Historical Enigma I wiring
+        const ROTOR_I = 'EKMFLGDQVZNTOWYHXUSPAIBRCJ';
+        const ROTOR_II = 'AJDKSIRUXBLHWTMCQGZNPYFVOE';
+        const ROTOR_III = 'BDFHJLCPRTXVZNYEIWGAKMUSQO';
+        const REFLECTOR_B = 'YRUHQSLDPXNGOKMIEBFZCWVJAT';
+        const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        // Common English words dictionary (top 1000 most common words)
+        const DICTIONARY = new Set([
+            'THE', 'BE', 'TO', 'OF', 'AND', 'A', 'IN', 'THAT', 'HAVE', 'I', 'IT', 'FOR', 'NOT', 'ON', 'WITH', 'HE', 'AS', 'YOU', 'DO', 'AT',
+            'THIS', 'BUT', 'HIS', 'BY', 'FROM', 'THEY', 'WE', 'SAY', 'HER', 'SHE', 'OR', 'AN', 'WILL', 'MY', 'ONE', 'ALL', 'WOULD', 'THERE', 'THEIR', 'WHAT',
+            'SO', 'UP', 'OUT', 'IF', 'ABOUT', 'WHO', 'GET', 'WHICH', 'GO', 'ME', 'WHEN', 'MAKE', 'CAN', 'LIKE', 'TIME', 'NO', 'JUST', 'HIM', 'KNOW', 'TAKE',
+            'PEOPLE', 'INTO', 'YEAR', 'YOUR', 'GOOD', 'SOME', 'COULD', 'THEM', 'SEE', 'OTHER', 'THAN', 'THEN', 'NOW', 'LOOK', 'ONLY', 'COME', 'ITS', 'OVER', 'THINK', 'ALSO',
+            'BACK', 'AFTER', 'USE', 'TWO', 'HOW', 'OUR', 'WORK', 'FIRST', 'WELL', 'WAY', 'EVEN', 'NEW', 'WANT', 'BECAUSE', 'ANY', 'THESE', 'GIVE', 'DAY', 'MOST', 'US',
+            'IS', 'WAS', 'ARE', 'BEEN', 'HAS', 'HAD', 'WERE', 'SAID', 'DID', 'HAVING', 'MAY', 'SHOULD', 'MUST', 'SHALL', 'MIGHT', 'BEING', 'DOES', 'DONE',
+            'VERY', 'THROUGH', 'JUST', 'WHERE', 'MUCH', 'BEFORE', 'RIGHT', 'TOO', 'MEANS', 'OLD', 'ANY', 'SAME', 'TELL', 'DOES', 'SET', 'THREE', 'WANT', 'AIR', 'WELL', 'ALSO',
+            'PLAY', 'SMALL', 'END', 'PUT', 'HOME', 'READ', 'HAND', 'PORT', 'LARGE', 'SPELL', 'ADD', 'EVEN', 'LAND', 'HERE', 'MUST', 'BIG', 'HIGH', 'SUCH', 'FOLLOW', 'ACT',
+            'WHY', 'ASK', 'MEN', 'CHANGE', 'WENT', 'LIGHT', 'KIND', 'OFF', 'NEED', 'HOUSE', 'PICTURE', 'TRY', 'AGAIN', 'ANIMAL', 'POINT', 'MOTHER', 'WORLD', 'NEAR', 'BUILD', 'SELF',
+            'EARTH', 'FATHER', 'HEAD', 'STAND', 'OWN', 'PAGE', 'SHOULD', 'COUNTRY', 'FOUND', 'ANSWER', 'SCHOOL', 'GROW', 'STUDY', 'STILL', 'LEARN', 'PLANT', 'COVER', 'FOOD', 'SUN', 'FOUR',
+            'BETWEEN', 'STATE', 'KEEP', 'EYE', 'NEVER', 'LAST', 'LET', 'THOUGHT', 'CITY', 'TREE', 'CROSS', 'FARM', 'HARD', 'START', 'MIGHT', 'STORY', 'SAW', 'FAR', 'SEA', 'DRAW',
+            'LEFT', 'LATE', 'RUN', 'WHILE', 'PRESS', 'CLOSE', 'NIGHT', 'REAL', 'LIFE', 'FEW', 'NORTH', 'BOOK', 'CARRY', 'TOOK', 'SCIENCE', 'EAT', 'ROOM', 'FRIEND', 'BEGAN', 'IDEA',
+            'FISH', 'MOUNTAIN', 'STOP', 'ONCE', 'BASE', 'HEAR', 'HORSE', 'CUT', 'SURE', 'WATCH', 'COLOR', 'FACE', 'WOOD', 'MAIN', 'OPEN', 'SEEM', 'TOGETHER', 'NEXT', 'WHITE', 'CHILDREN',
+            'BEGIN', 'GOT', 'WALK', 'EXAMPLE', 'EASE', 'PAPER', 'GROUP', 'ALWAYS', 'MUSIC', 'THOSE', 'BOTH', 'MARK', 'OFTEN', 'LETTER', 'UNTIL', 'MILE', 'RIVER', 'CAR', 'FEET', 'CARE',
+            'SECOND', 'ENOUGH', 'PLAIN', 'GIRL', 'USUAL', 'YOUNG', 'READY', 'ABOVE', 'EVER', 'RED', 'LIST', 'THOUGH', 'FEEL', 'TALK', 'BIRD', 'SOON', 'BODY', 'DOG', 'FAMILY', 'DIRECT',
+            'POSE', 'LEAVE', 'SONG', 'MEASURE', 'DOOR', 'PRODUCT', 'BLACK', 'SHORT', 'NUMERAL', 'CLASS', 'WIND', 'QUESTION', 'HAPPEN', 'COMPLETE', 'SHIP', 'AREA', 'HALF', 'ROCK', 'ORDER', 'FIRE',
+            'SOUTH', 'PROBLEM', 'PIECE', 'TOLD', 'KNEW', 'PASS', 'SINCE', 'TOP', 'WHOLE', 'KING', 'SPACE', 'HEARD', 'BEST', 'HOUR', 'BETTER', 'TRUE', 'DURING', 'HUNDRED', 'FIVE', 'REMEMBER',
+            'STEP', 'EARLY', 'HOLD', 'WEST', 'GROUND', 'INTEREST', 'REACH', 'FAST', 'VERB', 'SING', 'LISTEN', 'SIX', 'TABLE', 'TRAVEL', 'LESS', 'MORNING', 'TEN', 'SIMPLE', 'SEVERAL', 'VOWEL',
+            'TOWARD', 'WAR', 'LAY', 'AGAINST', 'PATTERN', 'SLOW', 'CENTER', 'LOVE', 'PERSON', 'MONEY', 'SERVE', 'APPEAR', 'ROAD', 'MAP', 'RAIN', 'RULE', 'GOVERN', 'PULL', 'COLD', 'NOTICE',
+            'VOICE', 'UNIT', 'POWER', 'TOWN', 'FINE', 'CERTAIN', 'FLY', 'FALL', 'LEAD', 'CRY', 'DARK', 'MACHINE', 'NOTE', 'WAIT', 'PLAN', 'FIGURE', 'STAR', 'BOX', 'NOUN', 'FIELD',
+            'REST', 'CORRECT', 'ABLE', 'POUND', 'DONE', 'BEAUTY', 'DRIVE', 'STOOD', 'CONTAIN', 'FRONT', 'TEACH', 'WEEK', 'FINAL', 'GAVE', 'GREEN', 'OH', 'QUICK', 'DEVELOP', 'OCEAN', 'WARM',
+            'FREE', 'MINUTE', 'STRONG', 'SPECIAL', 'MIND', 'BEHIND', 'CLEAR', 'TAIL', 'PRODUCE', 'FACT', 'STREET', 'INCH', 'MULTIPLY', 'NOTHING', 'COURSE', 'STAY', 'WHEEL', 'FULL', 'FORCE', 'BLUE',
+            'OBJECT', 'DECIDE', 'SURFACE', 'DEEP', 'MOON', 'ISLAND', 'FOOT', 'SYSTEM', 'BUSY', 'TEST', 'RECORD', 'BOAT', 'COMMON', 'GOLD', 'POSSIBLE', 'PLANE', 'STEAD', 'DRY', 'WONDER', 'LAUGH',
+            'THOUSAND', 'AGO', 'RAN', 'CHECK', 'GAME', 'SHAPE', 'EQUATE', 'HOT', 'MISS', 'BROUGHT', 'HEAT', 'SNOW', 'TIRE', 'BRING', 'YES', 'DISTANT', 'FILL', 'EAST', 'PAINT', 'LANGUAGE',
+            'AMONG', 'GRAND', 'BALL', 'YET', 'WAVE', 'DROP', 'HEART', 'AM', 'PRESENT', 'HEAVY', 'DANCE', 'ENGINE', 'POSITION', 'ARM', 'WIDE', 'SAIL', 'MATERIAL', 'SIZE', 'VARY', 'SETTLE',
+            'SPEAK', 'WEIGHT', 'GENERAL', 'ICE', 'MATTER', 'CIRCLE', 'PAIR', 'INCLUDE', 'DIVIDE', 'SYLLABLE', 'FELT', 'PERHAPS', 'PICK', 'SUDDEN', 'COUNT', 'SQUARE', 'REASON', 'LENGTH', 'REPRESENT', 'ART',
+            'SUBJECT', 'REGION', 'ENERGY', 'HUNT', 'PROBABLE', 'BED', 'BROTHER', 'EGG', 'RIDE', 'CELL', 'BELIEVE', 'FRACTION', 'FOREST', 'SIT', 'RACE', 'WINDOW', 'STORE', 'SUMMER', 'TRAIN', 'SLEEP',
+            'PROVE', 'LONE', 'LEG', 'EXERCISE', 'WALL', 'CATCH', 'MOUNT', 'WISH', 'SKY', 'BOARD', 'JOY', 'WINTER', 'SAT', 'WRITTEN', 'WILD', 'INSTRUMENT', 'KEPT', 'GLASS', 'GRASS', 'COW',
+            'JOB', 'EDGE', 'SIGN', 'VISIT', 'PAST', 'SOFT', 'FUN', 'BRIGHT', 'GAS', 'WEATHER', 'MONTH', 'MILLION', 'BEAR', 'FINISH', 'HAPPY', 'HOPE', 'FLOWER', 'CLOTHE', 'STRANGE', 'GONE',
+            'JUMP', 'BABY', 'EIGHT', 'VILLAGE', 'MEET', 'ROOT', 'BUY', 'RAISE', 'SOLVE', 'METAL', 'WHETHER', 'PUSH', 'SEVEN', 'PARAGRAPH', 'THIRD', 'SHALL', 'HELD', 'HAIR', 'DESCRIBE', 'COOK',
+            'FLOOR', 'EITHER', 'RESULT', 'BURN', 'HILL', 'SAFE', 'CAT', 'CENTURY', 'CONSIDER', 'TYPE', 'LAW', 'BIT', 'COAST', 'COPY', 'PHRASE', 'SILENT', 'TALL', 'SAND', 'SOIL', 'ROLL',
+            'TEMPERATURE', 'FINGER', 'INDUSTRY', 'VALUE', 'FIGHT', 'LIE', 'BEAT', 'EXCITE', 'NATURAL', 'VIEW', 'SENSE', 'EAR', 'ELSE', 'QUITE', 'BROKE', 'CASE', 'MIDDLE', 'KILL', 'SON', 'LAKE',
+            'MOMENT', 'SCALE', 'LOUD', 'SPRING', 'OBSERVE', 'CHILD', 'STRAIGHT', 'CONSONANT', 'NATION', 'DICTIONARY', 'MILK', 'SPEED', 'METHOD', 'ORGAN', 'PAY', 'AGE', 'SECTION', 'DRESS', 'CLOUD', 'SURPRISE',
+            'QUIET', 'STONE', 'TINY', 'CLIMB', 'COOL', 'DESIGN', 'POOR', 'LOT', 'EXPERIMENT', 'BOTTOM', 'KEY', 'IRON', 'SINGLE', 'STICK', 'FLAT', 'TWENTY', 'SKIN', 'SMILE', 'CREASE', 'HOLE',
+            'TRADE', 'MELODY', 'TRIP', 'OFFICE', 'RECEIVE', 'ROW', 'MOUTH', 'EXACT', 'SYMBOL', 'DIE', 'LEAST', 'TROUBLE', 'SHOUT', 'EXCEPT', 'WROTE', 'SEED', 'TONE', 'JOIN', 'SUGGEST', 'CLEAN',
+            'BREAK', 'LADY', 'YARD', 'RISE', 'BAD', 'BLOW', 'OIL', 'BLOOD', 'TOUCH', 'GREW', 'CENT', 'MIX', 'TEAM', 'WIRE', 'COST', 'LOST', 'BROWN', 'WEAR', 'GARDEN', 'EQUAL',
+            'SENT', 'CHOOSE', 'FELL', 'FIT', 'FLOW', 'FAIR', 'BANK', 'COLLECT', 'SAVE', 'CONTROL', 'DECIMAL', 'GENTLE', 'WOMAN', 'CAPTAIN', 'PRACTICE', 'SEPARATE', 'DIFFICULT', 'DOCTOR', 'PLEASE', 'PROTECT',
+            'NOON', 'WHOSE', 'LOCATE', 'RING', 'CHARACTER', 'INSECT', 'CAUGHT', 'PERIOD', 'INDICATE', 'RADIO', 'SPOKE', 'ATOM', 'HUMAN', 'HISTORY', 'EFFECT', 'ELECTRIC', 'EXPECT', 'CROP', 'MODERN', 'ELEMENT',
+            'HIT', 'STUDENT', 'CORNER', 'PARTY', 'SUPPLY', 'BONE', 'RAIL', 'IMAGINE', 'PROVIDE', 'AGREE', 'THUS', 'CAPITAL', 'CHAIR', 'DANGER', 'FRUIT', 'RICH', 'THICK', 'SOLDIER', 'PROCESS', 'OPERATE',
+            'GUESS', 'NECESSARY', 'SHARP', 'WING', 'CREATE', 'NEIGHBOR', 'WASH', 'BAT', 'RATHER', 'CROWD', 'CORN', 'COMPARE', 'POEM', 'STRING', 'BELL', 'DEPEND', 'MEAT', 'RUB', 'TUBE', 'FAMOUS',
+            'DOLLAR', 'STREAM', 'FEAR', 'SIGHT', 'THIN', 'TRIANGLE', 'PLANET', 'HURRY', 'CHIEF', 'COLONY', 'CLOCK', 'MINE', 'TIE', 'ENTER', 'MAJOR', 'FRESH', 'SEARCH', 'SEND', 'YELLOW', 'GUN',
+            'ALLOW', 'PRINT', 'DEAD', 'SPOT', 'DESERT', 'SUIT', 'CURRENT', 'LIFT', 'ROSE', 'CONTINUE', 'BLOCK', 'CHART', 'HAT', 'SELL', 'SUCCESS', 'COMPANY', 'SUBTRACT', 'EVENT', 'PARTICULAR', 'DEAL',
+            'SWIM', 'TERM', 'OPPOSITE', 'WIFE', 'SHOE', 'SHOULDER', 'SPREAD', 'ARRANGE', 'CAMP', 'INVENT', 'COTTON', 'BORN', 'DETERMINE', 'QUART', 'NINE', 'TRUCK', 'NOISE', 'LEVEL', 'CHANCE', 'GATHER',
+            'SHOP', 'STRETCH', 'THROW', 'SHINE', 'PROPERTY', 'COLUMN', 'MOLECULE', 'SELECT', 'WRONG', 'GRAY', 'REPEAT', 'REQUIRE', 'BROAD', 'PREPARE', 'SALT', 'NOSE', 'PLURAL', 'ANGER', 'CLAIM', 'CONTINENT',
+            'OXYGEN', 'SUGAR', 'DEATH', 'PRETTY', 'SKILL', 'WOMEN', 'SEASON', 'SOLUTION', 'MAGNET', 'SILVER', 'THANK', 'BRANCH', 'MATCH', 'SUFFIX', 'ESPECIALLY', 'FIG', 'AFRAID', 'HUGE', 'SISTER', 'STEEL',
+            'DISCUSS', 'FORWARD', 'SIMILAR', 'GUIDE', 'EXPERIENCE', 'SCORE', 'APPLE', 'BOUGHT', 'LED', 'PITCH', 'COAT', 'MASS', 'CARD', 'BAND', 'ROPE', 'SLIP', 'WIN', 'DREAM', 'EVENING', 'CONDITION',
+            'FEED', 'TOOL', 'TOTAL', 'BASIC', 'SMELL', 'VALLEY', 'NOR', 'DOUBLE', 'SEAT', 'ARRIVE', 'MASTER', 'TRACK', 'PARENT', 'SHORE', 'DIVISION', 'SHEET', 'SUBSTANCE', 'FAVOR', 'CONNECT', 'POST',
+            'SPEND', 'CHORD', 'FAT', 'GLAD', 'ORIGINAL', 'SHARE', 'STATION', 'DAD', 'BREAD', 'CHARGE', 'PROPER', 'BAR', 'OFFER', 'SEGMENT', 'SLAVE', 'DUCK', 'INSTANT', 'MARKET', 'DEGREE', 'POPULATE',
+            'CHICK', 'DEAR', 'ENEMY', 'REPLY', 'DRINK', 'OCCUR', 'SUPPORT', 'SPEECH', 'NATURE', 'RANGE', 'STEAM', 'MOTION', 'PATH', 'LIQUID', 'LOG', 'MEANT', 'QUOTIENT', 'TEETH', 'SHELL', 'NECK',
+            'MESSAGE', 'HELLO', 'ATTACK', 'SECRET', 'CODE', 'CIPHER', 'ENIGMA', 'MACHINE', 'ENCRYPT', 'DECRYPT', 'ROTOR', 'SIGNAL', 'LETTER', 'WORD', 'TEXT', 'SEND', 'RECEIVE'
+        ]);
+
+        // Enigma state
+        let rotor1Pos = 0;
+        let rotor2Pos = 0;
+        let rotor3Pos = 0;
+        let plugboardMap = {};
+        let bruteForceRunning = false;
+
+        // Initialize
+        document.getElementById('inputText').addEventListener('input', processInput);
+        document.getElementById('plugboard').addEventListener('input', updatePlugboard);
+
+        // Dictionary scoring function with sliding window
+        function scoreText(text) {
+            const cleanText = text.replace(/[^A-Z]/g, '');
+            let score = 0;
+            let matchedWords = [];
+            let foundPositions = new Set();
+            
+            // Try to find dictionary words using sliding window
+            // Check for words of length 2-15
+            for (let wordLen = 15; wordLen >= 2; wordLen--) {
+                for (let i = 0; i <= cleanText.length - wordLen; i++) {
+                    // Skip if this position is already part of a matched word
+                    let skipThis = false;
+                    for (let j = i; j < i + wordLen; j++) {
+                        if (foundPositions.has(j)) {
+                            skipThis = true;
+                            break;
+                        }
+                    }
+                    if (skipThis) continue;
+                    
+                    const substring = cleanText.substring(i, i + wordLen);
+                    if (DICTIONARY.has(substring)) {
+                        score += wordLen * wordLen; // Longer words get exponentially more points
+                        matchedWords.push(substring);
+                        
+                        // Mark these positions as used
+                        for (let j = i; j < i + wordLen; j++) {
+                            foundPositions.add(j);
+                        }
+                    }
+                }
+            }
+            
+            // Calculate coverage percentage
+            const coverage = (foundPositions.size / cleanText.length) * 100;
+            
+            // Bonus points for high coverage
+            if (coverage > 50) {
+                score += Math.floor(coverage);
+            }
+            
+            return { 
+                score, 
+                matchedWords, 
+                coverage: coverage.toFixed(1),
+                textLength: cleanText.length 
+            };
+        }
+
+        function updatePlugboard() {
+            const plugboardInput = document.getElementById('plugboard').value.toUpperCase();
+            plugboardMap = {};
+            
+            const pairs = plugboardInput.split(' ').filter(p => p.length === 2);
+            pairs.forEach(pair => {
+                const [a, b] = pair.split('');
+                if (ALPHABET.includes(a) && ALPHABET.includes(b)) {
+                    plugboardMap[a] = b;
+                    plugboardMap[b] = a;
+                }
+            });
+        }
+
+        function applyPlugboard(letter) {
+            return plugboardMap[letter] || letter;
+        }
+
+        function stepRotors() {
+            rotor1Pos = (rotor1Pos + 1) % 26;
+            
+            if (rotor1Pos === 0) {
+                rotor2Pos = (rotor2Pos + 1) % 26;
+                
+                if (rotor2Pos === 0) {
+                    rotor3Pos = (rotor3Pos + 1) % 26;
+                }
+            }
+            
+            updateRotorDisplay();
+        }
+
+        function updateRotorDisplay() {
+            document.getElementById('rotor1Display').textContent = ALPHABET[rotor1Pos];
+            document.getElementById('rotor2Display').textContent = ALPHABET[rotor2Pos];
+            document.getElementById('rotor3Display').textContent = ALPHABET[rotor3Pos];
+        }
+
+        function encryptLetter(letter) {
+            if (!ALPHABET.includes(letter)) return letter;
+            
+            // Step rotors first
+            stepRotors();
+            
+            // Apply plugboard
+            letter = applyPlugboard(letter);
+            
+            // Forward through rotors
+            let index = ALPHABET.indexOf(letter);
+            
+            // Rotor I
+            index = (index + rotor1Pos) % 26;
+            letter = ROTOR_I[index];
+            index = (ALPHABET.indexOf(letter) - rotor1Pos + 26) % 26;
+            
+            // Rotor II
+            index = (index + rotor2Pos) % 26;
+            letter = ROTOR_II[index];
+            index = (ALPHABET.indexOf(letter) - rotor2Pos + 26) % 26;
+            
+            // Rotor III
+            index = (index + rotor3Pos) % 26;
+            letter = ROTOR_III[index];
+            index = (ALPHABET.indexOf(letter) - rotor3Pos + 26) % 26;
+            
+            // Reflector
+            letter = REFLECTOR_B[index];
+            index = ALPHABET.indexOf(letter);
+            
+            // Backward through rotors
+            // Rotor III reverse
+            index = (index + rotor3Pos) % 26;
+            letter = ALPHABET[ROTOR_III.indexOf(ALPHABET[index])];
+            index = (ALPHABET.indexOf(letter) - rotor3Pos + 26) % 26;
+            
+            // Rotor II reverse
+            index = (index + rotor2Pos) % 26;
+            letter = ALPHABET[ROTOR_II.indexOf(ALPHABET[index])];
+            index = (ALPHABET.indexOf(letter) - rotor2Pos + 26) % 26;
+            
+            // Rotor I reverse
+            index = (index + rotor1Pos) % 26;
+            letter = ALPHABET[ROTOR_I.indexOf(ALPHABET[index])];
+            index = (ALPHABET.indexOf(letter) - rotor1Pos + 26) % 26;
+            
+            letter = ALPHABET[index];
+            
+            // Apply plugboard again
+            letter = applyPlugboard(letter);
+            
+            return letter;
+        }
+
+        function processInput() {
+            const input = document.getElementById('inputText').value.toUpperCase();
+            
+            // Reset rotors to start position
+            const r1 = document.getElementById('rotor1Start').value.toUpperCase();
+            const r2 = document.getElementById('rotor2Start').value.toUpperCase();
+            const r3 = document.getElementById('rotor3Start').value.toUpperCase();
+            
+            rotor1Pos = ALPHABET.includes(r1) ? ALPHABET.indexOf(r1) : 0;
+            rotor2Pos = ALPHABET.includes(r2) ? ALPHABET.indexOf(r2) : 0;
+            rotor3Pos = ALPHABET.includes(r3) ? ALPHABET.indexOf(r3) : 0;
+            
+            let output = '';
+            for (let char of input) {
+                if (ALPHABET.includes(char)) {
+                    output += encryptLetter(char);
+                } else {
+                    output += char;
+                }
+            }
+            
+            document.getElementById('outputText').value = output;
+            updateRotorDisplay();
+        }
+
+        function resetRotors() {
+            const r1 = document.getElementById('rotor1Start').value.toUpperCase();
+            const r2 = document.getElementById('rotor2Start').value.toUpperCase();
+            const r3 = document.getElementById('rotor3Start').value.toUpperCase();
+            
+            rotor1Pos = ALPHABET.includes(r1) ? ALPHABET.indexOf(r1) : 0;
+            rotor2Pos = ALPHABET.includes(r2) ? ALPHABET.indexOf(r2) : 0;
+            rotor3Pos = ALPHABET.includes(r3) ? ALPHABET.indexOf(r3) : 0;
+            
+            updateRotorDisplay();
+            
+            // Clear input and output
+            document.getElementById('inputText').value = '';
+            document.getElementById('outputText').value = '';
+        }
+
+        // Brute Force Decoder
+        async function startBruteForce() {
+            const encryptedText = document.getElementById('decodeInput').value.toUpperCase().replace(/[^A-Z]/g, '');
+            const knownText = document.getElementById('knownText').value.toUpperCase().replace(/[^A-Z]/g, '');
+            const speed = document.getElementById('bruteForceSpeed').value;
+            
+            if (!encryptedText) {
+                alert('Please enter encrypted text to decode');
+                return;
+            }
+            
+            bruteForceRunning = true;
+            const output = document.getElementById('decoderOutput');
+            output.innerHTML = '<p class="progress">Starting brute force attack with dictionary analysis...</p>';
+            
+            let attemptCount = 0;
+            const totalAttempts = 26 * 26 * 26;
+            let bestMatches = [];
+            
+            // Speed settings
+            const delays = {
+                slow: { match: 500, progress: 50 },
+                fast: { match: 100, progress: 5 },
+                instant: { match: 0, progress: 0 }
+            };
+            const currentDelay = delays[speed];
+            const showProgress = speed !== 'instant';
+            const progressInterval = speed === 'instant' ? 999999 : (speed === 'slow' ? 100 : 500);
+            
+            const startTime = Date.now();
+            
+            for (let r1 = 0; r1 < 26; r1++) {
+                for (let r2 = 0; r2 < 26; r2++) {
+                    for (let r3 = 0; r3 < 26; r3++) {
+                        if (!bruteForceRunning) {
+                            output.innerHTML += '<p class="progress">❌ Stopped by user</p>';
+                            return;
+                        }
+                        
+                        attemptCount++;
+                        
+                        // Set rotor positions
+                        const startPos = [r1, r2, r3];
+                        rotor1Pos = r1;
+                        rotor2Pos = r2;
+                        rotor3Pos = r3;
+                        
+                        let decrypted = '';
+                        for (let char of encryptedText) {
+                            decrypted += encryptLetter(char);
+                        }
+                        
+                        // Score the decrypted text
+                        const scoreResult = scoreText(decrypted);
+                        const rotorConfig = `${ALPHABET[startPos[0]]}-${ALPHABET[startPos[1]]}-${ALPHABET[startPos[2]]}`;
+                        
+                        // Check if it matches known text
+                        const hasKnownText = knownText ? decrypted.includes(knownText) : false;
+                        
+                        // Consider it a good match if score > 0 or has known text
+                        const isGoodMatch = scoreResult.score > 0 || hasKnownText;
+                        
+                        if (isGoodMatch) {
+                            bestMatches.push({
+                                config: rotorConfig,
+                                text: decrypted,
+                                score: scoreResult.score,
+                                words: scoreResult.matchedWords,
+                                coverage: scoreResult.coverage,
+                                hasKnownText: hasKnownText
+                            });
+                            
+                            // Keep only top 20 matches
+                            bestMatches.sort((a, b) => b.score - a.score);
+                            if (bestMatches.length > 20) {
+                                bestMatches = bestMatches.slice(0, 20);
+                            }
+                        }
+                        
+                        // Show progress
+                        if (showProgress && (attemptCount % progressInterval === 0 || isGoodMatch)) {
+                            const attemptDiv = document.createElement('div');
+                            attemptDiv.className = isGoodMatch ? 'attempt success' : 'attempt';
+                            
+                            let displayText = `<strong>${isGoodMatch ? '✅ POTENTIAL MATCH!' : 'Progress'} #${attemptCount}/${totalAttempts}</strong><br>`;
+                            displayText += `Rotors: ${rotorConfig}<br>`;
+                            
+                            if (isGoodMatch) {
+                                displayText += `Dictionary Score: ${scoreResult.score} | Coverage: ${scoreResult.coverage}%<br>`;
+                                if (scoreResult.matchedWords.length > 0) {
+                                    displayText += `Matched Words: ${scoreResult.matchedWords.slice(0, 10).join(', ')}${scoreResult.matchedWords.length > 10 ? '...' : ''}<br>`;
+                                }
+                                if (hasKnownText) {
+                                    displayText += `✅ Contains known text: "${knownText}"<br>`;
+                                }
+                                displayText += `Result: ${decrypted.substring(0, 80)}${decrypted.length > 80 ? '...' : ''}`;
+                            } else {
+                                displayText += `Best score so far: ${bestMatches.length > 0 ? bestMatches[0].score : 0}`;
+                            }
+                            
+                            attemptDiv.innerHTML = displayText;
+                            output.appendChild(attemptDiv);
+                            output.scrollTop = output.scrollHeight;
+                            
+                            // Add delay for visibility
+                            const delay = isGoodMatch ? currentDelay.match : currentDelay.progress;
+                            if (delay > 0) {
+                                await new Promise(resolve => setTimeout(resolve, delay));
+                            }
+                        }
+                    }
+                }
+            }
+            
+            const endTime = Date.now();
+            const duration = ((endTime - startTime) / 1000).toFixed(2);
+            
+            // Show final results
+            output.innerHTML += `<p class="progress">✅ Brute force complete in ${duration} seconds!</p>`;
+            output.innerHTML += `<p class="progress">Tested ${totalAttempts.toLocaleString()} combinations</p>`;
+            
+            if (bestMatches.length > 0) {
+                output.innerHTML += '<div class="attempt success"><strong>🏆 TOP MATCHES (sorted by dictionary score):</strong></div>';
+                bestMatches.slice(0, 10).forEach((match, idx) => {
+                    const resultDiv = document.createElement('div');
+                    resultDiv.className = 'attempt success';
+                    resultDiv.innerHTML = `
+                        <strong>#${idx + 1} - Rotors: ${match.config} | Score: ${match.score} | Coverage: ${match.coverage}%</strong><br>
+                        ${match.hasKnownText ? '✅ Contains known text<br>' : ''}
+                        Matched: ${match.words.slice(0, 8).join(', ')}${match.words.length > 8 ? '...' : ''}<br>
+                        Text: ${match.text.substring(0, 100)}${match.text.length > 100 ? '...' : ''}
+                    `;
+                    output.appendChild(resultDiv);
+                });
+            } else {
+                output.innerHTML += '<p class="progress">⚠️ No dictionary matches found. Try with known plaintext.</p>';
+            }
+            
+            bruteForceRunning = false;
+        }
+
+        function stopBruteForce() {
+            bruteForceRunning = false;
+        }
+
+        // Unit Tests
+        function runTests() {
+            const results = document.getElementById('testResults');
+            results.innerHTML = '<p class="progress">Running tests...</p>';
+            
+            let passed = 0;
+            let failed = 0;
+            let output = '';
+            
+            // Test 1: Basic encryption
+            output += '<div class="attempt"><strong>Test 1: Basic Encryption</strong><br>';
+            rotor1Pos = 0; rotor2Pos = 0; rotor3Pos = 0;
+            plugboardMap = {};
+            const encrypted = encryptLetter('A');
+            output += `Input: A, Output: ${encrypted}<br>`;
+            if (encrypted !== 'A') {
+                output += '✅ PASS - Letter does not encrypt to itself</div>';
+                passed++;
+            } else {
+                output += '❌ FAIL - Letter encrypted to itself!</div>';
+                failed++;
+            }
+            
+            // Test 2: Symmetry test (encrypt then decrypt)
+            output += '<div class="attempt"><strong>Test 2: Symmetry Test</strong><br>';
+            rotor1Pos = 0; rotor2Pos = 0; rotor3Pos = 0;
+            plugboardMap = {};
+            const original = 'HELLO';
+            let cipher = '';
+            for (let char of original) {
+                cipher += encryptLetter(char);
+            }
+            output += `Encrypted: ${original} → ${cipher}<br>`;
+            
+            rotor1Pos = 0; rotor2Pos = 0; rotor3Pos = 0;
+            let decrypted = '';
+            for (let char of cipher) {
+                decrypted += encryptLetter(char);
+            }
+            output += `Decrypted: ${cipher} → ${decrypted}<br>`;
+            if (decrypted === original) {
+                output += '✅ PASS - Encryption is symmetrical</div>';
+                passed++;
+            } else {
+                output += '❌ FAIL - Decryption did not match original!</div>';
+                failed++;
+            }
+            
+            // Test 3: Rotor stepping
+            output += '<div class="attempt"><strong>Test 3: Rotor Stepping</strong><br>';
+            rotor1Pos = 0; rotor2Pos = 0; rotor3Pos = 0;
+            plugboardMap = {};
+            for (let i = 0; i < 26; i++) {
+                encryptLetter('A');
+            }
+            output += `After 26 steps: R1=${ALPHABET[rotor1Pos]}, R2=${ALPHABET[rotor2Pos]}, R3=${ALPHABET[rotor3Pos]}<br>`;
+            if (rotor1Pos === 0 && rotor2Pos === 1 && rotor3Pos === 0) {
+                output += '✅ PASS - Rotor stepping works correctly</div>';
+                passed++;
+            } else {
+                output += '❌ FAIL - Rotor stepping incorrect!</div>';
+                failed++;
+            }
+            
+            // Test 4: Plugboard
+            output += '<div class="attempt"><strong>Test 4: Plugboard</strong><br>';
+            plugboardMap = {'A': 'B', 'B': 'A'};
+            const swapped = applyPlugboard('A');
+            output += `Plugboard A↔B: A → ${swapped}<br>`;
+            if (swapped === 'B') {
+                output += '✅ PASS - Plugboard swapping works</div>';
+                passed++;
+            } else {
+                output += '❌ FAIL - Plugboard not working!</div>';
+                failed++;
+            }
+            
+            // Test 5: No letter encrypts to itself
+            output += '<div class="attempt"><strong>Test 5: No Self-Encryption</strong><br>';
+            rotor1Pos = 0; rotor2Pos = 0; rotor3Pos = 0;
+            plugboardMap = {};
+            let selfEncrypt = false;
+            for (let i = 0; i < 26; i++) {
+                const letter = ALPHABET[i];
+                rotor1Pos = 0; rotor2Pos = 0; rotor3Pos = 0;
+                const result = encryptLetter(letter);
+                if (result === letter) {
+                    selfEncrypt = true;
+                    output += `❌ ${letter} encrypted to itself!<br>`;
+                }
+            }
+            if (!selfEncrypt) {
+                output += '✅ PASS - No letter encrypts to itself</div>';
+                passed++;
+            } else {
+                output += '❌ FAIL - Some letters encrypt to themselves!</div>';
+                failed++;
+            }
+            
+            // Test 6: Real-world example
+            output += '<div class="attempt"><strong>Test 6: Real Message Test</strong><br>';
+            document.getElementById('rotor1Start').value = 'A';
+            document.getElementById('rotor2Start').value = 'A';
+            document.getElementById('rotor3Start').value = 'A';
+            document.getElementById('plugboard').value = '';
+            updatePlugboard();
+            
+            rotor1Pos = 0; rotor2Pos = 0; rotor3Pos = 0;
+            const testMsg = 'ENIGMA';
+            let testCipher = '';
+            for (let char of testMsg) {
+                testCipher += encryptLetter(char);
+            }
+            output += `Message: ${testMsg} → ${testCipher}<br>`;
+            
+            rotor1Pos = 0; rotor2Pos = 0; rotor3Pos = 0;
+            let testDecrypt = '';
+            for (let char of testCipher) {
+                testDecrypt += encryptLetter(char);
+            }
+            output += `Decrypt: ${testCipher} → ${testDecrypt}<br>`;
+            if (testDecrypt === testMsg) {
+                output += '✅ PASS - Real message encryption/decryption works</div>';
+                passed++;
+            } else {
+                output += '❌ FAIL - Message decryption failed!</div>';
+                failed++;
+            }
+            
+            // Summary
+            output += `<div class="attempt success"><strong>TEST SUMMARY</strong><br>`;
+            output += `Passed: ${passed} | Failed: ${failed}<br>`;
+            output += `${failed === 0 ? '🎉 All tests passed!' : '⚠️ Some tests failed'}</div>`;
+            
+            results.innerHTML = output;
+            
+            // Reset to initial state
+            rotor1Pos = 0; rotor2Pos = 0; rotor3Pos = 0;
+            updateRotorDisplay();
+        }
+
+        // Initialize display
+        updateRotorDisplay();
+        updatePlugboard();
+    </script>
+</body>
+</html>
