@@ -423,7 +423,7 @@
           <!-- Featured Project -->
           <div class="featured-project" v-if="featuredProjects.length > 0">
             <div class="featured-project-card" v-for="project in featuredProjects" :key="project.id">
-              <div class="featured-project-image">
+              <div class="featured-project-image" v-if="project.image">
                 <img 
                   :src="project.image" 
                   :alt="project.name"
@@ -448,7 +448,11 @@
                   </div>
                 </div>
               </div>
-              <div class="featured-project-content">
+              <div class="featured-project-content" :class="{'no-image': !project.image}">
+                <div class="featured-badge" v-if="!project.image">
+                  <i class="fas fa-star"></i>
+                  Featured Project
+                </div>
                 <h3 class="project-title">{{ project.name }}</h3>
                 <p class="project-description">{{ project.description }}</p>
                 <div class="project-tech">
@@ -460,6 +464,18 @@
                     {{ tech }}
                   </span>
                 </div>
+                <div class="project-links" v-if="!project.image">
+                  <a 
+                    :href="project.link" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="btn btn-lg btn-primary"
+                    :aria-label="`Visit ${project.name} live site`"
+                  >
+                    <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    Visit Project
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -467,7 +483,7 @@
           <!-- Other Projects -->
           <div class="projects-grid" v-if="regularProjects.length > 0">
             <div class="project-card" v-for="project in regularProjects" :key="project.id">
-              <div class="project-image">
+              <div class="project-image" v-if="project.image">
                 <img 
                   :src="project.image" 
                   :alt="project.name"
@@ -488,7 +504,10 @@
                   </div>
                 </div>
               </div>
-              <div class="project-content">
+              <div class="project-content" :class="{'no-image': !project.image}">
+                <div class="project-icon" v-if="!project.image">
+                  <i class="fas fa-code"></i>
+                </div>
                 <h3 class="project-title">{{ project.name }}</h3>
                 <p class="project-description">{{ project.description }}</p>
                 <div class="project-tech">
@@ -499,6 +518,18 @@
                   >
                     {{ tech }}
                   </span>
+                </div>
+                <div class="project-action" v-if="!project.image">
+                  <a 
+                    :href="project.link" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="btn btn-sm btn-primary"
+                    :aria-label="`View ${project.name} project`"
+                  >
+                    <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    View Project
+                  </a>
                 </div>
               </div>
             </div>

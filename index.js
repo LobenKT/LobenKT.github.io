@@ -169,7 +169,7 @@ createApp({
           id: 1,
           name: 'Big 3 University Quiz',
           description: 'Viral Filipino university personality quiz with 15 questions, university-specific emojis, and shareable Instagram Story cards. Features UP, ADMU, and DLSU stereotypes with authentic Filipino university culture.',
-          image: 'images/under_construction_PNG.png',
+          image: null,
           link: 'quiz.html',
           technologies: ['Vue.js', 'Canvas API', 'Bootstrap', 'JavaScript', 'CSS3'],
           featured: true
@@ -185,51 +185,43 @@ createApp({
         },
         {
           id: 3,
-          name: 'Word Battle',
-          description: '2v2 Wordle-style multiplayer word guessing game with real-time gameplay',
-          image: 'images/under_construction_PNG.png',
+          name: 'Letter-Link Battle',
+          description: 'Multiplayer word game where players compete in real-time. Players choose starting and ending letters, then race to find valid words within those bounds. Features Firebase integration for live gameplay and competitive scoring system.',
+          image: null,
           link: 'projects/word-battle.html',
-          technologies: ['JavaScript', 'CSS3', 'Game Logic', 'Multiplayer']
+          technologies: ['JavaScript', 'Firebase', 'Real-time Database', 'CSS3']
         },
         {
           id: 4,
-          name: 'To-Do App',
-          description: 'A modern task management application built with Vue.js and Tailwind CSS',
-          image: 'images/under_construction_PNG.png',
+          name: 'To-Do List Manager',
+          description: 'Clean and intuitive task management application with add, edit, and delete functionality. Built with Vue.js for reactive updates and styled with Tailwind CSS for a modern, responsive interface.',
+          image: null,
           link: 'projects/todo.html',
           technologies: ['Vue.js', 'Tailwind CSS', 'JavaScript']
         },
         {
           id: 5,
-          name: 'Weather App',
-          description: 'Real-time weather application with location-based forecasts',
-          image: 'images/under_construction_PNG.png',
+          name: 'Weather Dashboard',
+          description: 'Real-time weather application displaying current conditions for Manila. Integrates with OpenWeatherMap API to show temperature, humidity, wind speed, and weather icons with a beautiful gradient interface.',
+          image: null,
           link: 'projects/weather.html',
-          technologies: ['Vue.js', 'API Integration', 'CSS3']
+          technologies: ['Vue.js', 'OpenWeatherMap API', 'Tailwind CSS']
         },
         {
           id: 6,
-          name: 'Sample Gallery',
-          description: 'Responsive image gallery showcasing modern web design principles',
-          image: 'images/under_construction_PNG.png',
-          link: 'projects/blog-try.html',
-          technologies: ['HTML5', 'CSS3', 'JavaScript']
+          name: 'Expense Logger',
+          description: 'Personal finance tracking tool for logging daily expenses. Features category selection, date tracking, and dynamic expense list management. Built with jQuery for DOM manipulation and local data handling.',
+          image: null,
+          link: 'projects/expenselogger.html',
+          technologies: ['JavaScript', 'jQuery', 'CSS3']
         },
         {
           id: 7,
-          name: 'Expense Logger',
-          description: 'Personal finance tracking application with data visualization',
-          image: 'images/under_construction_PNG.png',
-          link: 'projects/expenselogger.html',
-          technologies: ['JavaScript', 'jQuery', 'Local Storage']
-        },
-        {
-          id: 8,
-          name: 'Profile Page',
-          description: 'Dynamic personal profile page with interactive elements',
-          image: 'images/under_construction_PNG.png',
-          link: 'projects/profile.html',
-          technologies: ['HTML5', 'CSS3', 'JavaScript']
+          name: 'Event Marketplace UI',
+          description: 'Modern event listing interface showcasing responsive design principles. Features event banners, host information, and clean typography. Demonstrates proficiency in CSS layout and visual hierarchy.',
+          image: null,
+          link: 'projects/harbor.html',
+          technologies: ['HTML5', 'CSS3', 'Responsive Design']
         }
       ],
       contactLinks: [
