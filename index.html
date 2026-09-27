@@ -1,599 +1,416 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="js-off">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <meta name="description" content="Loben Tipan - Graduate Software Engineer Portfolio. Crafting solutions, writing code, and solving real-world problems.">
-  <meta name="theme-color" content="#e50914">
-  <meta name="format-detection" content="telephone=no">
-  <meta name="keywords" content="software engineer, developer, portfolio, Loben Tipan, ITRS, Coca-Cola, Shopee">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Loben Tipan — Growth Engineer</title>
+  <meta name="description" content="Loben Tipan is a Growth Engineer at Pearl Talent, building growth automation, data pipelines and internal tools. Previously ITRS, Coca-Cola and Shopee; co-founder of Harbor.ph.">
   <meta name="author" content="Loben Tipan">
-  
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://lobenkt.github.io/">
-  <meta property="og:title" content="Loben Tipan - Software Engineer Portfolio">
-  <meta property="og:description" content="Graduate Software Engineer crafting solutions and solving real-world problems.">
-  <meta property="og:image" content="images/gradpic.JPG">
+  <link rel="canonical" href="https://lobenkt.github.io/">
 
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://lobenkt.github.io/">
-  <meta property="twitter:title" content="Loben Tipan - Software Engineer Portfolio">
-  <meta property="twitter:description" content="Graduate Software Engineer crafting solutions and solving real-world problems.">
-  <meta property="twitter:image" content="images/gradpic.JPG">
-  
-  <title>Loben Tipan - Software Engineer Portfolio</title>
-  
-  <!-- Favicon -->
-  <link rel="icon" type="image/jpeg" href="images/favicon.jpg">
-  
-  <!-- Bootstrap 5 CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
-  
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
-  
-  <!-- Google Fonts -->
+  <meta name="theme-color" content="#faf9f6">
+  <meta name="color-scheme" content="light dark">
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="profile">
+  <meta property="og:url" content="https://lobenkt.github.io/">
+  <meta property="og:title" content="Loben Tipan — Growth Engineer">
+  <meta property="og:description" content="Growth Engineer at Pearl Talent. Growth automation, data pipelines and internal tools.">
+  <meta property="og:image" content="https://lobenkt.github.io/images/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Portrait of Loben Tipan">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Loben Tipan — Growth Engineer">
+  <meta name="twitter:description" content="Growth Engineer at Pearl Talent. Growth automation, data pipelines and internal tools.">
+  <meta name="twitter:image" content="https://lobenkt.github.io/images/og-image.jpg">
+
+  <!-- Icons -->
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="images/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- Set theme before first paint to avoid a flash -->
+  <script>
+    (function(){try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();
+  </script>
+
+  <!-- Critical assets -->
+  <link rel="preload" as="image" href="images/loben-320.avif" type="image/avif" imagesrcset="images/loben-320.avif 320w, images/loben-640.avif 640w" imagesizes="(max-width: 767px) 128px, 240px">
+  <link rel="stylesheet" href="css/main.css">
+
+  <!-- Web font, loaded without blocking render; system font is the fallback -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Preload critical images -->
-  <link rel="preload" as="image" href="images/gradpic.JPG">
-  <link rel="preload" as="image" href="images/itrslogo.jpg">
-  <link rel="preload" as="image" href="images/cola.logo.jpg">
-  <link rel="preload" as="image" href="images/shopee.logo.png">
-  
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"></noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Loben Klien Tipan",
+    "alternateName": "Loben Tipan",
+    "url": "https://lobenkt.github.io/",
+    "image": "https://lobenkt.github.io/images/loben-640.jpg",
+    "jobTitle": "Growth Engineer",
+    "worksFor": { "@type": "Organization", "name": "Pearl Talent", "url": "https://www.pearltalent.com/" },
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "De La Salle University" },
+    "address": { "@type": "PostalAddress", "addressLocality": "Manila", "addressCountry": "PH" },
+    "email": "mailto:lobentipan24@gmail.com",
+    "sameAs": [
+      "https://www.linkedin.com/in/lobentipan/",
+      "https://github.com/LobenKT"
+    ]
+  }
+  </script>
 </head>
 <body>
-  <div id="app">
+  <a class="skip-link" href="#main">Skip to content</a>
 
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Loben Tipan, back to top">
+        <span class="brand-mark" aria-hidden="true">L</span>
+        <span>Loben Tipan</span>
+      </a>
 
-    <!-- MOBILE NAVIGATION TOGGLE -->
-    <button 
-      class="mobile-nav-toggle d-lg-none"
-      @click="toggleMobileMenu"
-      aria-label="Toggle navigation menu"
-      :aria-expanded="mobileMenuActive"
-      aria-controls="side-panel"
-    >
-      <span class="hamburger-line"></span>
-      <span class="hamburger-line"></span>
-      <span class="hamburger-line"></span>
-    </button>
+      <nav id="site-nav" class="site-nav" aria-label="Primary" data-open="false">
+        <ul class="nav-list">
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#publications">Publications</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
 
-    <!-- FLOATING NAVIGATION PANEL -->
-    <aside 
-      id="side-panel"
-      :class="['side-panel', {'mobile-active': mobileMenuActive}]"
-      role="navigation"
-      aria-label="Main navigation"
-    >
-      <div class="d-lg-none mobile-nav-close">
-        <button 
-          class="btn btn-sm btn-outline-light" 
-          @click="toggleMobileMenu"
-          aria-label="Close menu"
-        >
-          <i class="fas fa-times"></i>
+      <div class="header-actions">
+        <button class="icon-btn theme-toggle" type="button" aria-label="Switch theme">
+          <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <button class="icon-btn menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
+          <svg class="icon icon-menu" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          <svg class="icon icon-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
         </button>
       </div>
-      
-      <nav class="nav flex-column">
-        <a 
-          class="nav-link" 
-          href="#hero" 
-          @click.prevent="scrollToSection('hero')"
-          :class="{ 'active': activeSection === 'hero' }"
-        >
-          <i class="fas fa-home"></i>
-          <span>Home</span>
-        </a>
-        <a 
-          class="nav-link" 
-          href="#about" 
-          @click.prevent="scrollToSection('about')"
-          :class="{ 'active': activeSection === 'about' }"
-        >
-          <i class="fas fa-user"></i>
-          <span>About</span>
-        </a>
-        <a 
-          class="nav-link" 
-          href="#experience" 
-          @click.prevent="scrollToSection('experience')"
-          :class="{ 'active': activeSection === 'experience' }"
-        >
-          <i class="fas fa-briefcase"></i>
-          <span>Experience</span>
-        </a>
-        <a 
-          class="nav-link" 
-          href="#skills" 
-          @click.prevent="scrollToSection('skills')"
-          :class="{ 'active': activeSection === 'skills' }"
-        >
-          <i class="fas fa-code"></i>
-          <span>Skills</span>
-        </a>
-        <a 
-          class="nav-link" 
-          href="#publications" 
-          @click.prevent="scrollToSection('publications')"
-          :class="{ 'active': activeSection === 'publications' }"
-        >
-          <i class="fas fa-graduation-cap"></i>
-          <span>Publications</span>
-        </a>
-        <a 
-          class="nav-link" 
-          href="#projects" 
-          @click.prevent="scrollToSection('projects')"
-          :class="{ 'active': activeSection === 'projects' }"
-        >
-          <i class="fas fa-project-diagram"></i>
-          <span>Projects</span>
-        </a>
-        <a 
-          class="nav-link" 
-          href="#contact" 
-          @click.prevent="scrollToSection('contact')"
-          :class="{ 'active': activeSection === 'contact' }"
-        >
-          <i class="fas fa-envelope"></i>
-          <span>Contact</span>
-        </a>
-      </nav>
-    </aside>
+    </div>
+  </header>
 
-    <!-- MAIN CONTENT -->
-    <main id="main-content">
-      <!-- HERO SECTION -->
-      <section id="hero" class="hero-section">
-        <div class="hero-overlay"></div>
-        
-        <!-- Animated background elements -->
-        <div class="hero-background" id="hero-background">
-          <!-- Dynamic elements will be generated here -->
-        </div>
-        
-        <div class="hero-content container">
-          <div class="hero-profile">
-            <div class="profile-image-wrapper">
-              <img 
-                src="images/gradpic.JPG" 
-                alt="Loben Tipan - Graduate Software Engineer" 
-                class="profile-image"
-                loading="eager"
-                fetchpriority="high"
-                width="150"
-                height="150"
-              />
-              <div class="profile-image-glow"></div>
-            </div>
-          </div>
-          
-          <div class="hero-text">
-            <h1 class="hero-title">
-              <span class="title-line">Loben</span>
-              <span class="title-line">Tipan</span>
-            </h1>
-            <p class="hero-subtitle">
-              Graduate Software Engineer
-            </p>
-            <p class="hero-description">
-              Crafting solutions, writing code, and solving real-world problems.
-            </p>
-            
-            <div class="hero-actions">
-              <a 
-                href="LobenTipan-RESUME-09_27_25.pdf" 
-                class="btn btn-primary btn-lg"
-                target="_blank"
-                rel="noopener noreferrer"
-                download
-              >
-                <i class="fas fa-download"></i>
-                Download CV
-              </a>
-              <a 
-                href="#about" 
-                class="btn btn-outline-light btn-lg"
-                @click.prevent="scrollToSection('about')"
-              >
-                <i class="fas fa-arrow-down"></i>
-                Learn More
-              </a>
-            </div>
+  <main id="main">
+    <!-- ================= HERO ================= -->
+    <section id="top" class="hero">
+      <div class="container hero-inner">
+        <div>
+          <p class="eyebrow">Growth Engineer at Pearl Talent · Manila, PH</p>
+          <h1>Loben Tipan</h1>
+          <p class="tagline">I build growth automation, data pipelines and internal tools that help teams move faster.</p>
+          <p class="intro">
+            Computer Science graduate from De La Salle University with a background in QA automation,
+            cloud test infrastructure and product work. Technical co-founder of
+            <a href="https://harbor.ph" rel="noopener">Harbor.ph</a>, an events marketplace for the Philippines.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="mailto:lobentipan24@gmail.com">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+              Email me
+            </a>
+            <a class="btn" href="Loben-Tipan-Resume.pdf" target="_blank" rel="noopener">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>
+              Résumé
+            </a>
+            <a class="btn" href="https://github.com/LobenKT" rel="noopener">
+              <svg class="icon fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+              GitHub
+            </a>
+            <a class="btn" href="https://www.linkedin.com/in/lobentipan/" rel="noopener">
+              <svg class="icon fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 2H3.6A1.6 1.6 0 0 0 2 3.6v16.8A1.6 1.6 0 0 0 3.6 22h16.8a1.6 1.6 0 0 0 1.6-1.6V3.6A1.6 1.6 0 0 0 20.4 2zM8 19H5V9.5h3zM6.5 8.2a1.7 1.7 0 1 1 0-3.5 1.7 1.7 0 0 1 0 3.5zM19 19h-3v-4.6c0-1.1 0-2.5-1.5-2.5s-1.8 1.2-1.8 2.4V19h-3V9.5h2.9v1.3a3.2 3.2 0 0 1 2.9-1.6c3 0 3.6 2 3.6 4.6z"/></svg>
+              LinkedIn
+            </a>
           </div>
         </div>
-        
-        <!-- Scroll indicator -->
-        <div class="scroll-indicator">
-          <div class="scroll-arrow"></div>
-        </div>
-      </section>
-      
-      <!-- ABOUT SECTION -->
-      <section id="about" class="section animate-section">
-        <div class="container">
-          <header class="section-header">
-            <h2 class="section-title">About Me</h2>
-            <div class="section-divider"></div>
-          </header>
-          
-          <div class="row justify-content-center">
-            <div class="col-lg-8">
-              <div class="about-content">
-                <div class="about-text">
-                  <p class="lead">
-                    Hi! I'm <strong>Loben Klien Tipan</strong>, a passionate software engineer and a 
-                    recent graduate from <strong>De La Salle University</strong> with a degree in 
-                    Software Technology.
-                  </p>
-                  <p>
-                    I currently work as a <strong>Graduate Software Engineer</strong> at a leading 
-                    tech company, where I apply my skills in software development 
-                    and problem-solving to create impactful solutions.
-                  </p>
-                  <p>
-                    Outside of work, I enjoy motorsports, basketball, and watching movies. I 
-                    have consistently achieved academic excellence, earning 
-                    recognition as a <strong>Dean's Lister</strong> during my university years.
-                  </p>
-                </div>
-                
-                <div class="about-stats">
-                  <div class="stat-item">
-                    <div class="stat-number">100%</div>
-                    <div class="stat-label">Passion for Code</div>
-                  </div>
-                  <div class="stat-item">
-                    <div class="stat-number">5+</div>
-                    <div class="stat-label">Technologies</div>
-                  </div>
-                  <div class="stat-item">
-                    <div class="stat-number">3</div>
-                    <div class="stat-label">Years Experience</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      <!-- EXPERIENCE SECTION -->
-      <section id="experience" class="section animate-section">
-        <div class="container">
-          <header class="section-header">
-            <h2 class="section-title">Professional Experience</h2>
-            <div class="section-divider"></div>
-          </header>
-          
-          <div class="timeline">
-            <div class="timeline-item" v-for="exp in experience" :key="exp.id">
-              <div class="timeline-marker"></div>
-              <div class="timeline-content">
-                <div class="experience-card">
-                  <div class="experience-header">
-                    <div class="company-logo">
-                      <img 
-                        :src="exp.logo" 
-                        :alt="exp.company + ' Logo'" 
-                        loading="lazy"
-                        width="60"
-                        height="60"
-                      />
-                    </div>
-                    <div class="experience-info">
-                      <h3 class="job-title">{{ exp.title }}</h3>
-                      <p class="company-name">{{ exp.company }}</p>
-                      <p class="duration">{{ exp.duration }}</p>
-                    </div>
-                  </div>
-                  <div class="experience-body">
-                    <ul class="achievements-list">
-                      <li v-for="achievement in exp.achievements" :key="achievement">
-                        {{ achievement }}
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      <!-- SKILLS SECTION -->
-      <section id="skills" class="section animate-section bg-dark">
-        <div class="container">
-          <header class="section-header">
-            <h2 class="section-title">Skills & Technologies</h2>
-            <div class="section-divider"></div>
-          </header>
-          
-          <div class="skills-container">
-            <div class="skills-category" v-for="(skills, category) in skillsByCategory" :key="category">
-              <h3 class="category-title">{{ getCategoryName(category) }}</h3>
-              <div class="skills-grid">
-                <div class="skill-card" v-for="skill in skills" :key="skill.name">
-                  <div class="skill-icon-wrapper">
-                    <i :class="skill.icon" class="skill-icon"></i>
-                  </div>
-                  <h4 class="skill-name">{{ skill.name }}</h4>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      <!-- PUBLICATIONS SECTION -->
-      <section id="publications" class="section animate-section">
-        <div class="container">
-          <header class="section-header">
-            <h2 class="section-title">Research Publications</h2>
-            <div class="section-divider"></div>
-          </header>
-          
-          <!-- Featured Publication -->
-          <div class="featured-publication" v-if="featuredPublications.length > 0">
-            <div class="featured-publication-card" v-for="pub in featuredPublications" :key="pub.id">
-              <div class="publication-badge">
-                <i class="fas fa-star"></i>
-                Featured Research
-              </div>
-              <div class="publication-content">
-                <h3 class="publication-title">{{ pub.title }}</h3>
-                <p class="publication-authors">{{ pub.authors }}</p>
-                <p class="publication-venue">{{ pub.venue }}</p>
-                <div class="publication-details">
-                  <span class="publication-year">{{ pub.year }}</span>
-                  <span class="publication-pages">{{ pub.pages }}</span>
-                  <span class="publication-location">{{ pub.location }}</span>
-                </div>
-                <div class="publication-links">
-                  <a 
-                    :href="pub.link" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    class="btn btn-sm btn-primary"
-                  >
-                    <i class="fas fa-external-link-alt"></i>
-                    View Paper
-                  </a>
-                  <a 
-                    :href="pub.doi" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    class="btn btn-sm btn-outline-light"
-                  >
-                    <i class="fas fa-link"></i>
-                    DOI
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <!-- Other Publications -->
-          <div class="publications-grid" v-if="regularPublications.length > 0">
-            <div class="publication-card" v-for="pub in regularPublications" :key="pub.id">
-              <div class="publication-content">
-                <h4 class="publication-title">{{ pub.title }}</h4>
-                <p class="publication-authors">{{ pub.authors }}</p>
-                <p class="publication-venue">{{ pub.venue }}</p>
-                <div class="publication-details">
-                  <span class="publication-year">{{ pub.year }}</span>
-                  <span class="publication-pages">{{ pub.pages }}</span>
-                </div>
-                <div class="publication-links">
-                  <a 
-                    :href="pub.link" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    class="btn btn-sm btn-primary"
-                  >
-                    <i class="fas fa-external-link-alt"></i>
-                    View Paper
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="portrait">
+          <picture>
+            <source type="image/avif" srcset="images/loben-320.avif 320w, images/loben-640.avif 640w" sizes="(max-width: 767px) 128px, 240px">
+            <img src="images/loben-320.jpg" srcset="images/loben-320.jpg 320w, images/loben-640.jpg 640w" sizes="(max-width: 767px) 128px, 240px" width="640" height="640" alt="Loben Tipan" fetchpriority="high" decoding="async">
+          </picture>
         </div>
-      </section>
-      
-      <!-- PROJECTS SECTION -->
-      <section id="projects" class="section animate-section bg-dark">
-        <div class="container">
-          <header class="section-header">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="section-divider"></div>
-          </header>
-          
-          <!-- Featured Project -->
-          <div class="featured-project" v-if="featuredProjects.length > 0">
-            <div class="featured-project-card" v-for="project in featuredProjects" :key="project.id">
-              <div class="featured-project-image" v-if="project.image">
-                <img 
-                  :src="project.image" 
-                  :alt="project.name"
-                  loading="lazy"
-                />
-                <div class="featured-badge">
-                  <i class="fas fa-star"></i>
-                  Featured Project
-                </div>
-                <div class="project-overlay">
-                  <div class="project-links">
-                    <a 
-                      :href="project.link" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      class="btn btn-lg btn-primary"
-                      :aria-label="`Visit ${project.name} live site`"
-                    >
-                      <i class="fas fa-external-link-alt" aria-hidden="true"></i>
-                      Visit Live Site
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div class="featured-project-content" :class="{'no-image': !project.image}">
-                <div class="featured-badge" v-if="!project.image">
-                  <i class="fas fa-star"></i>
-                  Featured Project
-                </div>
-                <h3 class="project-title">{{ project.name }}</h3>
-                <p class="project-description">{{ project.description }}</p>
-                <div class="project-tech">
-                  <span 
-                    class="tech-tag" 
-                    v-for="tech in project.technologies" 
-                    :key="tech"
-                  >
-                    {{ tech }}
-                  </span>
-                </div>
-                <div class="project-links" v-if="!project.image">
-                  <a 
-                    :href="project.link" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    class="btn btn-lg btn-primary"
-                    :aria-label="`Visit ${project.name} live site`"
-                  >
-                    <i class="fas fa-external-link-alt" aria-hidden="true"></i>
-                    Visit Project
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
+      </div>
+    </section>
 
-          <!-- Other Projects -->
-          <div class="projects-grid" v-if="regularProjects.length > 0">
-            <div class="project-card" v-for="project in regularProjects" :key="project.id">
-              <div class="project-image" v-if="project.image">
-                <img 
-                  :src="project.image" 
-                  :alt="project.name"
-                  loading="lazy"
-                />
-                <div class="project-overlay">
-                  <div class="project-links">
-                    <a 
-                      :href="project.link" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      class="btn btn-sm btn-primary"
-                      :aria-label="`View ${project.name} project`"
-                    >
-                      <i class="fas fa-external-link-alt" aria-hidden="true"></i>
-                      View Project
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div class="project-content" :class="{'no-image': !project.image}">
-                <div class="project-icon" v-if="!project.image">
-                  <i class="fas fa-code"></i>
-                </div>
-                <h3 class="project-title">{{ project.name }}</h3>
-                <p class="project-description">{{ project.description }}</p>
-                <div class="project-tech">
-                  <span 
-                    class="tech-tag" 
-                    v-for="tech in project.technologies" 
-                    :key="tech"
-                  >
-                    {{ tech }}
-                  </span>
-                </div>
-                <div class="project-action" v-if="!project.image">
-                  <a 
-                    :href="project.link" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    class="btn btn-sm btn-primary"
-                    :aria-label="`View ${project.name} project`"
-                  >
-                    <i class="fas fa-external-link-alt" aria-hidden="true"></i>
-                    View Project
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      <!-- CONTACT SECTION -->
-      <section id="contact" class="section animate-section">
-        <div class="container">
-          <header class="section-header">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="section-divider"></div>
-          </header>
-          
-          <div class="contact-content">
-            <div class="contact-info">
-              <p class="contact-intro">
-                I'm always interested in new opportunities and collaborations. 
-                Feel free to reach out!
-              </p>
-            </div>
-            
-            <div class="contact-links">
-              <a 
-                v-for="contact in contactLinks" 
-                :key="contact.name"
-                :href="contact.url" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                class="contact-link"
-                :aria-label="`Contact me via ${contact.name}`"
-              >
-                <div class="contact-icon-wrapper">
-                  <i :class="contact.icon" :aria-hidden="true"></i>
-                </div>
-                <span class="contact-label">{{ contact.name }}</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-    
-    <!-- FOOTER -->
-    <footer class="footer">
+    <!-- ================= EXPERIENCE ================= -->
+    <section id="experience" class="section">
       <div class="container">
-        <div class="footer-content">
-          <p class="copyright">© 2025 Loben Tipan. All rights reserved.</p>
-          <div class="footer-links">
-            <a href="#hero" @click.prevent="scrollToSection('hero')">Back to Top</a>
+        <div class="section-head">
+          <h2>Experience</h2>
+          <span class="kicker">2023 — present</span>
+        </div>
+
+        <div class="timeline">
+                    <article class="role reveal">
+            <div class="role-logo mono" aria-hidden="true">P</div>
+            <div>
+              <div class="role-head">
+                <div>
+                  <h3>Growth Engineer</h3>
+                  <p class="company">Pearl Talent · Remote</p>
+                </div>
+                <span class="dates">2026 — Present</span>
+              </div>
+              <ul>
+                <li>Build growth automation and integrations across the CRM, outreach and recruiting stack of a remote staffing agency serving U.S. founders, replacing manual work with workflow automation.</li>
+                <li>Design lead-sourcing and data-enrichment pipelines that feed outbound campaigns and keep pipeline data clean and measurable.</li>
+                <li>Ship internal tools and dashboards that give the team a single view of funnel, pipeline and placement metrics.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="role reveal">
+            <div class="role-logo"><img src="images/logo-itrs.jpg" width="56" height="56" alt="" loading="lazy" decoding="async"></div>
+            <div>
+              <div class="role-head">
+                <div>
+                  <h3>Graduate Software Engineer</h3>
+                  <p class="company">ITRS Group · Manila</p>
+                </div>
+                <span class="dates">Sep 2024 — 2026</span>
+              </div>
+              <ul>
+                <li>Engineered automation for Azure and AWS Marketplace candidate-image testing, cutting release-cycle time by about 90% and improving deployment reliability.</li>
+                <li>Led the migration of database test environments from on-premise servers to on-demand AWS nodes, improving test-data availability and reducing infrastructure cost by an estimated 20%.</li>
+                <li>Worked across QA, Development and Support on CI/CD automation using Groovy and Jenkins pipelines.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="role reveal">
+            <div class="role-logo"><img src="images/logo-cocacola.jpg" width="56" height="56" alt="" loading="lazy" decoding="async"></div>
+            <div>
+              <div class="role-head">
+                <div>
+                  <h3>Insights &amp; Analytics Intern</h3>
+                  <p class="company">Coca-Cola Beverages Philippines</p>
+                </div>
+                <span class="dates">Mar — Jul 2024</span>
+              </div>
+              <ul>
+                <li>Analyzed ready-to-drink and other beverage category sales across 10+ South Luzon accounts, surfacing under-performing SKUs to inform monthly promotional plans.</li>
+                <li>Consolidated sales data from multiple sources with Python and advanced Excel, producing charts and monthly reports for stakeholders.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="role reveal">
+            <div class="role-logo"><img src="images/logo-shopee.png" width="56" height="56" alt="" loading="lazy" decoding="async"></div>
+            <div>
+              <div class="role-head">
+                <div>
+                  <h3>Product Management Intern</h3>
+                  <p class="company">Shopee Philippines</p>
+                </div>
+                <span class="dates">May — Sep 2023</span>
+              </div>
+              <ul>
+                <li>Coordinated UAT cycles for five return/refund, marketplace and logistics features, documenting issues and driving fixes to on-time launch.</li>
+                <li>Presented features to stakeholders through demos and built training decks for internal knowledge transfer.</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PROJECTS ================= -->
+    <section id="projects" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Projects</h2>
+          <span class="kicker">selected work</span>
+        </div>
+
+        <div class="projects-grid">
+          <article class="project featured reveal">
+            <div class="project-media">
+              <picture>
+                <source type="image/avif" srcset="images/harbor-600.avif 600w, images/harbor-1200.avif 1200w" sizes="(max-width: 767px) 100vw, 560px">
+                <img src="images/harbor-600.jpg" srcset="images/harbor-600.jpg 600w, images/harbor-1200.jpg 1200w" sizes="(max-width: 767px) 100vw, 560px" width="1200" height="621" alt="Harbor.ph home page listing upcoming events" loading="lazy" decoding="async">
+              </picture>
+            </div>
+            <div class="project-body">
+              <p class="meta">Technical co-founder · Jan — Apr 2025</p>
+              <h3 class="project-title">
+                <a href="https://harbor.ph" rel="noopener">Harbor.ph</a>
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              </h3>
+              <p>An events marketplace for the Philippines. I designed and built the front end and back end, launched it to 10,000 organic visits in the first week, and ran registration for a 1,000-attendee event.</p>
+              <div class="tags"><span class="tag">Vue</span><span class="tag">Firebase</span><span class="tag">Bootstrap</span></div>
+            </div>
+          </article>
+
+          <article class="project reveal">
+            <div class="project-body">
+              <p class="meta">Interactive · 2026</p>
+              <h3 class="project-title">
+                <a href="enigma-machine.html">Enigma Machine Simulator</a>
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              </h3>
+              <p>A working simulation of the WWII Enigma cipher with configurable rotors, ring settings and plugboard, plus a brute-force decoder that searches rotor configurations.</p>
+              <div class="tags"><span class="tag">JavaScript</span><span class="tag">Cryptography</span></div>
+            </div>
+          </article>
+
+          <article class="project reveal">
+            <div class="project-body">
+              <p class="meta">Viral quiz · 2026</p>
+              <h3 class="project-title">
+                <a href="quiz.html">Big 3 University Quiz</a>
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              </h3>
+              <p>A 15-question personality quiz on UP, Ateneo and La Salle stereotypes that renders a shareable Instagram Story card with the Canvas API and a QR code.</p>
+              <div class="tags"><span class="tag">Vue</span><span class="tag">Canvas API</span></div>
+            </div>
+          </article>
+
+          <article class="project reveal">
+            <div class="project-body">
+              <p class="meta">Game · 2025</p>
+              <h3 class="project-title">
+                <a href="projects/word-battle.html">Letter-Link Battle</a>
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              </h3>
+              <p>A real-time two-player word game. Players pick start and end letters, then race to find valid words within those bounds, with Firebase keeping both sides in sync.</p>
+              <div class="tags"><span class="tag">JavaScript</span><span class="tag">Firebase RTDB</span></div>
+            </div>
+          </article>
+
+          <article class="project reveal">
+            <div class="project-body">
+              <p class="meta">Research · 2024</p>
+              <h3 class="project-title">
+                <a href="https://aclanthology.org/2024.paclic-1.148/" rel="noopener">TinyFSL</a>
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              </h3>
+              <p>Undergraduate thesis: computer-vision models that translate Filipino Sign Language gestures to text, trained with transfer learning and compressed for tiny devices.</p>
+              <div class="tags"><span class="tag">Python</span><span class="tag">TinyML</span><span class="tag">Computer Vision</span></div>
+            </div>
+          </article>
+
+          <article class="project reveal">
+            <div class="project-body">
+              <p class="meta">Small apps</p>
+              <h3 class="project-title">
+                <a href="projects/todo.html">Weather, To-do &amp; Expense tools</a>
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              </h3>
+              <p>Three small utilities: a <a href="projects/weather.html">Manila weather dashboard</a> on the OpenWeatherMap API, a <a href="projects/todo.html">to-do manager</a> with local persistence, and an <a href="projects/expenselogger.html">expense logger</a>.</p>
+              <div class="tags"><span class="tag">Vue</span><span class="tag">jQuery</span><span class="tag">REST APIs</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PUBLICATIONS ================= -->
+    <section id="publications" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Publications</h2>
+          <span class="kicker">peer-reviewed</span>
+        </div>
+
+        <div class="pubs">
+          <article class="pub reveal">
+            <h3>TinyFSL: Tiny Machine Learning for Filipino Sign Language</h3>
+            <p class="authors"><strong>Loben Klien Tipan</strong>, Alyanna Mari Abalos, Alyana Erin Bondoc, Justin Jarrett To, Joanna Pauline Rivera, Ann Franchesca Laguna, Edward Tighe</p>
+            <p class="venue">Proceedings of the 38th Pacific Asia Conference on Language, Information and Computation (PACLIC 2024) · Tokyo, Japan · pp. 1504–1513</p>
+            <div class="links">
+              <a href="https://aclanthology.org/2024.paclic-1.148/" rel="noopener">ACL Anthology <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+              <a href="https://aclanthology.org/2024.paclic-1.148.pdf" rel="noopener">PDF <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+            </div>
+          </article>
+
+          <article class="pub reveal">
+            <h3>Filipino Sign Language Translation through Transfer Learning</h3>
+            <p class="authors"><strong>Loben Klien A. Tipan</strong>, Alyanna Mari Abalos, Alyana Erin Bondoc, Justin Jarrett To, Joanna Pauline Rivera</p>
+            <p class="venue">Proceedings of the 8th International Conference on Natural Language Processing and Information Retrieval (NLPIR 2024) · Okayama, Japan · pp. 212–217 · ACM</p>
+            <div class="links">
+              <a href="https://doi.org/10.1145/3711542.3711557" rel="noopener">doi:10.1145/3711542.3711557 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SKILLS ================= -->
+    <section id="skills" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Skills</h2>
+          <span class="kicker">tools I reach for</span>
+        </div>
+
+        <div class="skills">
+          <div class="skill-group reveal">
+            <h3>Languages</h3>
+            <ul><li>Python</li><li>JavaScript</li><li>Java</li><li>Groovy</li><li>SQL</li><li>C</li><li>HTML &amp; CSS</li></ul>
+          </div>
+          <div class="skill-group reveal">
+            <h3>Web &amp; data</h3>
+            <ul><li>Vue</li><li>Firebase</li><li>PostgreSQL</li><li>MongoDB</li><li>REST APIs</li><li>Bootstrap</li></ul>
+          </div>
+          <div class="skill-group reveal">
+            <h3>Cloud &amp; automation</h3>
+            <ul><li>AWS</li><li>Azure</li><li>Google Cloud</li><li>Docker</li><li>Jenkins</li><li>CI/CD</li><li>QA automation</li></ul>
+          </div>
+          <div class="skill-group reveal">
+            <h3>Ways of working</h3>
+            <ul><li>Git</li><li>Jira</li><li>Agile / Scrum</li><li>UAT coordination</li><li>Data analysis</li></ul>
           </div>
         </div>
       </div>
-    </footer>
-  </div>
-  
-  <!-- Bootstrap JS Bundle -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  
-  <!-- Vue.js (CDN) -->
-  <script src="https://unpkg.com/vue@3"></script>
-  
-  <!-- Custom JS -->
-  <script src="index.js"></script>
+    </section>
+
+    <!-- ================= EDUCATION ================= -->
+    <section id="education" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Education</h2>
+        </div>
+        <div class="edu reveal">
+          <div>
+            <h3>De La Salle University, Manila</h3>
+            <p class="sub">B.S. Computer Science, major in Software Technology</p>
+          </div>
+          <span class="dates">Graduated Oct 2024</span>
+          <p class="notes">Dean's Lister (A.Y. 2019–2020, 2020–2021). Coursework in data structures &amp; algorithms, intelligent systems and advanced programming theory. Front-end team for the University Recruitment Week site (2022).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section id="contact" class="section contact">
+      <div class="container">
+        <h2>Let's work together</h2>
+        <p>I'm open to conversations about automation, developer tooling and product engineering. The fastest way to reach me is email.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="mailto:lobentipan24@gmail.com">lobentipan24@gmail.com</a>
+          <a class="btn" href="https://www.linkedin.com/in/lobentipan/" rel="noopener">LinkedIn</a>
+          <a class="btn" href="https://github.com/LobenKT" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>© <span id="year">2026</span> Loben Tipan</span>
+      <span>Built by hand with HTML &amp; CSS. <a href="https://github.com/LobenKT/LobenKT.github.io" rel="noopener">Source</a></span>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
 </body>
 </html>

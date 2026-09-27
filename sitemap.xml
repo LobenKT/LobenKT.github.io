@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://lobenkt.github.io/</loc><lastmod>2026-09-27</lastmod><priority>1.0</priority></url>
+  <url><loc>https://lobenkt.github.io/quiz.html</loc><lastmod>2026-02-23</lastmod><priority>0.6</priority></url>
+  <url><loc>https://lobenkt.github.io/enigma-machine.html</loc><lastmod>2026-02-23</lastmod><priority>0.6</priority></url>
+  <url><loc>https://lobenkt.github.io/projects/word-battle.html</loc><lastmod>2026-02-23</lastmod><priority>0.4</priority></url>
+  <url><loc>https://lobenkt.github.io/projects/todo.html</loc><lastmod>2026-02-23</lastmod><priority>0.3</priority></url>
+  <url><loc>https://lobenkt.github.io/projects/weather.html</loc><lastmod>2026-02-23</lastmod><priority>0.3</priority></url>
+  <url><loc>https://lobenkt.github.io/projects/expenselogger.html</loc><lastmod>2026-02-23</lastmod><priority>0.3</priority></url>
+</urlset>
