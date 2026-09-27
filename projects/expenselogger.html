@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <title>
-            Expense Logger
-        </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Expense Logger — Loben Tipan</title>
+        <meta name="description" content="A jQuery expense logger with category filters and running totals, built by Loben Tipan.">
         <link href="https://fonts.googleapis.com/css?family=Assistant:400,700&display=swap" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -11,6 +12,11 @@
         <!-- WARNING: DO NOT EDIT THE STYLE SHEET -->
         <!-- Styles for dynamically created divs are already provided in the file -->
         <link rel="stylesheet" type="text/css" href="public/css/index.css">
+        <style>
+            @media (max-width: 600px) {
+                .formContainer, .financesContainer { width: auto !important; max-width: 100%; margin-left: 12px !important; margin-right: 12px !important; }
+            }
+        </style>
 
         <!-- External JS code -->
         <!-- Edit the JS file to add functionalities to the webpage -->
@@ -83,7 +89,7 @@
                         <span class="itemCategory">Food</span>
                     </div>
                     <div class="itemBody">
-                        <span class="itemDate">2020-02-30</span>
+                        <span class="itemDate">2020-02-28</span>
                         <span class="itemDescription">Chowking</span>
                         <span class="itemAmount">150.00</span>
                     </div>
@@ -101,6 +107,6 @@
                 </div>
             </div>
         </div>
-        <a href = "index.html">Back To Home Page</a>
+        <p style="margin:2em 0"><a href="../index.html">&larr; Back to portfolio</a></p>
     </body>
 </html>

@@ -1,4 +1,4 @@
-// Letter-Link Battle Game - Enhanced Version with Firebase
+// Letter-Link Battle — local pass-and-play word game
 class LetterLinkBattle {
     constructor() {
         this.gameState = {
@@ -21,14 +21,6 @@ class LetterLinkBattle {
             timeLeft: 0
         };
         
-        // Firebase configuration (you'll need to replace with your config)
-        this.firebaseConfig = {
-            apiKey: "demo-key",
-            authDomain: "demo-project.firebaseapp.com",
-            databaseURL: "https://demo-project-default-rtdb.firebaseio.com/",
-            projectId: "demo-project"
-        };
-        
         // Enhanced word database with difficulty ratings
         this.wordDatabase = {
             easy: ['apple', 'house', 'water', 'light', 'music', 'dance', 'smile', 'heart', 'peace', 'dream'],
@@ -47,7 +39,6 @@ class LetterLinkBattle {
     }
     
     async init() {
-        // Initialize Firebase (in demo mode, we'll simulate it)
         this.initFirebase();
         
         // Initialize event listeners
@@ -61,21 +52,9 @@ class LetterLinkBattle {
     }
     
     initFirebase() {
-        // In a real implementation, you would initialize Firebase here
-        // For demo purposes, we'll simulate Firebase functionality
-        console.log('Firebase initialized (demo mode)');
+        // Local pass-and-play: both players share this device, so no backend is needed.
+        this.dictionaryCache = {};
         this.updateConnectionStatus('connected');
-        
-        // Simulate Firebase real-time database
-        this.database = {
-            ref: (path) => ({
-                set: (data) => console.log(`Setting ${path}:`, data),
-                update: (data) => console.log(`Updating ${path}:`, data),
-                on: (event, callback) => console.log(`Listening to ${path} for ${event}`),
-                off: () => console.log(`Stopped listening to ${path}`),
-                once: (event) => Promise.resolve({ val: () => null })
-            })
-        };
     }
     
     setupEventListeners() {
@@ -93,10 +72,10 @@ class LetterLinkBattle {
             }
         });
         
-        // Room code enter key
-        document.getElementById('roomCode').addEventListener('keypress', (e) => {
+        // Player 2 name enter key
+        document.getElementById('player2Name').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
-                this.joinRoom();
+                this.createRoom();
             }
         });
     }
@@ -113,7 +92,7 @@ class LetterLinkBattle {
     
     updateConnectionStatus(status) {
         const statusEl = document.getElementById('connectionStatus');
-        statusEl.textContent = status === 'connected' ? '🟢 Connected' : '🔴 Disconnected';
+        statusEl.textContent = status === 'connected' ? '🟢 Local play' : '🔴 Offline';
         statusEl.className = `connection-status ${status}`;
     }
     
@@ -127,77 +106,24 @@ class LetterLinkBattle {
     }
     
     async createRoom() {
-        const playerName = document.getElementById('playerName').value.trim();
-        if (!playerName) {
-            alert('Please enter your name!');
-            return;
-        }
+        const playerName = document.getElementById('playerName').value.trim() || 'Player 1';
+        const player2Name = document.getElementById('player2Name').value.trim() || 'Player 2';
         
         this.gameState.roomCode = this.generateRoomCode();
         this.gameState.playerName = playerName;
         
-        // Initialize room data
-        const roomData = {
-            host: this.gameState.playerId,
-            gameMode: this.gameState.gameMode,
-            players: {
-                [this.gameState.playerId]: {
-                    name: playerName,
-                    score: 0,
-                    health: 100,
-                    ready: false
-                }
-            },
-            gameState: 'lobby',
-            settings: {
-                roundTime: 15,
-                maxRounds: 10
-            }
-        };
-        
-        // In real Firebase implementation:
-        // await this.database.ref(`rooms/${this.gameState.roomCode}`).set(roomData);
-        
-        this.gameState.players = roomData.players;
-        this.gameState.scores = { [this.gameState.playerId]: 0 };
-        this.gameState.health = { [this.gameState.playerId]: 100 };
-        
-        this.showScreen('lobby');
-        document.getElementById('displayRoomCode').textContent = this.gameState.roomCode;
-        this.updateLobby();
-    }
-    
-    showJoinRoom() {
-        document.getElementById('join-room-section').style.display = 'block';
-    }
-    
-    async joinRoom() {
-        const playerName = document.getElementById('playerName').value.trim();
-        const roomCode = document.getElementById('roomCode').value.trim().toUpperCase();
-        
-        if (!playerName || !roomCode) {
-            alert('Please enter your name and room code!');
-            return;
-        }
-        
-        this.gameState.roomCode = roomCode;
-        this.gameState.playerName = playerName;
-        
-        // In real Firebase implementation, check if room exists and join
-        // For demo, simulate joining
-        const player2Id = 'player_' + Math.random().toString(36).substr(2, 9);
-        this.gameState.playerId = player2Id;
+        const p1 = this.gameState.playerId;
+        const p2 = 'player_' + Math.random().toString(36).substr(2, 9);
         
         this.gameState.players = {
-            'player_host': { name: 'Host Player', score: 0, health: 100, ready: true },
-            [player2Id]: { name: playerName, score: 0, health: 100, ready: false }
+            [p1]: { name: playerName, score: 0, health: 100, ready: true },
+            [p2]: { name: player2Name, score: 0, health: 100, ready: true }
         };
-        
-        this.gameState.scores = { 'player_host': 0, [player2Id]: 0 };
-        this.gameState.health = { 'player_host': 100, [player2Id]: 100 };
+        this.gameState.scores = { [p1]: 0, [p2]: 0 };
+        this.gameState.health = { [p1]: 100, [p2]: 100 };
         
         this.showScreen('lobby');
-        document.getElementById('displayRoomCode').textContent = this.gameState.roomCode;
+        document.getElementById('displayRoomCode').textContent = 'Game ' + this.gameState.roomCode;
         this.updateLobby();
     }
     
@@ -221,11 +147,7 @@ class LetterLinkBattle {
             lobbyPlayers.appendChild(playerCard);
         });
         
-        // Show start button if we have 2 players and current player is host
-        const playerCount = Object.keys(this.gameState.players).length;
-        if (playerCount === 2) {
-            document.getElementById('startGameBtn').style.display = 'block';
-        }
+        document.getElementById('startGameBtn').style.display = Object.keys(this.gameState.players).length === 2 ? 'block' : 'none';
     }
     
     async startGame() {
@@ -360,20 +282,18 @@ class LetterLinkBattle {
     
     updateGameStatus() {
         const statusEl = document.getElementById('gameStatus');
-        const isMyTurn = this.gameState.currentTurn === this.gameState.playerId;
+        const name = this.gameState.players[this.gameState.currentTurn]?.name || 'Player';
+        const lastWord = this.gameState.wordChain[this.gameState.wordChain.length - 1];
         
-        if (isMyTurn) {
-            const lastWord = this.gameState.wordChain[this.gameState.wordChain.length - 1];
-            if (this.gameState.gameMode === 'chain' && lastWord) {
-                const requiredStart = lastWord.word.slice(-1).toUpperCase();
-                statusEl.textContent = `Your turn! Word must start with "${requiredStart}"`;
-            } else {
-                statusEl.textContent = 'Your turn! Enter any word to start the chain.';
-            }
+        if (this.gameState.gameMode === 'chain' && lastWord) {
+            const requiredStart = lastWord.word.slice(-1).toUpperCase();
+            statusEl.textContent = `${name}'s turn! Word must start with "${requiredStart}"`;
+        } else if (lastWord) {
+            statusEl.textContent = `${name}'s turn! Enter any valid word.`;
         } else {
-            const currentPlayerName = this.gameState.players[this.gameState.currentTurn]?.name || 'Opponent';
-            statusEl.textContent = `${currentPlayerName}'s turn...`;
+            statusEl.textContent = `${name}'s turn! Enter any word to start.`;
         }
+        document.getElementById('wordInput').focus();
     }
     
     async submitWord() {
@@ -385,17 +305,19 @@ class LetterLinkBattle {
             return;
         }
         
-        if (this.gameState.currentTurn !== this.gameState.playerId) {
-            alert('Not your turn!');
-            return;
-        }
-        
         // Validate word
         const validation = this.validateWord(word);
         if (!validation.valid) {
             alert(validation.error);
             return;
         }
+        
+        if (!(await this.isRealWord(word))) {
+            alert(`"${word}" is not in the dictionary!`);
+            return;
+        }
+        
+        if (!this.gameState.gameStarted || this.gameState.currentScreen !== 'game') return;
         
         // Calculate score
         const score = this.calculateScore(word);
@@ -438,10 +360,8 @@ class LetterLinkBattle {
     }
     
     validateWord(word) {
-        // Check if word exists in database
-        const allWords = [...this.wordDatabase.easy, ...this.wordDatabase.medium, ...this.wordDatabase.hard];
-        if (!allWords.includes(word)) {
-            return { valid: false, error: 'Word not found in dictionary!' };
+        if (!/^[a-z]+$/.test(word)) {
+            return { valid: false, error: 'Letters only, please!' };
         }
         
         // Check minimum length
@@ -472,6 +392,23 @@ class LetterLinkBattle {
         }
         
         return { valid: true };
+    }
+    
+    async isRealWord(word) {
+        const allWords = [...this.wordDatabase.easy, ...this.wordDatabase.medium, ...this.wordDatabase.hard];
+        if (allWords.includes(word)) return true;
+        if (word in this.dictionaryCache) return this.dictionaryCache[word];
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), 4000);
+        try {
+            const res = await fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + encodeURIComponent(word), { signal: ctrl.signal });
+            this.dictionaryCache[word] = res.status !== 404;
+        } catch (e) {
+            this.dictionaryCache[word] = true; // offline or slow: trust the player
+        } finally {
+            clearTimeout(timer);
+        }
+        return this.dictionaryCache[word];
     }
     
     calculateScore(word) {
@@ -652,7 +589,6 @@ class LetterLinkBattle {
         }
         
         this.showScreen('menu');
-        document.getElementById('join-room-section').style.display = 'none';
     }
     
     showScreen(screenName) {

@@ -399,6 +399,7 @@ a:hover { text-decoration: underline; }
 }
 .role h3 { font-size: 1.1rem; }
 .role .company { color: var(--text-2); font-weight: 500; }
+.role .note { color: var(--text-3); font-weight: 400; font-size: 0.875rem; }
 .role .dates {
   font-family: var(--mono);
   font-size: 0.8rem;

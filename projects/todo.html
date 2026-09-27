@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do App</title>
+    <title>To-Do App — Loben Tipan</title>
+    <meta name="description" content="A small Vue to-do list with local persistence, built by Loben Tipan.">
     <!-- Vue.js CDN -->
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.5.13/dist/vue.global.prod.js"></script>
     <!-- TailwindCSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <a href="../index.html" class="back-link" style="position:fixed;top:12px;left:12px;z-index:50;font:600 14px/1 system-ui,sans-serif;color:#1f2937;background:#fff;border:1px solid #d1d5db;border-radius:999px;padding:10px 14px;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.08)">&larr; Portfolio</a>
     <!-- Vue App -->
-    <div id="app" class="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
+    <div id="app" class="w-full max-w-md bg-white rounded-lg shadow-lg p-6 mt-12">
         <h1 class="text-2xl font-bold text-center mb-4">To-Do App</h1>
         
         <!-- Task Stats -->
@@ -58,13 +60,13 @@
                     @click="deleteTask(index)" 
                     class="text-red-500 hover:text-red-700 transition ml-2 px-2 py-1 rounded hover:bg-red-50"
                     title="Delete task">
-                    <i class="fas fa-trash"></i>
+                    <span aria-hidden="true">&#x1F5D1;</span><span class="sr-only">Delete</span>
                 </button>
             </li>
         </ul>
         
         <div v-if="tasks.length === 0" class="text-center text-gray-500 mt-8 py-8">
-            <i class="fas fa-clipboard-list text-5xl mb-3 text-gray-300"></i>
+            <div class="text-5xl mb-3" aria-hidden="true">&#x1F4CB;</div>
             <p class="text-lg">No tasks yet. Start adding some!</p>
         </div>
         
@@ -78,7 +80,6 @@
         </div>
     </div>
     <!-- Link to app.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-    <script src="todo.js"></script>
+        <script src="todo.js"></script>
 </body>
 </html>

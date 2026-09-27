@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Letter-Link Battle - Enhanced Word Game</title>
+    <title>Letter-Link Battle — Word Game</title>
     
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-    
+    <meta name="description" content="Letter-Link Battle: a pass-and-play two-player word game with chain and classic modes, timed turns and ghost letters. Built by Loben Tipan.">
     <style>
         * {
             margin: 0;
@@ -328,7 +325,7 @@
     </style>
 </head>
 <body>
-    <div class="connection-status" id="connectionStatus">Connecting...</div>
+    <div class="connection-status" id="connectionStatus">Local play</div>
     
     <div class="game-container">
         <!-- Main Menu -->
@@ -348,27 +345,24 @@
             </div>
             
             <div class="input-group">
-                <label for="playerName">Your Name:</label>
-                <input type="text" id="playerName" placeholder="Enter your name" maxlength="20">
+                <label for="playerName">Player 1 name:</label>
+                <input type="text" id="playerName" placeholder="Player 1" maxlength="20">
             </div>
-            
-            <button class="btn" onclick="createRoom()">Create Room</button>
-            <button class="btn" onclick="showJoinRoom()">Join Room</button>
-            
-            <div id="join-room-section" style="display: none; margin-top: 2rem;">
-                <div class="input-group">
-                    <label for="roomCode">Room Code:</label>
-                    <input type="text" id="roomCode" placeholder="Enter room code" maxlength="6">
-                </div>
-                <button class="btn" onclick="joinRoom()">Join Game</button>
+            <div class="input-group">
+                <label for="player2Name">Player 2 name:</label>
+                <input type="text" id="player2Name" placeholder="Player 2" maxlength="20">
             </div>
+            <p class="game-subtitle" style="font-size: 0.9rem;">Two players, one device. Pass it back and forth each turn.</p>
+            
+            <button class="btn" onclick="createRoom()">Start Game</button>
+            <p style="margin-top: 1.5rem; font-size: 0.85rem; opacity: 0.7;"><a href="../index.html" style="color: inherit;">&larr; Back to portfolio</a></p>
         </div>
 
         <!-- Lobby Screen -->
         <div id="lobby-screen" class="game-screen">
             <h2>Game Lobby</h2>
             <div class="room-code" id="displayRoomCode"></div>
-            <p>Share this code with your opponent!</p>
+            <p>Both players are in. Set the rules and start when ready.</p>
             
             <div class="game-stats" id="lobbyPlayers">
                 <!-- Players will be populated here -->
@@ -386,7 +380,7 @@
                 </div>
             </div>
             
-            <button id="startGameBtn" class="btn" onclick="startGame()" style="display: none;">Start Game</button>
+            <button id="startGameBtn" class="btn" onclick="startGame()">Start Game</button>
         </div>
 
         <!-- Game Screen -->
